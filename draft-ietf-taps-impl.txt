@@ -5,7 +5,7 @@
 TAPS Working Group                                     A. Brunstrom, Ed.
 Internet-Draft                                       Karlstad University
 Intended status: Informational                             T. Pauly, Ed.
-Expires: 4 September 2020                                     Apple Inc.
+Expires: 5 September 2020                                     Apple Inc.
                                                              T. Enghardt
                                                                TU Berlin
                                                            K-J. Grinnemo
@@ -18,7 +18,7 @@ Expires: 4 September 2020                                     Apple Inc.
                                                    University of Glasgow
                                                                 M. Welzl
                                                       University of Oslo
-                                                            3 March 2020
+                                                            4 March 2020
 
 
              Implementing Interfaces to Transport Services
@@ -46,14 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2020.
+   This Internet-Draft will expire on 5 September 2020.
 
 
 
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 1]
+Brunstrom, et al.       Expires 5 September 2020                [Page 1]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 2]
+Brunstrom, et al.       Expires 5 September 2020                [Page 2]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -165,7 +165,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 3]
+Brunstrom, et al.       Expires 5 September 2020                [Page 3]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -221,7 +221,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 4]
+Brunstrom, et al.       Expires 5 September 2020                [Page 4]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -277,7 +277,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 5]
+Brunstrom, et al.       Expires 5 September 2020                [Page 5]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -333,7 +333,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 6]
+Brunstrom, et al.       Expires 5 September 2020                [Page 6]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -389,7 +389,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 7]
+Brunstrom, et al.       Expires 5 September 2020                [Page 7]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -445,7 +445,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 8]
+Brunstrom, et al.       Expires 5 September 2020                [Page 8]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -501,7 +501,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020                [Page 9]
+Brunstrom, et al.       Expires 5 September 2020                [Page 9]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -557,7 +557,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 10]
+Brunstrom, et al.       Expires 5 September 2020               [Page 10]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -613,7 +613,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 11]
+Brunstrom, et al.       Expires 5 September 2020               [Page 11]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -669,7 +669,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 12]
+Brunstrom, et al.       Expires 5 September 2020               [Page 12]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -725,7 +725,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 13]
+Brunstrom, et al.       Expires 5 September 2020               [Page 13]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -781,7 +781,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 14]
+Brunstrom, et al.       Expires 5 September 2020               [Page 14]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -837,7 +837,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 15]
+Brunstrom, et al.       Expires 5 September 2020               [Page 15]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -893,7 +893,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 16]
+Brunstrom, et al.       Expires 5 September 2020               [Page 16]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -949,7 +949,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 17]
+Brunstrom, et al.       Expires 5 September 2020               [Page 17]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 18]
+Brunstrom, et al.       Expires 5 September 2020               [Page 18]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 19]
+Brunstrom, et al.       Expires 5 September 2020               [Page 19]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 20]
+Brunstrom, et al.       Expires 5 September 2020               [Page 20]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 21]
+Brunstrom, et al.       Expires 5 September 2020               [Page 21]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 22]
+Brunstrom, et al.       Expires 5 September 2020               [Page 22]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 23]
+Brunstrom, et al.       Expires 5 September 2020               [Page 23]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 24]
+Brunstrom, et al.       Expires 5 September 2020               [Page 24]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 25]
+Brunstrom, et al.       Expires 5 September 2020               [Page 25]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 26]
+Brunstrom, et al.       Expires 5 September 2020               [Page 26]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 27]
+Brunstrom, et al.       Expires 5 September 2020               [Page 27]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 28]
+Brunstrom, et al.       Expires 5 September 2020               [Page 28]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 29]
+Brunstrom, et al.       Expires 5 September 2020               [Page 29]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1677,7 +1677,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 30]
+Brunstrom, et al.       Expires 5 September 2020               [Page 30]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 31]
+Brunstrom, et al.       Expires 5 September 2020               [Page 31]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1789,7 +1789,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 32]
+Brunstrom, et al.       Expires 5 September 2020               [Page 32]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1845,7 +1845,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 33]
+Brunstrom, et al.       Expires 5 September 2020               [Page 33]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1901,7 +1901,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 34]
+Brunstrom, et al.       Expires 5 September 2020               [Page 34]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -1957,7 +1957,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 35]
+Brunstrom, et al.       Expires 5 September 2020               [Page 35]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2013,7 +2013,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 36]
+Brunstrom, et al.       Expires 5 September 2020               [Page 36]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2069,7 +2069,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 37]
+Brunstrom, et al.       Expires 5 September 2020               [Page 37]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2125,7 +2125,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 38]
+Brunstrom, et al.       Expires 5 September 2020               [Page 38]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2181,7 +2181,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 39]
+Brunstrom, et al.       Expires 5 September 2020               [Page 39]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2237,7 +2237,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 40]
+Brunstrom, et al.       Expires 5 September 2020               [Page 40]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2293,7 +2293,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 41]
+Brunstrom, et al.       Expires 5 September 2020               [Page 41]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2349,7 +2349,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 42]
+Brunstrom, et al.       Expires 5 September 2020               [Page 42]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2405,7 +2405,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 43]
+Brunstrom, et al.       Expires 5 September 2020               [Page 43]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2461,7 +2461,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 44]
+Brunstrom, et al.       Expires 5 September 2020               [Page 44]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2517,7 +2517,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 45]
+Brunstrom, et al.       Expires 5 September 2020               [Page 45]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2573,7 +2573,7 @@ A.1.  Properties Affecting Sorting of Branches
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 46]
+Brunstrom, et al.       Expires 5 September 2020               [Page 46]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2629,7 +2629,7 @@ Appendix B.  Reasons for errors
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 47]
+Brunstrom, et al.       Expires 5 September 2020               [Page 47]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2685,7 +2685,7 @@ Authors' Addresses
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 48]
+Brunstrom, et al.       Expires 5 September 2020               [Page 48]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2741,7 +2741,7 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 49]
+Brunstrom, et al.       Expires 5 September 2020               [Page 49]
 
 Internet-Draft             TAPS Implementation                March 2020
 
@@ -2797,4 +2797,4 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 4 September 2020               [Page 50]
+Brunstrom, et al.       Expires 5 September 2020               [Page 50]
