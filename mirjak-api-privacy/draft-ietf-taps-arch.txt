@@ -5,7 +5,7 @@
 TAPS Working Group                                         T. Pauly, Ed.
 Internet-Draft                                                Apple Inc.
 Intended status: Standards Track                        B. Trammell, Ed.
-Expires: 20 August 2020                                           Google
+Expires: 5 September 2020                                         Google
                                                             A. Brunstrom
                                                      Karlstad University
                                                             G. Fairhurst
@@ -16,7 +16,7 @@ Expires: 20 August 2020                                           Google
                                                                TU Berlin
                                                                  C. Wood
                                                               Apple Inc.
-                                                        17 February 2020
+                                                            4 March 2020
 
 
                  An Architecture for Transport Services
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 1]
+Pauly, et al.           Expires 5 September 2020                [Page 1]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
-   This Internet-Draft will expire on 20 August 2020.
+   This Internet-Draft will expire on 5 September 2020.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 2]
+Pauly, et al.           Expires 5 September 2020                [Page 2]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  24
@@ -165,9 +165,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 3]
+Pauly, et al.           Expires 5 September 2020                [Page 3]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
 1.1.  Background
@@ -221,9 +221,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 4]
+Pauly, et al.           Expires 5 September 2020                [Page 4]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    *  Section 4 presents the Transport Services architecture diagram and
@@ -277,9 +277,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 5]
+Pauly, et al.           Expires 5 September 2020                [Page 5]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
                          Figure 1: Socket API Model
@@ -333,9 +333,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 6]
+Pauly, et al.           Expires 5 September 2020                [Page 6]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
 2.1.  Event-Driven API
@@ -389,9 +389,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 7]
+Pauly, et al.           Expires 5 September 2020                [Page 7]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    *  the ability to associate deadlines with messages, for applications
@@ -445,9 +445,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 8]
+Pauly, et al.           Expires 5 September 2020                [Page 8]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    interfaces need to be able to process and react to interface changes.
@@ -501,9 +501,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                 [Page 9]
+Pauly, et al.           Expires 5 September 2020                [Page 9]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    if an application is using TCP, it could require control over the
@@ -557,9 +557,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 10]
+Pauly, et al.           Expires 5 September 2020               [Page 10]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    will be updated and supplemented as new protocols and protocol
@@ -613,9 +613,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 11]
+Pauly, et al.           Expires 5 September 2020               [Page 11]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
      +-----------------------------------------------------+
@@ -669,9 +669,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 12]
+Pauly, et al.           Expires 5 September 2020               [Page 12]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
       prohibitions, and preferences for its networking operations.  For
@@ -725,9 +725,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 13]
+Pauly, et al.           Expires 5 September 2020               [Page 13]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
         Pre-Establishment     :       Established             : Termination
@@ -781,9 +781,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 14]
+Pauly, et al.           Expires 5 September 2020               [Page 14]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
       -  Connection Properties (Section 4.1.2) that can be specified on
@@ -837,9 +837,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 15]
+Pauly, et al.           Expires 5 September 2020               [Page 15]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
       generic transport protocol features.  These options can take the
@@ -893,9 +893,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 16]
+Pauly, et al.           Expires 5 September 2020               [Page 16]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
       for the connection, such as resolution of the Remote Endpoint,
@@ -949,9 +949,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 17]
+Pauly, et al.           Expires 5 September 2020               [Page 17]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    *  Framer: A Framer is a data translation layer that can be added to
@@ -1005,9 +1005,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 18]
+Pauly, et al.           Expires 5 September 2020               [Page 18]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
       the Transport Services architecture is possible using Message
@@ -1061,9 +1061,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 19]
+Pauly, et al.           Expires 5 September 2020               [Page 19]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    *  Candidate Protocol Stack: One Protocol Stack that can be used by
@@ -1117,9 +1117,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 20]
+Pauly, et al.           Expires 5 September 2020               [Page 20]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
       differ based on a selection from the available Paths.  Since
@@ -1173,9 +1173,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 21]
+Pauly, et al.           Expires 5 September 2020               [Page 21]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
        that it requires reliable transmission of data, then a Protocol
@@ -1229,9 +1229,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 22]
+Pauly, et al.           Expires 5 September 2020               [Page 22]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    *  Performance concerns about Connections introducing head-of-line
@@ -1285,9 +1285,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 23]
+Pauly, et al.           Expires 5 September 2020               [Page 23]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    Moreover, Transport Services systems MUST NOT automatically fall back
@@ -1341,9 +1341,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 24]
+Pauly, et al.           Expires 5 September 2020               [Page 24]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
@@ -1397,9 +1397,9 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 25]
+Pauly, et al.           Expires 5 September 2020               [Page 25]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
               RFC 7230, DOI 10.17487/RFC7230, June 2014,
@@ -1453,9 +1453,9 @@ Authors' Addresses
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 26]
+Pauly, et al.           Expires 5 September 2020               [Page 26]
 
-Internet-Draft              TAPS Architecture              February 2020
+Internet-Draft              TAPS Architecture                 March 2020
 
 
    Anna Brunstrom
@@ -1509,4 +1509,4 @@ Internet-Draft              TAPS Architecture              February 2020
 
 
 
-Pauly, et al.            Expires 20 August 2020                [Page 27]
+Pauly, et al.           Expires 5 September 2020               [Page 27]

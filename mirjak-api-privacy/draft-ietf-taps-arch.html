@@ -15,7 +15,7 @@
 <meta content="
        This document describes an architecture for exposing transport protocol features to applications for network communication, the Transport Services architecture. The Transport Services Application Programming Interface (API) is based on an asynchronous, event-driven interaction pattern. It uses messages for representing data transfer to applications, and it assumes an implementation that can use multiple IP addresses, multiple protocols, and multiple paths, and provide multiple application streams. This document further defines common terminology and concepts to be used in definitions of Transport Services APIs and implementations. 
     " name="description">
-<meta content="xml2rfc 2.37.3" name="generator">
+<meta content="xml2rfc 2.40.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-taps-arch-latest" name="ietf.draft">
 <link href="draft-ietf-taps-arch.xml" rel="alternate" type="application/rfc+xml">
@@ -241,6 +241,10 @@ figcaption, caption {
     vertical-align: text-bottom;
     padding-bottom: 8px;
   }
+  table {
+    display: inline-block;
+    overflow-x: auto;
+  }
 }
 
 /* aside, blockquote */
@@ -464,13 +468,13 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 600px) {
-  #authors-addresses {
+  #authors-addresses > section {
     display: relative;
     padding: 32px 0 0;
     column-count: 2;
     column-gap: 20px;
   }
-  #name-authors-addresses {
+  #name-authors-address {
     position: absolute;
     top: 0px;
     column-span: all;
@@ -478,6 +482,7 @@ hr.addr {
   /* hack for break-inside: avoid-column */
   #authors-addresses address {
     display: inline-block;
+    break-inside: avoid-column;
   }
 }
 
@@ -816,16 +821,15 @@ table.left {
 <link href="rfc-local.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<script src="metadata.min.js"></script>
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TAPS Architecture</td>
-<td class="right">February 2020</td>
+<td class="right">March 2020</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Pauly, et al.</td>
-<td class="center">Expires 20 August 2020</td>
+<td class="center">Expires 5 September 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -838,12 +842,12 @@ table.left {
 <dd class="internet-draft">draft-ietf-taps-arch-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-02-17" class="published">17 February 2020</time>
+<time datetime="2020-03-04" class="published">4 March 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-08-20">20 August 2020</time></dd>
+<dd class="expires"><time datetime="2020-09-05">5 September 2020</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -903,7 +907,7 @@ table.left {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 August 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 September 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1266,7 +1270,7 @@ system-provided stub resolver.<a href="#section-2-2.4" class="pilcrow">¶</a>
       </h2>
 <p id="section-4-1">The concepts defined in this document are intended primarily for use in the documents and specifications that describe the Transport Services architecture and API. While the specific terminology can be used in some implementations, it is expected that there will remain a variety of terms used by running code.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The architecture divides the concepts for Transport Services into two categories:<a href="#section-4-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal" id="section-4-3">
+<ol start="1" type="1" class="normal type-1" id="section-4-3">
         <li id="section-4-3.1">API concepts, which are intended to be exposed to applications; and<a href="#section-4-3.1" class="pilcrow">¶</a>
 </li>
 <li id="section-4-3.2">System-implementation concepts, which are intended to be internally used when building systems that implement Transport Services.<a href="#section-4-3.2" class="pilcrow">¶</a>
@@ -1355,7 +1359,7 @@ system-provided stub resolver.<a href="#section-2-2.4" class="pilcrow">¶</a>
      +----------+          :           |   Ready           :
      | Listener |----------------------+                   :
      +----------+  Connection Received                     :
-                           :                               : 
+                           :                               :
 </pre>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
@@ -1562,7 +1566,7 @@ binding discovery and initiate a peer-to-peer connection.<a href="#section-4.1.3
           </h4>
 <p id="section-4.2.3-1">The Transport Services architecture defines a mechanism that allows applications to easily use different network paths and Protocol Stacks. In some cases, changing which Protocol Stacks or network paths are used will require updating the preferences expressed by the application that uses the Transport Services system. For example, an application can enable the use of a multipath or multistreaming transport protocol by modifying the properties in its Pre-Connection configuration. In some cases, however, the Transport Services system will be able to automatically change Protocol Stacks without an update to the application, either by selecting a new stack entirely, or by racing multiple candidate Protocol Stacks during connection establishment. This functionality in the API can be a powerful driver of new protocol adoption, but needs to be constrained carefully to avoid unexpected behavior that can lead to functional or security problems.<a href="#section-4.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.3-2">If two different Protocol Stacks can be safely swapped, or raced in parallel (see <a href="#racing" class="xref">Section 4.2.2</a>), then they are considered to be "equivalent". Equivalent Protocol Stacks need to meet the following criteria:<a href="#section-4.2.3-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal" id="section-4.2.3-3">
+<ol start="1" type="1" class="normal type-1" id="section-4.2.3-3">
             <li id="section-4.2.3-3.1">Both stacks MUST offer the interface requested by the application for connection establishment and data transmission. For example, if an application requires preservation of message boundaries, a Protocol Stack that runs UDP as the top-level interface to the application is not equivalent to a Protocol Stack that runs TCP as the top-level interface. A UDP stack would allow an application to read out message boundaries based on datagrams sent from the remote system, whereas TCP does not preserve message boundaries on its own, but needs a framing protocol on top to determine message boundaries.<a href="#section-4.2.3-3.1" class="pilcrow">¶</a>
 </li>
 <li id="section-4.2.3-3.2">Both stacks MUST offer the transport services that are requested by the application. For example, if an application specifies that it requires reliable transmission of data, then a Protocol Stack using UDP without any reliability layer on top would not be allowed to replace a Protocol Stack using TCP. However, if the application does not require reliability, then a Protocol Stack that adds reliability could be regarded as an equivalent Protocol Stack as long as providing this would not conflict with any other application-requested properties.<a href="#section-4.2.3-3.2" class="pilcrow">¶</a>
@@ -1813,45 +1817,13 @@ Eyeballs, that heavily influenced this work.<a href="#section-7-4" class="pilcro
 </address>
 </section>
 </div>
-<script>var toc = document.getElementById("toc");
-var tocToggle = toc.querySelector("h2");
-var tocNav = toc.querySelector("nav");
-
-// mobile menu toggle
-tocToggle.onclick = function(event) {
-    if (window.innerWidth < 1024) {
- var tocNavDisplay = tocNav.currentStyle ? tocNav.currentStyle.display : getComputedStyle(tocNav, null).display;
- if (tocNavDisplay == "none") {
-     tocNav.style.display = "block";
- } else {
-     tocNav.style.display = "none";
- }
-    }
-}
-
-// toc anchor scroll to anchor
-tocNav.addEventListener("click", function (event) {
-    event.preventDefault();
-    if (event.target.nodeName == 'A') {
- if (window.innerWidth < 1024) {
-     tocNav.style.display = "none";
- }
- var href = event.target.getAttribute("href");
- var anchorId = href.substr(1);
- var anchor =  document.getElementById(anchorId);
- anchor.scrollIntoView(true);
- window.history.pushState("","",href);
-    }
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
 });
-
-// switch toc mode when window resized
-window.onresize = function () {
-    if (window.innerWidth < 1024) {
- tocNav.style.display = "none";
-    } else {
- tocNav.style.display = "block";
-    }
-}
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
 </script>
 </body>
 </html>
