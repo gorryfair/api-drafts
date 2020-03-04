@@ -1,6 +1,68 @@
 [
 
   {
+    "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/512",
+    "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
+    "labels_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/512/labels{/name}",
+    "comments_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/512/comments",
+    "events_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/512/events",
+    "html_url": "https://github.com/ietf-tapswg/api-drafts/pull/512",
+    "id": 574692592,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzgyOTcxMDQy",
+    "number": 512,
+    "title": "Update Multipath properties - closes #437",
+    "user": {
+      "login": "philsbln",
+      "id": 11421499,
+      "node_id": "MDQ6VXNlcjExNDIxNDk5",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/11421499?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/philsbln",
+      "html_url": "https://github.com/philsbln",
+      "followers_url": "https://api.github.com/users/philsbln/followers",
+      "following_url": "https://api.github.com/users/philsbln/following{/other_user}",
+      "gists_url": "https://api.github.com/users/philsbln/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/philsbln/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/philsbln/subscriptions",
+      "organizations_url": "https://api.github.com/users/philsbln/orgs",
+      "repos_url": "https://api.github.com/users/philsbln/repos",
+      "events_url": "https://api.github.com/users/philsbln/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/philsbln/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 823781518,
+        "node_id": "MDU6TGFiZWw4MjM3ODE1MTg=",
+        "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/labels/API",
+        "name": "API",
+        "color": "fbca04",
+        "default": false,
+        "description": null
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-03-03T14:06:37Z",
+    "updated_at": "2020-03-03T14:06:37Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/pulls/512",
+      "html_url": "https://github.com/ietf-tapswg/api-drafts/pull/512",
+      "diff_url": "https://github.com/ietf-tapswg/api-drafts/pull/512.diff",
+      "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/512.patch"
+    },
+    "body": "* allow to control active/passive opertaion\r\n* clairify functionality\r\n* allow to control exposure of alternative addresses"
+  },
+  {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/511",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
     "labels_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/511/labels{/name}",
@@ -2113,7 +2175,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/483.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/482",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -2167,10 +2232,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/482.patch"
     },
     "body": "Addresses #471"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/481",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -4162,7 +4224,10 @@
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "body": "I'm not certain about the semantics used here, given this property can only be true once in one specific message.\r\n\r\nDid we discuss already the option of providing a message together with the ConnectionReceived event? You cannot set the message length and max length in this case but you can set a default value before you create the listener and that would be used then. Or we could even have a separate ConnectionReceivedAndMessage function for application that care about early data."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/452",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -4216,10 +4281,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/452.patch"
     },
     "body": ""
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/451",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -6512,7 +6574,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/423.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/422",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -6574,10 +6639,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/422.patch"
     },
     "body": "s/messages can be sent/messages can be sent and received/"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/421",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -8698,7 +8760,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/393.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/392",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -8754,10 +8819,7 @@
     "closed_at": "2019-12-20T16:07:11Z",
     "author_association": "NONE",
     "body": "I just read Arch and have the following NiTs which I think we should address:\r\n\r\n/Listeners by default register with multiple paths/\r\nought this to be:\r\n/Listeners, by default, register with multiple paths/\r\n\r\n/A Framer is a data translation layer that can be added to a Connection to define how application-level Messages are transmitted over a transport protocol. /\r\n- I think this should be (because I don’t think they are protocol specific)  \r\n/A Framer is a data translation layer that can be added to a Connection to define how application-level Messages are transmitted over the transport service. /\r\n- \r\n/to retransmit in the event of packet loss,/\r\n- better to avoid event here :-)\r\n/to retransmit when there is packet loss,/\r\n"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/391",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -10716,7 +10778,10 @@
     "closed_at": "2019-11-29T20:40:24Z",
     "author_association": "CONTRIBUTOR",
     "body": "The architecture draft has a few parts where it needs to be aligned with how we handle security protocols now.\r\n\r\nOne such part is Section 3.2, \"Access to Specialized Features\". Right now it says:\r\n\r\n\"Other specialized features, however, could be strictly required by an\r\n   application and thus constrain the set of protocols that can be used.\r\n   For example, if an application requires encryption of its transport\r\n   data, only protocol stacks that include a transport security function\r\n   are eligible to be used.\"\r\n\r\nTo me, this sounds like an application could just request \"Encryption: Require\" and then any security protocol that provides this function could be used. That's not how we think about security protocols anymore. So we need to change that example.\r\n\r\nI haven't really found another example for a \"specialized feature\" that might be required - \"specialized feature\" apparently means \"feature not in minset\" - so I suggest we stick with the security example, but change the wording.\r\n\r\nFor example, we could just say, \"For example, if an application requires encryption of its transport data, it could select a specific security protocol. In this case, only protocol stacks that include this security protocol are eligible to be used.\"\r\n\r\nHowever, then it's not strictly a feature anymore... right? What do the authors think?"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/362",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -10772,10 +10837,7 @@
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "body": ""
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/361",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -13424,7 +13486,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/333.patch"
     },
     "body": "Starting to address #128 \r\n\r\nThis is an early review, to check if we like the structure. I'd also like help filling out the SCTP section!"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/332",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -13522,10 +13587,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/332.patch"
     },
     "body": "This adds an explicit Listener object to the API (closes #301) to\r\n - clarify behaviour of multi-streaming protocols (closes #269)\r\n - clarify behaviour and enable re-use of Preconnections (closes #222)"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/331",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -16127,7 +16189,10 @@
     "closed_at": "2019-11-21T04:30:34Z",
     "author_association": "CONTRIBUTOR",
     "body": "The current multipath selection property is an on/off selection.  We will eventually need something more expressive here to distinguish for instance between handover/back-up and aggregate multipath modes.\r\n"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/302",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -16241,10 +16306,7 @@
     "closed_at": "2019-05-29T07:50:23Z",
     "author_association": "CONTRIBUTOR",
     "body": "This came up in a dinner among some of us yesterday: all UDP messages should be understood as being idempotent, because UDP doesn't protect the receiver against getting duplicates. This is different from unreliable transmission with, e.g., SCTP (or, probably, a future such extension of QUIC?), where you can be sure you're not getting a duplicate."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/301",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -18905,7 +18967,10 @@
     "closed_at": "2019-01-25T13:16:41Z",
     "author_association": "CONTRIBUTOR",
     "body": "Because we also have 7.3.1 Lifetime, with the statement \"When a Message’s Lifetime is infinite, it must be transmitted reliably.\""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/272",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -18995,10 +19060,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/272.patch"
     },
     "body": "- fixes Properties Terminology and aligns them to the API \r\n- adds Properties as \"Basic Object\"\r\n- updates Figure 2"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/271",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -21742,7 +21804,10 @@
     "closed_at": "2019-03-11T11:12:28Z",
     "author_association": "CONTRIBUTOR",
     "body": "The API suggest object, action, and event names. It should suggest property names as well. Add \"code\" names for each of the Selection, (Generic) Connection, and Message properties in the respective subsections."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/242",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -21796,10 +21861,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/242.patch"
     },
     "body": "Message Context Parameters/Properties are now Message Properties, and associated terminology cleanup. Addresses part of the resolution to #218."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/241",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -23631,7 +23693,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/213.patch"
     },
     "body": "as I started reviewing issues in advance of the interim, I saw that #102 was already mostly fixed, but I made a few editorial changes to the language there."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/212",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -23705,10 +23770,7 @@
     "closed_at": "2019-03-25T12:28:42Z",
     "author_association": "CONTRIBUTOR",
     "body": "The discussion around ``draft-gont-taps-address-usage-problem-statement`` and ``draft-gont-taps-address-usage-analysis``suggests that it should be possible to request per-application / per-context / per-connection source addresses.\r\n\r\n - For the cases of per-application and per-connection source addresses, this can be tuning this can be accomplished by the addition of a property. This includes name-resolution issues.\r\n - For per-context source addresses, I am not sure whether our current architecture is fit to support this.\r\n\r\nConsider the following case: a browser wants to separate different tabs onto different source addresses. It needs some way to specify some kind of *context* to allow the transport API either to assign the right address to a new connection or request a new address for all upcoming connections and name resolutions done within this context.\r\nAs this is orthogonal to multi-streaming, simply cloning an existing connection is not sufficient.\r\n\r\nOne possible solution would be to introduce some new \"Taps Context\" that is used when creating pre-connections, but that looks like overkill for this feature…"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/211",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -26428,7 +26490,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/183.patch"
     },
     "body": "Satisfies #53 "
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/182",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -26493,10 +26558,7 @@
     "closed_at": "2019-01-25T13:15:33Z",
     "author_association": "CONTRIBUTOR",
     "body": "Reading through the API, I noted that there is, amongst the various connection states, a state that is defined but never mentioned again in any of the drafts: \"Closing\".\r\n\r\nI am unclear how this state is useful to the application, and how an implementation would determine it.\r\n\r\nIf the connection is closed from the remote side, like a RST, then we'll move right to Closed. If the connection is closed from the local side, I guess we can move into the Closing state before getting an ack that the remote side knows that we've closed, but at that point, I'm not going to be able send or receive any more on the connection anyhow.\r\n\r\nDo we have a good use case for Closing? If so, can we get more text? If not, can we remove it?\r\n\r\nFor reference, we don't have any corresponding state in our implementation, and it's never come up as a need."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/181",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -29472,7 +29534,10 @@
     "closed_at": "2018-07-02T07:20:18Z",
     "author_association": "CONTRIBUTOR",
     "body": "We have Protocol Selection Properties and Path Selection Properties (§5.2 of -00), General Protocol Properties and Specific Protocol Properties (§9.1), Transport Features and Path Properties (mentioned in §9), Security Properties (§5.3), Message Properties (called Send Properties in §7.1), unless I'm forgetting some. \r\n\r\n- We definitely need to **restructure** the API draft.\r\nI propose that these Properties all go in the same Section (former §9, maybe move it up in the draft more).\r\n- Perhaps we may need to **rename** some of them, to reduce confusion, and make sure our descriptions are clear enough.\r\n- We need to make clear **when** which of these properties can be specified and when they become immutable."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/152",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -29602,10 +29667,7 @@
     "closed_at": "2018-06-27T13:21:44Z",
     "author_association": "CONTRIBUTOR",
     "body": "Security properties should be synchronized with (the next rev of) https://tools.ietf.org/html/draft-pauly-taps-transport-security"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/151",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -32540,7 +32602,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/123.patch"
     },
     "body": "Closes #111"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/122",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -32594,10 +32659,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/122.patch"
     },
     "body": "In the Implementation draft, we add text to explain how Application Intents can be implemented in a transport system.\r\nThe two main functions are Path Selection, which can be implemented by ranking branches in the tree of connection options that will be raced, and Protocol Configuration, which happens after the racing is complete and a protocol stack has been chosen."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/121",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -35277,7 +35339,10 @@
     "closed_at": "2018-02-27T14:20:30Z",
     "author_association": "CONTRIBUTOR",
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/92",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -35407,10 +35472,7 @@
     "closed_at": "2018-02-26T19:41:48Z",
     "author_association": "CONTRIBUTOR",
     "body": ""
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/91",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -38439,7 +38501,10 @@
     "closed_at": "2018-02-21T14:30:55Z",
     "author_association": "NONE",
     "body": "\r\n/Preconnection -> Rendezvoused<Connection>/\r\n- I really dislike the term /Rendezvoused/ - to me that really offends my sense of language. Can we used /RendezvousDone/ or anything else?\r\n"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/62",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -38531,10 +38596,7 @@
     "closed_at": "2018-02-21T14:30:01Z",
     "author_association": "NONE",
     "body": "6.1\r\n/The caller may immediately begin sending Content on the Connection (see Section 7) after calling Initate(), though it may wait for one of the following events before doing so./\r\n- I would like to see a note on idempotence added here, especially when racing multiple (different) candidates - the data sent may not be delivered, or may be delivered more than once.\r\n—\r\n6.1\r\n/An InitiateError occurs either when the set of local and remote specifiers a/\r\n- what is a /specifier/ here? (could we use this one of the existing terms?)"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/61",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -41478,7 +41540,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/33.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/32",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -41534,10 +41599,7 @@
     "closed_at": "2018-02-08T17:08:28Z",
     "author_association": "CONTRIBUTOR",
     "body": "\"Niceness represents an unbounded hierarchy of priorities of Content, relative to other Content sent over the same Connection and/or Connection Group\". Let's consider \"Connection\": then this is about assigning a higher priority to a piece of Content than to a previously submitted piece of Content? What, to be sent earlier? This is re-scheduling inside the send buffer - generally, there are two ways to do these things: 1) complex, inside the send buffer; 2) more flexible, by allowing the application to manipulate its data until the last minute and be informed about the buffer running dry. I think we should definitely prefer the latter.\r\n\r\nAbout other content within the same Connection Group: I could see a possibility of implementing a per-Content Niceness value here, by continuously changing the priority assigned to a connection in a group.\r\n\r\nFinally, \"Niceness may be used as a sender-side scheduling construct only, or be used to specify priorities on the wire for Protocol Stacks supporting prioritization.\"  => priorities on the wire: would this control the DSCP? But I think we have clear advice to not permanently change the DSCP on the same connection.\r\n\r\nTo conclude, I think the idea of per-Content Niceness should be dropped, and Niceness should only be assigned to a connection.\r\n\r\nFinally, I'm not a fan of the \"Niceness\" term. Priority seems clearer and easier to me, while I see \"niceness\" as  a Unix artifact...  but that's a matter of taste."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/31",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -44900,7 +44962,10 @@
     "closed_at": "2018-02-12T12:55:02Z",
     "author_association": "CONTRIBUTOR",
     "body": "separate out cryptographic parameters, since these bind to a local and a remote. one can also do pre-shared keying tricks here. look at Post for inspiration/text."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/2",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -45030,10 +45095,7 @@
     "closed_at": "2018-02-07T13:57:46Z",
     "author_association": "CONTRIBUTOR",
     "body": "look at minset for this. note that the API should have sensible and well-defined defaults."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/1",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
