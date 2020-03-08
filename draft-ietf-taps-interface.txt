@@ -103,7 +103,7 @@ Table of Contents
        5.2.9.  Congestion control  . . . . . . . . . . . . . . . . .  22
        5.2.10. Interface Instance or Type  . . . . . . . . . . . . .  22
        5.2.11. Provisioning Domain Instance or Type  . . . . . . . .  23
-       5.2.12. Local Address Preference  . . . . . . . . . . . . . .  24
+       5.2.12. Use Temporary Local Address . . . . . . . . . . . . .  24
        5.2.13. Parallel Use of Multiple Paths  . . . . . . . . . . .  24
        5.2.14. Direction of communication  . . . . . . . . . . . . .  25
 
@@ -1293,25 +1293,23 @@ Internet-Draft               TAPS Interface                   March 2020
    specific PvD instances or interface instances, and should be
    preferred over these options.
 
-5.2.12.  Local Address Preference
+5.2.12.  Use Temporary Local Address
 
-   Name:  local-address-preference
+   Name:  use-temporary-local-address
 
-   Type:  Enumeration
+   Type:  Preference
 
-   Default: For Listeners and Rendezvous Connections: Stable.  For other
-   Connections: Temporary
+   Default:  Avoid for Listeners and Rendezvous Connections.  Prefer for
+      other Connections.
 
-   This property specifies whether Listeners and Connections should
-   prefer the use of temporary addresses when possible.  This is
-   generally used to prevent linking connections over time when a stable
-   address is not needed.  Possible values are:
-
-   Stable:  Prefer the use of stable (sometimes called "permanent")
-      local addresses
-
-   Temporary:  Prefer the use of temporary (sometimes called "privacy")
-      addresses [RFC4941]
+   This property allows the application to express a preference for the
+   use of temporary local addresses, sometimes called "privacy"
+   addresses [RFC4941].  Temporary addresses are generally used to
+   prevent linking connections over time when a stable address,
+   sometimes called "permanent" address, is not needed.  Note that if an
+   application Requires the use of temporary addresses, the resulting
+   Connection cannot use IPv4, as temporary addresses do not exist in
+   IPv4.
 
 5.2.13.  Parallel Use of Multiple Paths
 
@@ -1338,6 +1336,8 @@ Internet-Draft               TAPS Interface                   March 2020
 
    Aggregate:  The connection should attempt to use multiple paths in
       parallel in order to maximize bandwidth
+
+
 
 
 

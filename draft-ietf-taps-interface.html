@@ -1049,7 +1049,7 @@ and potential transport protocols to select from.<a href="#section-abstract-1" c
                     <p id="section-toc.1-1.5.2.2.2.11.1"><a href="#section-5.2.11" class="xref">5.2.11</a>. <a href="#name-provisioning-domain-instanc" class="xref">Provisioning Domain Instance or Type</a><a href="#section-toc.1-1.5.2.2.2.11.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.5.2.2.2.12">
-                    <p id="section-toc.1-1.5.2.2.2.12.1"><a href="#section-5.2.12" class="xref">5.2.12</a>. <a href="#name-local-address-preference" class="xref">Local Address Preference</a><a href="#section-toc.1-1.5.2.2.2.12.1" class="pilcrow">¶</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.12.1"><a href="#section-5.2.12" class="xref">5.2.12</a>. <a href="#name-use-temporary-local-address" class="xref">Use Temporary Local Address</a><a href="#section-toc.1-1.5.2.2.2.12.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.5.2.2.2.13">
                     <p id="section-toc.1-1.5.2.2.2.13.1"><a href="#section-5.2.13" class="xref">5.2.13</a>. <a href="#name-parallel-use-of-multiple-pa" class="xref">Parallel Use of Multiple Paths</a><a href="#section-toc.1-1.5.2.2.2.13.1" class="pilcrow">¶</a></p>
@@ -2380,34 +2380,32 @@ requiring specific PvD instances or interface instances, and should be preferred
 over these options.<a href="#section-5.2.11-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="local-address-preference">
+<div id="use-temporary-local-address">
 <section id="section-5.2.12">
-          <h4 id="name-local-address-preference">
-<a href="#section-5.2.12" class="section-number selfRef">5.2.12. </a><a href="#name-local-address-preference" class="section-name selfRef">Local Address Preference</a>
+          <h4 id="name-use-temporary-local-address">
+<a href="#section-5.2.12" class="section-number selfRef">5.2.12. </a><a href="#name-use-temporary-local-address" class="section-name selfRef">Use Temporary Local Address</a>
           </h4>
 <dl class="dlParallel" id="section-5.2.12-1">
             <dt id="section-5.2.12-1.1">Name:</dt>
 <dd id="section-5.2.12-1.2">
-  local-address-preference<a href="#section-5.2.12-1.2" class="pilcrow">¶</a>
+  use-temporary-local-address<a href="#section-5.2.12-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.12-1.3">Type:</dt>
 <dd id="section-5.2.12-1.4">
-  Enumeration<a href="#section-5.2.12-1.4" class="pilcrow">¶</a>
+  Preference<a href="#section-5.2.12-1.4" class="pilcrow">¶</a>
+</dd>
+<dt id="section-5.2.12-1.5">Default:</dt>
+<dd id="section-5.2.12-1.6">
+  Avoid for Listeners and Rendezvous Connections. Prefer for other Connections.<a href="#section-5.2.12-1.6" class="pilcrow">¶</a>
 </dd>
 </dl>
-<p id="section-5.2.12-2">Default: For Listeners and Rendezvous Connections: Stable. For other Connections: Temporary<a href="#section-5.2.12-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.12-3">This property specifies whether Listeners and Connections should prefer the use of temporary addresses when possible.
-This is generally used to prevent linking connections over time when a stable address is not needed. Possible values are:<a href="#section-5.2.12-3" class="pilcrow">¶</a></p>
-<dl class="dlParallel" id="section-5.2.12-4">
-            <dt id="section-5.2.12-4.1">Stable:</dt>
-<dd id="section-5.2.12-4.2">
-  Prefer the use of stable (sometimes called "permanent") local addresses<a href="#section-5.2.12-4.2" class="pilcrow">¶</a>
-</dd>
-<dt id="section-5.2.12-4.3">Temporary:</dt>
-<dd id="section-5.2.12-4.4">
-  Prefer the use of temporary (sometimes called "privacy") addresses <span>[<a href="#RFC4941" class="xref">RFC4941</a>]</span><a href="#section-5.2.12-4.4" class="pilcrow">¶</a>
-</dd>
-</dl>
+<p id="section-5.2.12-2">This property allows the application to express a preference for the use of
+temporary local addresses, sometimes called "privacy" addresses <span>[<a href="#RFC4941" class="xref">RFC4941</a>]</span>.
+Temporary addresses are generally used to prevent linking connections over time
+when a stable address, sometimes called "permanent" address, is not needed.
+Note that if an application Requires the use of temporary addresses, the
+resulting Connection cannot use IPv4, as temporary addresses do not exist in
+IPv4.<a href="#section-5.2.12-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="parallel-multipath">
