@@ -5,7 +5,7 @@
 TAPS Working Group                                      B. Trammell, Ed.
 Internet-Draft                                                    Google
 Intended status: Standards Track                           M. Welzl, Ed.
-Expires: 5 September 2020                             University of Oslo
+Expires: 9 September 2020                             University of Oslo
                                                              T. Enghardt
                                                                TU Berlin
                                                             G. Fairhurst
@@ -19,7 +19,7 @@ Expires: 5 September 2020                             University of Oslo
                                                                  C. Wood
                                                                 T. Pauly
                                                               Apple Inc.
-                                                            4 March 2020
+                                                            8 March 2020
 
 
      An Abstract Application Layer Interface to Transport Services
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 1]
+Trammell, et al.        Expires 9 September 2020                [Page 1]
 
 Internet-Draft               TAPS Interface                   March 2020
 
 
-   This Internet-Draft will expire on 5 September 2020.
+   This Internet-Draft will expire on 9 September 2020.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 2]
+Trammell, et al.        Expires 9 September 2020                [Page 2]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -165,7 +165,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 3]
+Trammell, et al.        Expires 9 September 2020                [Page 3]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -189,19 +189,19 @@ Internet-Draft               TAPS Interface                   March 2020
    12. Connection State and Ordering of Operations and Events  . . .  56
    13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  57
    14. Security Considerations . . . . . . . . . . . . . . . . . . .  57
-   15. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  57
-   16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  58
-     16.1.  Normative References . . . . . . . . . . . . . . . . . .  58
-     16.2.  Informative References . . . . . . . . . . . . . . . . .  59
-   Appendix A.  Convenience Functions  . . . . . . . . . . . . . . .  61
-     A.1.  Adding Preference Properties  . . . . . . . . . . . . . .  61
-     A.2.  Transport Property Profiles . . . . . . . . . . . . . . .  62
-       A.2.1.  reliable-inorder-stream . . . . . . . . . . . . . . .  62
-       A.2.2.  reliable-message  . . . . . . . . . . . . . . . . . .  62
-       A.2.3.  unreliable-datagram . . . . . . . . . . . . . . . . .  63
+   15. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  59
+   16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  59
+     16.1.  Normative References . . . . . . . . . . . . . . . . . .  59
+     16.2.  Informative References . . . . . . . . . . . . . . . . .  60
+   Appendix A.  Convenience Functions  . . . . . . . . . . . . . . .  63
+     A.1.  Adding Preference Properties  . . . . . . . . . . . . . .  63
+     A.2.  Transport Property Profiles . . . . . . . . . . . . . . .  63
+       A.2.1.  reliable-inorder-stream . . . . . . . . . . . . . . .  63
+       A.2.2.  reliable-message  . . . . . . . . . . . . . . . . . .  64
+       A.2.3.  unreliable-datagram . . . . . . . . . . . . . . . . .  64
    Appendix B.  Relationship to the Minimal Set of Transport Services
-           for End Systems . . . . . . . . . . . . . . . . . . . . .  64
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  67
+           for End Systems . . . . . . . . . . . . . . . . . . . . .  65
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  68
 
 1.  Introduction
 
@@ -221,7 +221,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 4]
+Trammell, et al.        Expires 9 September 2020                [Page 4]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -277,7 +277,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 5]
+Trammell, et al.        Expires 9 September 2020                [Page 5]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -333,7 +333,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 6]
+Trammell, et al.        Expires 9 September 2020                [Page 6]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -389,7 +389,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 7]
+Trammell, et al.        Expires 9 September 2020                [Page 7]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -445,7 +445,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 8]
+Trammell, et al.        Expires 9 September 2020                [Page 8]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -501,7 +501,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020                [Page 9]
+Trammell, et al.        Expires 9 September 2020                [Page 9]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -557,7 +557,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 10]
+Trammell, et al.        Expires 9 September 2020               [Page 10]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -613,7 +613,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 11]
+Trammell, et al.        Expires 9 September 2020               [Page 11]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -669,7 +669,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 12]
+Trammell, et al.        Expires 9 September 2020               [Page 12]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -725,7 +725,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 13]
+Trammell, et al.        Expires 9 September 2020               [Page 13]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -781,7 +781,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 14]
+Trammell, et al.        Expires 9 September 2020               [Page 14]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -837,7 +837,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 15]
+Trammell, et al.        Expires 9 September 2020               [Page 15]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -893,7 +893,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 16]
+Trammell, et al.        Expires 9 September 2020               [Page 16]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -949,7 +949,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 17]
+Trammell, et al.        Expires 9 September 2020               [Page 17]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 18]
+Trammell, et al.        Expires 9 September 2020               [Page 18]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 19]
+Trammell, et al.        Expires 9 September 2020               [Page 19]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 20]
+Trammell, et al.        Expires 9 September 2020               [Page 20]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 21]
+Trammell, et al.        Expires 9 September 2020               [Page 21]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 22]
+Trammell, et al.        Expires 9 September 2020               [Page 22]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 23]
+Trammell, et al.        Expires 9 September 2020               [Page 23]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 24]
+Trammell, et al.        Expires 9 September 2020               [Page 24]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 25]
+Trammell, et al.        Expires 9 September 2020               [Page 25]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 26]
+Trammell, et al.        Expires 9 September 2020               [Page 26]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 27]
+Trammell, et al.        Expires 9 September 2020               [Page 27]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 28]
+Trammell, et al.        Expires 9 September 2020               [Page 28]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 29]
+Trammell, et al.        Expires 9 September 2020               [Page 29]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1677,7 +1677,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 30]
+Trammell, et al.        Expires 9 September 2020               [Page 30]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 31]
+Trammell, et al.        Expires 9 September 2020               [Page 31]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1789,7 +1789,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 32]
+Trammell, et al.        Expires 9 September 2020               [Page 32]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1845,7 +1845,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 33]
+Trammell, et al.        Expires 9 September 2020               [Page 33]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1901,7 +1901,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 34]
+Trammell, et al.        Expires 9 September 2020               [Page 34]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -1957,7 +1957,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 35]
+Trammell, et al.        Expires 9 September 2020               [Page 35]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2013,7 +2013,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 36]
+Trammell, et al.        Expires 9 September 2020               [Page 36]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2069,7 +2069,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 37]
+Trammell, et al.        Expires 9 September 2020               [Page 37]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2125,7 +2125,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 38]
+Trammell, et al.        Expires 9 September 2020               [Page 38]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2181,7 +2181,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 39]
+Trammell, et al.        Expires 9 September 2020               [Page 39]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2237,7 +2237,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 40]
+Trammell, et al.        Expires 9 September 2020               [Page 40]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2293,7 +2293,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 41]
+Trammell, et al.        Expires 9 September 2020               [Page 41]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2349,7 +2349,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 42]
+Trammell, et al.        Expires 9 September 2020               [Page 42]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2405,7 +2405,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 43]
+Trammell, et al.        Expires 9 September 2020               [Page 43]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2461,7 +2461,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 44]
+Trammell, et al.        Expires 9 September 2020               [Page 44]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2517,7 +2517,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 45]
+Trammell, et al.        Expires 9 September 2020               [Page 45]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2573,7 +2573,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 46]
+Trammell, et al.        Expires 9 September 2020               [Page 46]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2629,7 +2629,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 47]
+Trammell, et al.        Expires 9 September 2020               [Page 47]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2685,7 +2685,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 48]
+Trammell, et al.        Expires 9 September 2020               [Page 48]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2741,7 +2741,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 49]
+Trammell, et al.        Expires 9 September 2020               [Page 49]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2797,7 +2797,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 50]
+Trammell, et al.        Expires 9 September 2020               [Page 50]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2853,7 +2853,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 51]
+Trammell, et al.        Expires 9 September 2020               [Page 51]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2909,7 +2909,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 52]
+Trammell, et al.        Expires 9 September 2020               [Page 52]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -2965,7 +2965,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 53]
+Trammell, et al.        Expires 9 September 2020               [Page 53]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3021,7 +3021,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 54]
+Trammell, et al.        Expires 9 September 2020               [Page 54]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3077,7 +3077,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 55]
+Trammell, et al.        Expires 9 September 2020               [Page 55]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3133,7 +3133,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 56]
+Trammell, et al.        Expires 9 September 2020               [Page 56]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3174,7 +3174,81 @@ Internet-Draft               TAPS Interface                   March 2020
    configuration details for transport security protocols, as discussed
    in Section 5.3.  It does not recommend use (or disuse) of specific
    algorithms or protocols.  Any API-compatible transport security
-   protocol should work in a TAPS system.
+   protocol should work in a TAPS system.  Security consideration for
+   these protocols should be discussed in the respective specifications.
+
+   The desribed API is used to exchange information between an
+   application and the transport system.  While it is not necessarily
+   expected that both systems are implemented by the same authority, it
+   is expected that the transport system implementation is either
+   provided as a library that is selected by the application from a
+   trusted party, or that it is part of the operating system that the
+   application also relies on for other tasks.
+
+
+
+
+
+Trammell, et al.        Expires 9 September 2020               [Page 57]
+
+Internet-Draft               TAPS Interface                   March 2020
+
+
+   In either case, the TAPS API is an internal interface that is used to
+   change information locally between two systems.  However, as the
+   transport system is responsible for network communication, it is in
+   the position to potentially share any information provided by the
+   application with the network or another communication peer.  Most of
+   the information provided over the TAPS API are useful to configure
+   and select protocols and paths and are not necessarily privacy
+   sensitive.  Still, there is some information that could be privacy
+   sensitve because this might reveal usage characteristics and habits
+   of the user of an application.
+
+   Of course any communication over a network reveals usage
+   characteristics, as all packets as well as their timing and size are
+   part of the network-visible wire image [RFC8546].  However, the
+   selection of a protocol and its configuration also impacts which
+   information is visible, potentially in clear text, and which other
+   enties can access it.  In most cases information that is provided for
+   protocol and path selection should not directly translate to
+   information that is can be observed by network devices on the path.
+   But there might be specific configuration information that are
+   intended for path exposure, such as e.g. a DiffServ codepoint
+   setting, that is either povided directly by the application or
+   indirectly configured over a traffic profile.
+
+   Further, applications should be aware that communication attempts can
+   lead to more than one connection establishment.  This is for example
+   the case when the transport system also excecutes name resolution; or
+   when support mechanisms such as TURN or ICE are used to establish
+   connectivity; or if protocols or paths are raised; or if a path fails
+   and fallback or re-establishment is supported in the transport
+   system.
+
+   These communication activities are not different from what is used
+   today, however, the goal of a TAPS transport system is to support
+   such mechanisms as a generic service within the transport layer.
+   This enables applications to more dynamically benefit from
+   innovations and new protocols in the transport system but at the same
+   time may reduce transparency of the underlying communication actions
+   to the application itself.  The TAPS API is designed such that
+   protocol and path selection can be limited to a small and controlled
+   set if required by the application for functional or security
+   purposes.  Further, TAPS implementations should provide an interface
+   to poll information about which protocol and path is currently in use
+   as well as provide logging about the communication events of each
+   connection.
+
+
+
+
+
+
+Trammell, et al.        Expires 9 September 2020               [Page 58]
+
+Internet-Draft               TAPS Interface                   March 2020
+
 
 15.  Acknowledgements
 
@@ -3185,14 +3259,6 @@ Internet-Draft               TAPS Interface                   March 2020
    This work has been supported by Leibniz Prize project funds of DFG -
    German Research Foundation: Gottfried Wilhelm Leibniz-Preis 2011 (FKZ
    FE 570/4-1).
-
-
-
-
-Trammell, et al.        Expires 5 September 2020               [Page 57]
-
-Internet-Draft               TAPS Interface                   March 2020
-
 
    This work has been supported by the UK Engineering and Physical
    Sciences Research Council under grant EP/R04144X/1.
@@ -3232,6 +3298,14 @@ Internet-Draft               TAPS Interface                   March 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+Trammell, et al.        Expires 9 September 2020               [Page 59]
+
+Internet-Draft               TAPS Interface                   March 2020
+
+
    [RFC4941]  Narten, T., Draves, R., and S. Krishnan, "Privacy
               Extensions for Stateless Address Autoconfiguration in
               IPv6", RFC 4941, DOI 10.17487/RFC4941, September 2007,
@@ -3240,15 +3314,6 @@ Internet-Draft               TAPS Interface                   March 2020
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-
-
-Trammell, et al.        Expires 5 September 2020               [Page 58]
-
-Internet-Draft               TAPS Interface                   March 2020
-
 
    [RFC8303]  Welzl, M., Tuexen, M., and N. Khademi, "On the Usage of
               Transport Features Provided by IETF Transport Protocols",
@@ -3280,15 +3345,23 @@ Internet-Draft               TAPS Interface                   March 2020
               Enghardt, T., Pauly, T., Perkins, C., Rose, K., and C.
               Wood, "A Survey of the Interaction Between Security
               Protocols and Transport Services", Work in Progress,
-              Internet-Draft, draft-ietf-taps-transport-security-10, 17
-              November 2019, <http://www.ietf.org/internet-drafts/draft-
-              ietf-taps-transport-security-10.txt>.
+              Internet-Draft, draft-ietf-taps-transport-security-11, 5
+              March 2020, <http://www.ietf.org/internet-drafts/draft-
+              ietf-taps-transport-security-11.txt>.
 
    [I-D.ietf-tsvwg-datagram-plpmtud]
               Fairhurst, G., Jones, T., Tuexen, M., Ruengeler, I., and
               T. Voelker, "Packetization Layer Path MTU Discovery for
               Datagram Transports", Work in Progress, Internet-Draft,
               draft-ietf-tsvwg-datagram-plpmtud-15, 24 February 2020,
+
+
+
+Trammell, et al.        Expires 9 September 2020               [Page 60]
+
+Internet-Draft               TAPS Interface                   March 2020
+
+
               <http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-
               datagram-plpmtud-15.txt>.
 
@@ -3297,14 +3370,6 @@ Internet-Draft               TAPS Interface                   March 2020
               Draft, draft-ietf-tsvwg-le-phb-10, 11 March 2019,
               <http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-le-
               phb-10.txt>.
-
-
-
-
-Trammell, et al.        Expires 5 September 2020               [Page 59]
-
-Internet-Draft               TAPS Interface                   March 2020
-
 
    [RFC2474]  Nichols, K., Blake, S., Baker, F., and D. Black,
               "Definition of the Differentiated Services Field (DS
@@ -3344,6 +3409,15 @@ Internet-Draft               TAPS Interface                   March 2020
               DOI 10.17487/RFC5245, April 2010,
               <https://www.rfc-editor.org/info/rfc5245>.
 
+
+
+
+
+Trammell, et al.        Expires 9 September 2020               [Page 61]
+
+Internet-Draft               TAPS Interface                   March 2020
+
+
    [RFC5482]  Eggert, L. and F. Gont, "TCP User Timeout Option",
               RFC 5482, DOI 10.17487/RFC5482, March 2009,
               <https://www.rfc-editor.org/info/rfc5482>.
@@ -3352,15 +3426,6 @@ Internet-Draft               TAPS Interface                   March 2020
               Time Communication Use Cases and Requirements", RFC 7478,
               DOI 10.17487/RFC7478, March 2015,
               <https://www.rfc-editor.org/info/rfc7478>.
-
-
-
-
-
-Trammell, et al.        Expires 5 September 2020               [Page 60]
-
-Internet-Draft               TAPS Interface                   March 2020
-
 
    [RFC7556]  Anipko, D., Ed., "Multiple Provisioning Domain
               Architecture", RFC 7556, DOI 10.17487/RFC7556, June 2015,
@@ -3387,6 +3452,10 @@ Internet-Draft               TAPS Interface                   March 2020
               DOI 10.17487/RFC8260, November 2017,
               <https://www.rfc-editor.org/info/rfc8260>.
 
+   [RFC8546]  Trammell, B. and M. Kuehlewind, "The Wire Image of a
+              Network Protocol", RFC 8546, DOI 10.17487/RFC8546, April
+              2019, <https://www.rfc-editor.org/info/rfc8546>.
+
    [RFC8699]  Islam, S., Welzl, M., and S. Gjessing, "Coupled Congestion
               Control for RTP Media", RFC 8699, DOI 10.17487/RFC8699,
               January 2020, <https://www.rfc-editor.org/info/rfc8699>.
@@ -3395,6 +3464,15 @@ Internet-Draft               TAPS Interface                   March 2020
               "ctrlTCP: Reducing Latency through Coupled, Heterogeneous
               Multi-Flow TCP Congestion Control", EEE INFOCOM Global
               Internet Symposium (GI) workshop (GI 2018) , 2018.
+
+
+
+
+
+Trammell, et al.        Expires 9 September 2020               [Page 62]
+
+Internet-Draft               TAPS Interface                   March 2020
+
 
 Appendix A.  Convenience Functions
 
@@ -3405,18 +3483,6 @@ A.1.  Adding Preference Properties
    provide special actions for adding each preference level i.e,
    "TransportProperties.Add(some_property, avoid)" is equivalent to
    "TransportProperties.Avoid(some_property)":
-
-
-
-
-
-
-
-
-Trammell, et al.        Expires 5 September 2020               [Page 61]
-
-Internet-Draft               TAPS Interface                   March 2020
-
 
    TransportProperties.Require(property)
    TransportProperties.Prefer(property)
@@ -3453,26 +3519,23 @@ A.2.1.  reliable-inorder-stream
 
                                   Table 2
 
+
+
+
+
+
+
+Trammell, et al.        Expires 9 September 2020               [Page 63]
+
+Internet-Draft               TAPS Interface                   March 2020
+
+
 A.2.2.  reliable-message
 
    This profile provides message-preserving, reliable, in-order
    transport service with congestion control.  An example of a protocol
    that provides this service is SCTP.  It should consist of the
    following properties:
-
-
-
-
-
-
-
-
-
-
-Trammell, et al.        Expires 5 September 2020               [Page 62]
-
-Internet-Draft               TAPS Interface                   March 2020
-
 
                    +-------------------------+---------+
                    | Property                | Value   |
@@ -3518,14 +3581,7 @@ A.2.3.  unreliable-datagram
 
 
 
-
-
-
-
-
-
-
-Trammell, et al.        Expires 5 September 2020               [Page 63]
+Trammell, et al.        Expires 9 September 2020               [Page 64]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3581,7 +3637,7 @@ Appendix B.  Relationship to the Minimal Set of Transport Services for
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 64]
+Trammell, et al.        Expires 9 September 2020               [Page 65]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3637,7 +3693,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 65]
+Trammell, et al.        Expires 9 September 2020               [Page 66]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3693,7 +3749,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 66]
+Trammell, et al.        Expires 9 September 2020               [Page 67]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3749,7 +3805,7 @@ Authors' Addresses
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 67]
+Trammell, et al.        Expires 9 September 2020               [Page 68]
 
 Internet-Draft               TAPS Interface                   March 2020
 
@@ -3805,4 +3861,4 @@ Internet-Draft               TAPS Interface                   March 2020
 
 
 
-Trammell, et al.        Expires 5 September 2020               [Page 68]
+Trammell, et al.        Expires 9 September 2020               [Page 69]

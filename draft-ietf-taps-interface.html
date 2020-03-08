@@ -207,6 +207,9 @@ a[href]:hover {
 a[href].selfRef:hover {
   background-color: var(--highlight-color);
 }
+a.xref {
+  white-space: nowrap;
+}
 
 /* Figures */
 tt, code, pre {
@@ -398,6 +401,9 @@ hr {
   margin: 0.75em 0;
   padding-left: 1.2em;
   text-indent: -1.2em;
+}
+#toc a.xref {
+  white-space: normal;
 }
 /* references */
 .references dt {
@@ -837,7 +843,7 @@ table.left {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Trammell, et al.</td>
-<td class="center">Expires 5 September 2020</td>
+<td class="center">Expires 9 September 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -850,12 +856,12 @@ table.left {
 <dd class="internet-draft">draft-ietf-taps-interface-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-03-04" class="published">4 March 2020</time>
+<time datetime="2020-03-08" class="published">8 March 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-09-05">5 September 2020</time></dd>
+<dd class="expires"><time datetime="2020-09-09">9 September 2020</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -929,7 +935,7 @@ and potential transport protocols to select from.<a href="#section-abstract-1" c
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 September 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 September 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -4399,7 +4405,39 @@ Later versions of this document may create IANA registries for generic transport
 <p id="section-14-1">This document describes a generic API for interacting with a transport services (TAPS) system.
 Part of this API includes configuration details for transport security protocols, as discussed
 in <a href="#security-parameters" class="xref">Section 5.3</a>. It does not recommend use (or disuse) of specific
-algorithms or protocols. Any API-compatible transport security protocol should work in a TAPS system.<a href="#section-14-1" class="pilcrow">¶</a></p>
+algorithms or protocols. Any API-compatible transport security protocol should work in a TAPS system.
+Security consideration for these protocols should be discussed in the respective specifications.<a href="#section-14-1" class="pilcrow">¶</a></p>
+<p id="section-14-2">The desribed API is used to exchange information between an application and the transport system. While
+it is not necessarily expected that both systems are implemented by the same authority, it is expected
+that the transport system implementation is either provided as a library that is selected by the application
+from a trusted party, or that it is part of the operating system that the application also relies on for
+other tasks.<a href="#section-14-2" class="pilcrow">¶</a></p>
+<p id="section-14-3">In either case, the TAPS API is an internal interface that is used to change information locally between two systems.
+However, as the transport system is responsible for network communication, it is in the position to
+potentially share any information provided by the application with the network or another communication peer. 
+Most of the information provided over the TAPS API are useful to configure and select protocols and paths
+and are not necessarily privacy sensitive. Still, there is some information that could be privacy sensitve because
+this might reveal usage characteristics and habits of the user of an application.<a href="#section-14-3" class="pilcrow">¶</a></p>
+<p id="section-14-4">Of course any communication over a network reveals usage characteristics, as all
+packets as well as their timing and size are part of the network-visible wire image <span>[<a href="#RFC8546" class="xref">RFC8546</a>]</span>. However,
+the selection of a protocol and its configuration also impacts which information is visible, potentially in
+clear text, and which other enties can access it. In most cases information that is provided for protocol and path selection
+should not directly translate to information that is can be observed by network devices on the path. 
+But there might be specific configuration
+information that are intended for path exposure, such as e.g. a DiffServ codepoint setting, that is either povided
+directly by the application or indirectly configured over a traffic profile.<a href="#section-14-4" class="pilcrow">¶</a></p>
+<p id="section-14-5">Further, applications should be aware that communication attempts can lead to more than one connection establishment.
+This is for example the case when the transport system also excecutes name resolution; or when support mechanisms such as
+TURN or ICE are used to establish connectivity; or if protocols or paths are raised; or if a path fails and 
+fallback or re-establishment is supported in the transport system.<a href="#section-14-5" class="pilcrow">¶</a></p>
+<p id="section-14-6">These communication activities are not different from what is used today, however, 
+the goal of a TAPS transport system is to support
+such mechanisms as a generic service within the transport layer. This enables applications to more dynamically
+benefit from innovations and new protocols in the transport system but at the same time may reduce transparency of the 
+underlying communication actions to the application itself. The TAPS API is designed such that protocol and path selection
+can be limited to a small and controlled set if required by the application for functional or security purposes. Further,
+TAPS implementations should provide an interface to poll information about which protocol and path is currently in use as
+well as provide logging about the communication events of each connection.<a href="#section-14-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgements">
@@ -4468,7 +4506,7 @@ and for contributing text, e.g., on multicast.<a href="#section-15-5" class="pil
 <span class="refAuthor">Welzl, M.</span><span class="refAuthor"> and S. Gjessing</span>, <span class="refTitle">"A Minimal Set of Transport Services for End Systems"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-taps-minset-11</span>, <time datetime="2018-09-27">27 September 2018</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-taps-minset-11.txt">http://www.ietf.org/internet-drafts/draft-ietf-taps-minset-11.txt</a>&gt;</span>. </dd>
 <dt id="I-D.ietf-taps-transport-security">[I-D.ietf-taps-transport-security]</dt>
 <dd>
-<span class="refAuthor">Enghardt, T.</span><span class="refAuthor">, Pauly, T.</span><span class="refAuthor">, Perkins, C.</span><span class="refAuthor">, Rose, K.</span><span class="refAuthor">, and C. Wood</span>, <span class="refTitle">"A Survey of the Interaction Between Security Protocols and Transport Services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-taps-transport-security-10</span>, <time datetime="2019-11-17">17 November 2019</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-taps-transport-security-10.txt">http://www.ietf.org/internet-drafts/draft-ietf-taps-transport-security-10.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Enghardt, T.</span><span class="refAuthor">, Pauly, T.</span><span class="refAuthor">, Perkins, C.</span><span class="refAuthor">, Rose, K.</span><span class="refAuthor">, and C. Wood</span>, <span class="refTitle">"A Survey of the Interaction Between Security Protocols and Transport Services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-taps-transport-security-11</span>, <time datetime="2020-03-05">5 March 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-taps-transport-security-11.txt">http://www.ietf.org/internet-drafts/draft-ietf-taps-transport-security-11.txt</a>&gt;</span>. </dd>
 <dt id="I-D.ietf-tsvwg-datagram-plpmtud">[I-D.ietf-tsvwg-datagram-plpmtud]</dt>
 <dd>
 <span class="refAuthor">Fairhurst, G.</span><span class="refAuthor">, Jones, T.</span><span class="refAuthor">, Tuexen, M.</span><span class="refAuthor">, Ruengeler, I.</span><span class="refAuthor">, and T. Voelker</span>, <span class="refTitle">"Packetization Layer Path MTU Discovery for Datagram Transports"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tsvwg-datagram-plpmtud-15</span>, <time datetime="2020-02-24">24 February 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-datagram-plpmtud-15.txt">http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-datagram-plpmtud-15.txt</a>&gt;</span>. </dd>
@@ -4517,6 +4555,9 @@ and for contributing text, e.g., on multicast.<a href="#section-15-5" class="pil
 <dt id="RFC8260">[RFC8260]</dt>
 <dd>
 <span class="refAuthor">Stewart, R.</span><span class="refAuthor">, Tuexen, M.</span><span class="refAuthor">, Loreto, S.</span><span class="refAuthor">, and R. Seggelmann</span>, <span class="refTitle">"Stream Schedulers and User Message Interleaving for the Stream Control Transmission Protocol"</span>, <span class="seriesInfo">RFC 8260</span>, <span class="seriesInfo">DOI 10.17487/RFC8260</span>, <time datetime="2017-11">November 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8260">https://www.rfc-editor.org/info/rfc8260</a>&gt;</span>. </dd>
+<dt id="RFC8546">[RFC8546]</dt>
+<dd>
+<span class="refAuthor">Trammell, B.</span><span class="refAuthor"> and M. Kuehlewind</span>, <span class="refTitle">"The Wire Image of a Network Protocol"</span>, <span class="seriesInfo">RFC 8546</span>, <span class="seriesInfo">DOI 10.17487/RFC8546</span>, <time datetime="2019-04">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8546">https://www.rfc-editor.org/info/rfc8546</a>&gt;</span>. </dd>
 <dt id="RFC8699">[RFC8699]</dt>
 <dd>
 <span class="refAuthor">Islam, S.</span><span class="refAuthor">, Welzl, M.</span><span class="refAuthor">, and S. Gjessing</span>, <span class="refTitle">"Coupled Congestion Control for RTP Media"</span>, <span class="seriesInfo">RFC 8699</span>, <span class="seriesInfo">DOI 10.17487/RFC8699</span>, <time datetime="2020-01">January 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8699">https://www.rfc-editor.org/info/rfc8699</a>&gt;</span>. </dd>
