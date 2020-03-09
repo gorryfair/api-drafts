@@ -193,7 +193,7 @@ Internet-Draft               TAPS Interface                   March 2020
    16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  59
      16.1.  Normative References . . . . . . . . . . . . . . . . . .  59
      16.2.  Informative References . . . . . . . . . . . . . . . . .  60
-   Appendix A.  Convenience Functions  . . . . . . . . . . . . . . .  63
+   Appendix A.  Convenience Functions  . . . . . . . . . . . . . . .  62
      A.1.  Adding Preference Properties  . . . . . . . . . . . . . .  63
      A.2.  Transport Property Profiles . . . . . . . . . . . . . . .  63
        A.2.1.  reliable-inorder-stream . . . . . . . . . . . . . . .  63
@@ -3286,17 +3286,17 @@ Internet-Draft               TAPS Interface                   March 2020
               <http://www.ietf.org/internet-drafts/draft-ietf-taps-arch-
               06.txt>.
 
-   [I-D.ietf-tsvwg-rtcweb-qos]
-              Jones, P., Dhesikan, S., Jennings, C., and D. Druta, "DSCP
-              Packet Markings for WebRTC QoS", Work in Progress,
-              Internet-Draft, draft-ietf-tsvwg-rtcweb-qos-18, 19 August
-              2016, <http://www.ietf.org/internet-drafts/draft-ietf-
-              tsvwg-rtcweb-qos-18.txt>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC4941]  Narten, T., Draves, R., and S. Krishnan, "Privacy
+              Extensions for Stateless Address Autoconfiguration in
+              IPv6", RFC 4941, DOI 10.17487/RFC4941, September 2007,
+              <https://www.rfc-editor.org/info/rfc4941>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
 
 
 
@@ -3306,12 +3306,6 @@ Trammell, et al.        Expires 10 September 2020              [Page 59]
 Internet-Draft               TAPS Interface                   March 2020
 
 
-   [RFC4941]  Narten, T., Draves, R., and S. Krishnan, "Privacy
-              Extensions for Stateless Address Autoconfiguration in
-              IPv6", RFC 4941, DOI 10.17487/RFC4941, September 2007,
-              <https://www.rfc-editor.org/info/rfc4941>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
@@ -3354,6 +3348,12 @@ Internet-Draft               TAPS Interface                   March 2020
               T. Voelker, "Packetization Layer Path MTU Discovery for
               Datagram Transports", Work in Progress, Internet-Draft,
               draft-ietf-tsvwg-datagram-plpmtud-15, 24 February 2020,
+              <http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-
+              datagram-plpmtud-15.txt>.
+
+   [RFC2474]  Nichols, K., Blake, S., Baker, F., and D. Black,
+              "Definition of the Differentiated Services Field (DS
+              Field) in the IPv4 and IPv6 Headers", RFC 2474,
 
 
 
@@ -3362,12 +3362,6 @@ Trammell, et al.        Expires 10 September 2020              [Page 60]
 Internet-Draft               TAPS Interface                   March 2020
 
 
-              <http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-
-              datagram-plpmtud-15.txt>.
-
-   [RFC2474]  Nichols, K., Blake, S., Baker, F., and D. Black,
-              "Definition of the Differentiated Services Field (DS
-              Field) in the IPv4 and IPv6 Headers", RFC 2474,
               DOI 10.17487/RFC2474, December 1998,
               <https://www.rfc-editor.org/info/rfc2474>.
 
@@ -3409,15 +3403,6 @@ Internet-Draft               TAPS Interface                   March 2020
 
    [RFC5865]  Baker, F., Polk, J., and M. Dolly, "A Differentiated
               Services Code Point (DSCP) for Capacity-Admitted Traffic",
-
-
-
-
-Trammell, et al.        Expires 10 September 2020              [Page 61]
-
-Internet-Draft               TAPS Interface                   March 2020
-
-
               RFC 5865, DOI 10.17487/RFC5865, May 2010,
               <https://www.rfc-editor.org/info/rfc5865>.
 
@@ -3425,6 +3410,13 @@ Internet-Draft               TAPS Interface                   March 2020
               Time Communication Use Cases and Requirements", RFC 7478,
               DOI 10.17487/RFC7478, March 2015,
               <https://www.rfc-editor.org/info/rfc7478>.
+
+
+
+Trammell, et al.        Expires 10 September 2020              [Page 61]
+
+Internet-Draft               TAPS Interface                   March 2020
+
 
    [RFC7556]  Anipko, D., Ed., "Multiple Provisioning Domain
               Architecture", RFC 7556, DOI 10.17487/RFC7556, June 2015,
@@ -3466,6 +3458,14 @@ Internet-Draft               TAPS Interface                   March 2020
    [TCP-COUPLING]
               "ctrlTCP: Reducing Latency through Coupled, Heterogeneous
               Multi-Flow TCP Congestion Control", IEEE INFOCOM Global
+              Internet Symposium (GI) workshop (GI 2018) , 15 April
+              2018.
+
+Appendix A.  Convenience Functions
+
+
+
+
 
 
 
@@ -3473,11 +3473,6 @@ Trammell, et al.        Expires 10 September 2020              [Page 62]
 
 Internet-Draft               TAPS Interface                   March 2020
 
-
-              Internet Symposium (GI) workshop (GI 2018) , 15 April
-              2018.
-
-Appendix A.  Convenience Functions
 
 A.1.  Adding Preference Properties
 
@@ -3521,6 +3516,11 @@ A.2.1.  reliable-inorder-stream
                    +-------------------------+---------+
 
                                   Table 2
+
+
+
+
+
 
 
 
