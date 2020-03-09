@@ -3465,7 +3465,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
    [TCP-COUPLING]
               "ctrlTCP: Reducing Latency through Coupled, Heterogeneous
-
+              Multi-Flow TCP Congestion Control", IEEE INFOCOM Global
 
 
 
@@ -3474,8 +3474,8 @@ Trammell, et al.        Expires 10 September 2020              [Page 62]
 Internet-Draft               TAPS Interface                   March 2020
 
 
-              Multi-Flow TCP Congestion Control", EEE INFOCOM Global
-              Internet Symposium (GI) workshop (GI 2018) , 2018.
+              Internet Symposium (GI) workshop (GI 2018) , 15 April
+              2018.
 
 Appendix A.  Convenience Functions
 
