@@ -99,7 +99,7 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2020-03-04T14:34:54Z",
-    "updated_at": "2020-03-05T17:54:25Z",
+    "updated_at": "2020-03-09T08:00:51Z",
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "pull_request": {
@@ -144,7 +144,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -153,8 +153,8 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2020-03-04T11:03:31Z",
-    "updated_at": "2020-03-04T15:37:41Z",
-    "closed_at": null,
+    "updated_at": "2020-03-09T08:04:34Z",
+    "closed_at": "2020-03-09T08:04:29Z",
     "author_association": "CONTRIBUTOR",
     "pull_request": {
       "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/pulls/513",
@@ -1363,7 +1363,7 @@
         "description": null
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -1372,8 +1372,8 @@
     "milestone": null,
     "comments": 7,
     "created_at": "2020-01-28T11:29:12Z",
-    "updated_at": "2020-03-08T15:36:04Z",
-    "closed_at": null,
+    "updated_at": "2020-03-08T15:37:07Z",
+    "closed_at": "2020-03-08T15:37:07Z",
     "author_association": "CONTRIBUTOR",
     "pull_request": {
       "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/pulls/497",
@@ -5732,7 +5732,7 @@
         "description": ""
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": {
       "login": "theri",
@@ -5779,8 +5779,8 @@
     "milestone": null,
     "comments": 2,
     "created_at": "2020-01-16T09:51:18Z",
-    "updated_at": "2020-02-21T17:19:49Z",
-    "closed_at": null,
+    "updated_at": "2020-03-08T15:37:08Z",
+    "closed_at": "2020-03-08T15:37:08Z",
     "author_association": "CONTRIBUTOR",
     "body": "For Local Address Preference we only have the option to _prefer_ stable or temporary. However, I guess we would also need a way to e.g. specify that stable is _required_, no? "
   },
