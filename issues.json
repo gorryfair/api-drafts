@@ -1,6 +1,136 @@
 [
 
   {
+    "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/517",
+    "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
+    "labels_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/517/labels{/name}",
+    "comments_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/517/comments",
+    "events_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/517/events",
+    "html_url": "https://github.com/ietf-tapswg/api-drafts/issues/517",
+    "id": 578040356,
+    "node_id": "MDU6SXNzdWU1NzgwNDAzNTY=",
+    "number": 517,
+    "title": "Inconsistencies in text realted to selection algorithm and racing",
+    "user": {
+      "login": "abrunstrom",
+      "id": 17362480,
+      "node_id": "MDQ6VXNlcjE3MzYyNDgw",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17362480?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/abrunstrom",
+      "html_url": "https://github.com/abrunstrom",
+      "followers_url": "https://api.github.com/users/abrunstrom/followers",
+      "following_url": "https://api.github.com/users/abrunstrom/following{/other_user}",
+      "gists_url": "https://api.github.com/users/abrunstrom/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/abrunstrom/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/abrunstrom/subscriptions",
+      "organizations_url": "https://api.github.com/users/abrunstrom/orgs",
+      "repos_url": "https://api.github.com/users/abrunstrom/repos",
+      "events_url": "https://api.github.com/users/abrunstrom/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/abrunstrom/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 823781840,
+        "node_id": "MDU6TGFiZWw4MjM3ODE4NDA=",
+        "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/labels/Implementation",
+        "name": "Implementation",
+        "color": "fbca04",
+        "default": false,
+        "description": null
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-03-09T16:40:24Z",
+    "updated_at": "2020-03-09T16:41:06Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "The text on the selection algorithm is not fully consistent with the text on racing, as it is written as if the entire tree is available. NOticed this as we moved text to the implementation draft as a result of #429 ."
+  },
+  {
+    "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/516",
+    "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
+    "labels_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/516/labels{/name}",
+    "comments_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/516/comments",
+    "events_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/516/events",
+    "html_url": "https://github.com/ietf-tapswg/api-drafts/issues/516",
+    "id": 577745148,
+    "node_id": "MDU6SXNzdWU1Nzc3NDUxNDg=",
+    "number": 516,
+    "title": "More protocol-specific properties?",
+    "user": {
+      "login": "mwelzl",
+      "id": 7081644,
+      "node_id": "MDQ6VXNlcjcwODE2NDQ=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/7081644?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/mwelzl",
+      "html_url": "https://github.com/mwelzl",
+      "followers_url": "https://api.github.com/users/mwelzl/followers",
+      "following_url": "https://api.github.com/users/mwelzl/following{/other_user}",
+      "gists_url": "https://api.github.com/users/mwelzl/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/mwelzl/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/mwelzl/subscriptions",
+      "organizations_url": "https://api.github.com/users/mwelzl/orgs",
+      "repos_url": "https://api.github.com/users/mwelzl/repos",
+      "events_url": "https://api.github.com/users/mwelzl/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/mwelzl/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 823781518,
+        "node_id": "MDU6TGFiZWw4MjM3ODE1MTg=",
+        "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/labels/API",
+        "name": "API",
+        "color": "fbca04",
+        "default": false,
+        "description": null
+      },
+      {
+        "id": 1463763177,
+        "node_id": "MDU6TGFiZWwxNDYzNzYzMTc3",
+        "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/labels/future%20work",
+        "name": "future work",
+        "color": "0d5196",
+        "default": false,
+        "description": "Things the WG wants, just not in the core docs"
+      },
+      {
+        "id": 819875206,
+        "node_id": "MDU6TGFiZWw4MTk4NzUyMDY=",
+        "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/labels/help%20wanted",
+        "name": "help wanted",
+        "color": "008672",
+        "default": true,
+        "description": "Extra attention is needed"
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-03-09T08:47:49Z",
+    "updated_at": "2020-03-09T08:48:54Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "I suspect that we need more protocol-specific properties to be able to talk to various kinds of native protocol peers (other than TCP and UDP: these should already work fine with what we have, I believe).\r\n\r\nA concrete example: we're hiding stream numbers. In NEAT, we needed to make them configurable though, because we wanted a NEAT client to be able to talk to a native SCTP server, where an application may expect certain type of data to arrive via a certain stream number. I suspect that we may need something similar for a QUIC peer.\r\n\r\n- Should we address this?  (I'd say yes)\r\n- How .. is it a protocol-specific (per-Message) property?   (I'd say yes... and perhaps a per-Connection property too, with text explaining that the per-Message one automatically becomes the Connection default unless otherwise specified)\r\n- What other such things are we missing... what other expectations may e.g. a native QUIC or SCTP application have that we just cannot fulfil with our current system?"
+  },
+  {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/515",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
     "labels_url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/515/labels{/name}",
@@ -90,17 +220,17 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 0,
+    "comments": 1,
     "created_at": "2020-03-04T14:34:54Z",
-    "updated_at": "2020-03-09T08:00:51Z",
-    "closed_at": null,
+    "updated_at": "2020-03-09T12:46:42Z",
+    "closed_at": "2020-03-09T12:46:41Z",
     "author_association": "CONTRIBUTOR",
     "pull_request": {
       "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/pulls/514",
@@ -213,9 +343,9 @@
 
     ],
     "milestone": null,
-    "comments": 3,
+    "comments": 4,
     "created_at": "2020-03-03T14:06:37Z",
-    "updated_at": "2020-03-06T11:55:29Z",
+    "updated_at": "2020-03-09T16:21:25Z",
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "pull_request": {
@@ -277,7 +407,7 @@
         "description": null
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -286,8 +416,8 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2020-03-02T12:31:48Z",
-    "updated_at": "2020-03-06T10:23:29Z",
-    "closed_at": null,
+    "updated_at": "2020-03-09T08:06:55Z",
+    "closed_at": "2020-03-09T08:06:42Z",
     "author_association": "CONTRIBUTOR",
     "pull_request": {
       "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/pulls/511",
@@ -1031,7 +1161,7 @@
         "description": null
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": {
       "login": "tfpauly",
@@ -1078,8 +1208,8 @@
     "milestone": null,
     "comments": 1,
     "created_at": "2020-02-21T15:39:35Z",
-    "updated_at": "2020-03-08T09:29:42Z",
-    "closed_at": null,
+    "updated_at": "2020-03-09T12:45:22Z",
+    "closed_at": "2020-03-09T12:45:22Z",
     "author_association": "CONTRIBUTOR",
     "pull_request": {
       "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/pulls/502",
@@ -1959,7 +2089,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/488.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/487",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -2115,10 +2248,7 @@
     "closed_at": null,
     "author_association": "NONE",
     "body": "A.1. states: \r\n\r\n*\"As Selection Properties of type Preference will be added to a TransportProperties object quite frequently, implementations should provide special actions for adding each preference level i.e, TransportProperties.Add(some_property, avoid) is equivalent to TransportProperties.Avoid(some_property)\"*\r\n\r\nAs a TransportProperties object constitutes of Selection, Connection and Message Properties objects, I think it's more natural to make the action of adding a preference part of the API for Selection Properties: \r\n```TransportProperties.SelectionProperties.Avoid(some_property)```"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/485",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -4084,7 +4214,10 @@
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "body": "I think we should reorganise the API doc a little bit. I proposed to 1) have the \"Managing Connection\" section earlier and then 2) have a new top level section on \"Data Transfer\" (inline with the arch doc) and have first one subsection that contains everything around messages and then having \"Sending Data\" and \"Receiving Data\" as two more subsections.\r\n\r\nI think the only text changed ended is in the \"Sending Data\" section where currently messages are introduced as this structure would introduce messages earlier and some new text for the start of the new \"Data Transfer\" section of course.\r\n\r\nThe structure would then look like this:\r\n\r\n7. Managing Connections \r\n     7.1.  Generic Connection Properties \r\n       7.1.1.  Retransmission Threshold Before Excessive Retransmission Notification \r\n       7.1.2.  Required Minimum Corruption Protection Coverage for Receiving \r\n       7.1.3.  Priority (Connection)\r\n       7.1.4.  Timeout for Aborting Connection \r\n       7.1.5.  Connection Group Transmission Scheduler  \r\n       7.1.6.  Maximum Message Size Concurrent with Connection Establishment \r\n       7.1.7.  Maximum Message Size Before Fragmentation or Segmentation \r\n       7.1.8.  Maximum Message Size on Send \r\n       7.1.9.  Maximum Message Size on Receive\r\n       7.1.10. Capacity Profile \r\n       7.1.11. Bounds on Send or Receive Rate \r\n       7.1.12. TCP-specific Property: User Timeout \r\n     7.2.  Soft Errors\r\n     7.3.  Excessive retransmissions\r\n8.  Data Transfer\r\n 8.1 Messages and Framers\r\n   8.1.2.  Message Contexts  \r\n   8.1.2. Message Framers \r\n     8.1.2.1.  Adding Message Framers to Connections \r\n     8.1.2.2.  Framing Meta-Data  \r\n   8.1.3  Message Properties \r\n       8.1.3.1.  Lifetime  \r\n       8.1.3.2.  Priority  \r\n       8.1.3.3.  Ordered \r\n       8.1.3..4.  Idempotent \r\n       8.1.3.5.  Final \r\n       8.1.3.6.  Corruption Protection Length \r\n       8.1.3.7.  Reliable Data Transfer (Message) \r\n       8.1.3.8.  Message Capacity Profile Override \r\n       8.1.3.9.  Singular Transmission\r\n 8.2 Sending Data \r\n     8.2.1.  Basic Sending\r\n     8.2.2  Sending Replies \r\n     8.2.3.  Send Events \r\n       8.2.3.1.  Sent  \r\n       8.2.3.2.  Expired \r\n       8.2.3.3.  SendError \r\n     8.2.4.  Partial Sends\r\n     8.2.5.  Batching Sends  \r\n     8.2.6.  Send on Active Open: InitiateWithSend \r\n 8.3  Receiving Data  \r\n     8.3.1.  Enqueuing Receives  \r\n     8.3.2.  Receive Events \r\n       8.3.2.1.  Received \r\n       8.3.2.2.  ReceivedPartial\r\n       8.3.2.3.  ReceiveError  \r\n     8.3.3.  Receive Message Properties \r\n       8.3.3.1.  ECN \r\n       8.3.3.2.  Early Data  \r\n       8.3.3.3.  Receiving Final Messages  "
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/457",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -4220,10 +4353,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/456.patch"
     },
     "body": "The section on Message Contexts is really misplaced at the moment. I suggest to have it just before the section on Message Properties because it actually used there (also in the example)."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/455",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -5983,9 +6113,9 @@
 
     ],
     "milestone": null,
-    "comments": 0,
+    "comments": 1,
     "created_at": "2020-01-16T09:43:45Z",
-    "updated_at": "2020-01-17T09:56:24Z",
+    "updated_at": "2020-03-09T08:11:56Z",
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "pull_request": {
@@ -6233,7 +6363,7 @@
         "description": null
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": {
       "login": "theri",
@@ -6278,10 +6408,10 @@
       }
     ],
     "milestone": null,
-    "comments": 12,
+    "comments": 13,
     "created_at": "2020-01-15T17:26:22Z",
-    "updated_at": "2020-02-24T15:25:56Z",
-    "closed_at": null,
+    "updated_at": "2020-03-09T16:40:43Z",
+    "closed_at": "2020-03-09T16:40:43Z",
     "author_association": "CONTRIBUTOR",
     "body": "In section 5.2. in the API doc:\r\n\"Internally, the transport system will first exclude all protocols and\r\n   paths that match a Prohibit, then exclude all protocols and paths\r\n   that do not match a Require, then sort candidates according to\r\n   Preferred properties, and then use Avoided properties as a\r\n   tiebreaker.  Selection Properties that select paths take preference\r\n   over those that select protocols.  For example, if an application\r\n   indicates a preference for a specific path by specifying an\r\n   interface, but also a preference for a protocol not available on this\r\n   path, the transport system will try the path first, ignoring the\r\n   preference.\"\r\n\r\nThis sounds rather like an example algorithm that should maybe go into the implementation doc instead? Or is there any part of this that we need to specify normatively in order to ensure that all systems implement the same?\r\n\r\n"
   },
@@ -6346,7 +6476,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/428.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/427",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -6552,10 +6685,7 @@
     "closed_at": "2020-02-21T16:03:33Z",
     "author_association": "CONTRIBUTOR",
     "body": "Currently we define a Preconnection like this:\r\nPreconnection := NewPreconnection(LocalEndpoint,\r\n                                        RemoteEndpoint,\r\n                                        TransportProperties,\r\n                                        SecurityParams)\r\n\r\nAnd then use it in the examples e.g. like this:\r\n   Preconnection := NewPreconnection(None,\r\n                                     RemoteSpecifier,\r\n                                     TransportPreperties,\r\n                                     SecurityParameters)\r\n\r\nBut should we do this instead:\r\nPreconnection := NewPreconnection(LocalEndpoint?,\r\n                                        RemoteEndpoint?,\r\n                                        TransportProperties,\r\n                                        SecurityParams)\r\n\r\nI know that is also a bit confusing but maybe more inline with the syntax we define. Or we probably need to at least define the keyword \"None\"...\r\n"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/425",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -7083,9 +7213,9 @@
 
     ],
     "milestone": null,
-    "comments": 5,
+    "comments": 6,
     "created_at": "2020-01-15T14:51:27Z",
-    "updated_at": "2020-02-21T19:08:58Z",
+    "updated_at": "2020-03-09T12:42:50Z",
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "body": "At some point we added normative language to the arch doc but only changed cases where use of upper case keywords are obvious. If we really want to use normative language, we would need another pass and make sure that we identified everything that should be specified normatively.\r\n\r\nAlternatively, we could just remove any normative language again and revert respective words back to lower case. I think that would be my preferred solution as a) it is less work and b) I don't think this document necessarily needs normative language."
@@ -8572,7 +8702,10 @@
     "closed_at": null,
     "author_association": "NONE",
     "body": "Right now, the per-protocol behavior is specified in Implementation, which is an Informational document; however, this stuff really should be specified normatively.\r\n\r\nSo either they should be split out into (one or more?) separate documents, or Implementation should be made Normative just for the sake of one of its sections (which imo would be weird)."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/397",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -8760,10 +8893,7 @@
     "closed_at": "2019-12-23T14:52:27Z",
     "author_association": "CONTRIBUTOR",
     "body": "§4.1.3 Rendezvous: TCP simultaneous open is one type of rendezvous,\r\nbut only giving this as an example makes it seems more narrowly\r\nscoped that I envisaged. For example, I'd expect Rendezvous could\r\nperform an ICE exchange it STUN candidates were passed as Remote\r\nEndpoints. Should this description be generalised?"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/395",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -10434,7 +10564,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/368.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/367",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -10651,10 +10784,7 @@
     "closed_at": null,
     "author_association": "NONE",
     "body": "I did not manage to review it all, but I did read much of the ID, and have minor corrections-mainly comments below\r\n\r\n/such as mobile client/\r\n- as\r\n/e.g., a mobile client/\r\n---\r\n/Like with derived endpoints/\r\nas\r\n/Similar to a derived endpoint/\r\n---\r\n/Protocol options are checked next in order./\r\nas\r\n/Protocol options are next checked in order./\r\n---\r\nWhys is there no section on immediate - it would be more complete and also the subsection no. would match the list of items in sect 4.4.\r\n---\r\n\r\nSect:Derived Endpoints\r\n----\r\n/The connection library should order the derived endpoints/\r\n- what does /should/ mean here? - I thought the next stage took an ordered list (highest preference first), so I'd expect it does order? and it would seem hugely sensible to put most preferred first, aka RFC8305.\r\n---\r\n/ as a branch which can be attempted independently from other hostnames. Each of these hostnames may also resolve to one or more addresses, thus creating multiple layers of branching./\r\n- In above change /which/that/\r\n- In above /may also resolve... thus creating/ ... I can see this /might resolve to one or more addresses, that would create/\r\n... but I could also read multiple other ways to view the sentence.\r\n---\r\n/connection over either interface. /\r\n- why 2? - should this be:\r\n/ connection over any interface. /\r\n---\r\n/A single connection may be allowed to use an HTTP-based proxy, a SOCKS-based proxy, or connect directly. /\r\n- what does /may be allowed to use / actually mean?\r\n- is it allowed to use, or if not, what controls whether it is or not?\r\n---\r\n/that may provide preferable characteristics when available. /\r\n- could this be:\r\n/that, when available, could provide preferable characteristics./\r\n- is it /characteristics/, did the WG previously call these features?\r\n---\r\n/Implementations that support racing protocols and protocol options should maintain a history of which protocols and protocol options successfully established, on a per-network basis /\r\n- is it only on a per-network; could it be also per-endpoint.\r\n---\r\n/ since usable DNS results on one network may not necessarily be the same as DNS results on another network due to local network entities, supported address families, or enterprise network configurations. /\r\n- Personally, I'd go further than /may not necessarily be/ towards /there are situations when the results will be different/?\r\n---\r\nI could be overly sensitive, but didn't like:\r\n/has cached the information that SCTP is not available on the path over WiFi,/\r\n- can this be:\r\n/has current cache information that SCTP is not available on the path over WiFi,/\r\n- I wanted to avoid the impression this was something in any way permanent.\r\n---\r\nSorting branches:\r\n/ in order of their preference rank/\r\n- increasing or decreasing preference?\r\n---\r\n/Implementations should process properties in the following order: Prohibit, Require, Prefer, Avoid. /\r\n- the words should process... seem to chime wrongly to me\r\n- why wouldn't they?\r\n- can we just remove /should/ or explain what we are saying if that isn't it?\r\n... there are several \"should\" words in the rest of the para, and it seems to me that it would be more beautiful had we avoided that word, or explained why there were cases why not?\r\n---\r\n- I got a little muddled with:\r\n/ While the tree described above is a useful conceptual and\r\n   architectural model, an implementation does not know what the full\r\n   tree may become up front, nor will many of the possible branches be\r\n   used in the common case./\r\n- is this clearer as:\r\n/  The tree described above is a useful conceptual and\r\n   architectural model. However, an implementation is unable to know the full\r\n   tree before it is formed and many of the possible branches ultimately    \r\n   might not be commonly used./\r\n---\r\n/ It is useful to process success and failure throughout the tree by\r\n   child nodes reporting to their parent nodes (towards the trunk of the\r\n   tree). /\r\n- Did not parse well to me.\r\n---\r\n/New connection attempts that involve transmitting\r\n   data on the network should not be started after another leaf node has\r\n   completed successfully, as the connection as a whole has been\r\n   established. /\r\n- the /as/ read poorly to me:\r\n  /New connection attempts that involve transmitting\r\n   data on the network ought not to be started after another leaf node has\r\n   already successfully completed, because the connection as a whole \r\n   has now been established. /\r\n---\r\n/Similarly, an implementation may choose to hold\r\n   onto fully established leaf nodes that were not the first to\r\n   establish for use as part of a Pooled Connection, see Section 7.1, or\r\n   in future connections./\r\n-  what does hold on to mean, and /that were not the first to\r\n   establish for use as part of a Pooled Connection/ was unclear.\r\n---\r\n/In both cases, keeping additional connections\r\n   is generally not recommended since those attempts were slower to\r\n   connect and may exhibit less desirable properties./\r\n- maybe better as:\r\n/In both cases, it is not generally not recommended to\r\n   keep additional connections, because those attempts were slower to\r\n   connect and may exhibit less desirable properties./\r\n- but even now I don't understand, which connections are we speaking about? \r\n---\r\n/In the case\r\n   that the application signals that the initial Protocol Stack is\r\n   failing for some reason and that another option should be attempted,\r\n   the Connection can be updated to point to the next candidate Protocol\r\n   Stack.  This can be viewed as an application-driven form of Protocol\r\n   Stack racing./\r\n- I think I could understand, ... but actually unsure really what this is about.\r\n----\r\nI think this may be OK:\r\n/   If the Selection Properties allow multiple protocols to be used for\r\n   listening, and the implementation supports it, the Listener object\r\n   should register across the eligble protocols for each path.  This\r\n   means that inbound Connections delivered by the implementation may\r\n   have heterogeneous protocol stacks./\r\n- however, I don't fully understand this text.\r\n---\r\n/These map well into Connection objects./\r\n- /map well/ or /map/ or do I miss something?\r\n---\r\n/it limits the required checksum in protocols /\r\n- should be:\r\n/ it sets the minimum protection in protocols/\r\n---\r\n/Transmission Profile: TBD - because it's not final in the API yet./\r\n- NOT defined."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/365",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -13153,7 +13283,10 @@
     "closed_at": null,
     "author_association": "CONTRIBUTOR",
     "body": "As I was updating text for #333, I noticed that the Listener object delivers connections, but doesn't provide a particular way to reject connections. Based on existing text, I assume that ReceivedConnection delivers a connection once the TLS server handshake is complete. Some implementation may want to rate limit, or modify/block inbound connections. \r\n\r\nShould we have some event that lets applications handle inbound connections before they are ready?\r\n\r\nOf course, for TLS, we can rely on callback handlers set for the handshake, but that requires each protocol to do this potentially."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/337",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -13431,10 +13564,7 @@
     "closed_at": "2019-08-20T22:34:19Z",
     "author_association": "CONTRIBUTOR",
     "body": "PR #321 added a return value to the Send to make matching of send error events and reply messages to their originating message easier:\r\n\r\n~~~\r\nmessageContext := Connection.Send(messageData, messageContext?, endOfMessage?)\r\n~~~\r\n\r\n@tfpauly raised the concern that this this adds return value that most often is not needed and ignoring it may often trigger a warning. \r\nTherefore, we have to decide whether to keep the return value based on what is worse:\r\n\r\n - Requiring the application to explicitly create a message context if it wants to identify the message that caused a send errors event or was the original request of a reply.\r\n - Having a return value that is often ignored and causes a lot of warnings in several implementations."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/335",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -15878,7 +16008,10 @@
     "closed_at": "2019-05-08T14:49:06Z",
     "author_association": "COLLABORATOR",
     "body": "What is the expected treatment of protocols that provide certain properties but which are not a mandatory part of the protocol, e.g. multistreaming in SCTP. If the application prohibits multistreaming, will SCTP be discarded during the candidate selection process? Will the API simply set the max in- and outbound streams to 1 during initialization of the SCTP association? What happens in cases where the API is not able to reliably turn individual properties on and off? "
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/307",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -15990,10 +16123,7 @@
     "closed_at": "2019-11-19T08:34:48Z",
     "author_association": "COLLABORATOR",
     "body": "Make it clearer that the implementation should only check for unsatisfiable selection property configurations after initiate/listen/rendezvous has been called. "
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/305",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -18686,7 +18816,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/278.patch"
     },
     "body": "As discussed at the January interim last week"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/277",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -18923,10 +19056,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/276.patch"
     },
     "body": "This PR contains a rough skeleton for an IANA registry fro property names.\r\n\r\nIt is mainly a proposal and starting point and will be discussed on the Jan'19 Interim."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/275",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -21494,7 +21624,10 @@
     "closed_at": "2019-10-28T01:09:17Z",
     "author_association": "CONTRIBUTOR",
     "body": "Right now, there are protocol specific examples mixed into the generic flow description; then, later, there is a section that has some description for protocol specific considerations.\r\n\r\nPossible re-organizations:\r\n\r\n1.\r\n\r\nPer-protocol mappings for each API call + per-protocol specific options. This is a guide to each protocol, such as a section for UDP and how each call is implemented for UDP, and what options UDP offers specifically.\r\n\r\nGeneral discussion about Pre-Establishment, Establishment, Data Transfer, etc, that has less information about specific protocols.\r\n\r\n2.\r\n\r\nStructure everything with the general topics (Pre-Establishment, Establishment, Data Transfer, etc), and have a rigorous list of each protocol's mappings at the end of each section. So, for Establishment, we describe racing, etc; and then go through and explain what Initiate() does for TCP, UDP, UDP Lite, QUIC, SCTP."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/247",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -21700,10 +21833,7 @@
     "closed_at": "2018-12-12T10:40:33Z",
     "author_association": "CONTRIBUTOR",
     "body": "these are a few minor changes to apply, and properties to add (e.g. \"disable MPTCP\")"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/245",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -23587,7 +23717,10 @@
     "closed_at": "2018-12-03T10:36:44Z",
     "author_association": "CONTRIBUTOR",
     "body": "A bunch of the taps authors had a breakfast meeting at some point in Montreal and while I wasn't able to find any minutes or notes about this, I do think we reached some kind of agreement on some parts of the P(arameter|roperty|referenc) discussion. Here is what I memorize:\r\n\r\n- There are no P*s that can be per connection and per message. Everything that is currently scoped for connections and messages should be split up into two different things with different names because it is not the same.\r\n\r\n- All P\\*s that a scoped for connections also are in scope for a preconnection, however, (1) this is not true the other way around, and (2) preconnection P\\*s are rather \"preferences\" and connection P*s are either configuration, meaning you can change them during the life of a connection, or fixed settings that you can only retrieve for your information but have been set in the preconnection phase.\r\n\r\n- Protocol-specific P* are special and kind of \"free-form\"/implementation specific. I think we actually need to further discuss how to implement/use them at some point (Do I need to specify a set of protocol P* for every possible protocol at preconnection time or does the protocol P* I specify impact my protocol selection? I think it's a bit confusing for the user if you can specify a bunch of e.g. TCP P* and then get a QUIC connection back...) but I guess that's a separate issue...\r\n\r\n- Most things that are currently classified as intents are probably not part of taps but might be implemented in a high (shim-)library that can translate these intents into P*s.\r\n\r\nDoes that sound about right? Any further thoughts?\r\n\r\n"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/217",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -23695,10 +23828,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/216.patch"
     },
     "body": "Rather than saying \"this can only be queried\" everywhere, I split this into setting and querying now, and I also moved SoftErrors in there. It's not precisely \"querying\" for a Property, but it's the closest match - better than \"Connection Termination\", I think (this is where SoftErrors were before)."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/215",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -26130,7 +26260,10 @@
     "closed_at": "2019-03-25T12:16:14Z",
     "author_association": "NONE",
     "body": "- This subsection appears out-of sequence. (Actually this could really help the reader if made a little easier to read and placed ahead of discussing the details).\r\n- I would like to express a preference for a rewrite of this section to use a simpler style of English.\r\n- I also would like consideration whether to position (at least parts of) this subsection earlier to explain why messages are being considered. If I read the spec without knowing more, an app developer could wonder what happened to the concept of streams and what I had lost.\r\n----\r\n/for transports that care about timing/\r\n- Is this transports that care, or applications that care?\r\n---\r\n/choosing what messages to retransmit/\r\nperhaps should be:\r\n/choosing which messages may be retransmitted/\r\n---\r\n/such as SCTP/\r\n- expand abbreviation on first use, and provide reference.\r\n---\r\n/message oriented API/message-oriented API\r\n---\r\n- I don't agree with this text:\r\n/To support a message oriented API, while still being compatible with stream-based transport protocols, implementations of the transport services architecture should provide APIs for framing and de-framing messages. That is, we push message framing down into the transport services API, allowing applications to send and receive complete messages./\r\n- Maybe a rewrite could separate what it means to have minimal support for messages and what additional API functions you could have to allow more advanced support for messages.\r\n- I think we agreed an API **could** do this, and I think we have to say this is optional. Here is a start at what I suggest:\r\n/A message-oriented API, can remain compatible with a stream-based transport protocol. An implementation of the transport services architecture could provide additional API functions for framing and de-framing of the messages. That is, ..../\r\n---"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/187",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -26361,10 +26494,7 @@
     "closed_at": "2018-06-12T08:22:14Z",
     "author_association": "NONE",
     "body": "----\r\nSection: Low Latency: : \r\nI really dislike the term /bandwidth efficiency/ - because we are not talking here of bandwidth in MHz, and certainly of not how efficiently the bandwidth is used from a radio perspective. Could we say /efficiently of using the available capacity/?\r\n\r\nI also have problems undrestaing what was intended by /and delay variation/ - because it doesn’t read correctly to me. What is intended?\r\n\r\nSection: Constant Rate: : \r\n- still dislike  /bandwidth efficiency/ - see above.\r\n---\r\n/rate adaptive/ should this be /rate-adaptive/ ?\r\n---\r\nSection: Scavenger/Bulk: : \r\n/for less-than-best-effort treatment, and so on./\r\n- can we explicitly point to the scavenger traffic class, rather than just the transport behaviour?\r\n\r\ne.g. add /or to assign the traffic to a lower effort service/ ??\r\n----\r\nShould we expand these abbreviations on first use?:\r\nNAT, ICE, STUN, SIP\r\n----\r\nSection: Connection Groups {#groups}\r\n- Could we consider removing the following clause ... I am not sure that I buy the specification text that reads:\r\n/An ideal transport system implementation would assign the Connection the capacity share (M-N) x C / M, where N is the Connection's Niceness value, M is the maximum Niceness value used by all Connections in the group and C is the total available capacity. /\r\n- I’d prefer to feel comfortable that we have running code that does this - NEAT does not implement this approach, it could do something I am sure - but do we have to write this as if we specify this in the API?\r\n---\r\nI do not like the words /about capacity allocation/ --- my rationale is that this doesn’t imply using an allocation method - I’d much prefer /about the way capacity is shared/\r\n\r\nSimilarly: /exact capacity allocation/ -- I’d prefer: /the way an implementation shares capacity/\r\n----\r\n/For example, infinite Lifetime is not possible on a Message over a Connection not providing reliability. /\r\n- This didn’t read quite correct to me, is this better:\r\n/For example, it is not possible to set an infinite Lifetime for a Message over a Connection that does not provide reliability. /\r\nor\r\n/For example, a Connection must provide reliability to allow a Message to set an infinite Lifetime. /\r\n----\r\nThe concept of  /an infinite Lifetime/  is just a tiny little odd, does this mean the value is set to infinite - or do we really expect persistent non-volatile storage of the message until it is sent?, I'd perhaps geel happier if we explained this as /an infinitie value for the lifetime property means that ..../\r\n----\r\nSection: Niceness {#send-niceness}\r\nThe term /normal/\r\n/Note that this inversion of normal schemes for expressing priority has a convenient property: priority increases as both Niceness and Lifetime decrease./\r\n- I wonder if this actually is clearer just to say:\r\n/This encoding of the priority has a convenient property that the priority increases as both Niceness and Lifetime decrease./\r\n\r\n/It is most naturally represented as a non-negative integer./\r\n- the other terms are defined more concretely. Is there any reason we do not start the niceness section by saying Niceness is a numeric (non-negative integer) quantity. \r\n---\r\nI didn't read the appendexes because I thought they were still being edited - happy to read when asked."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/185",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -29033,7 +29163,10 @@
     "closed_at": "2018-06-09T12:13:00Z",
     "author_association": "CONTRIBUTOR",
     "body": "We need to distinguish between sending unreliably, but congestion controlled, and sending unreliably without congestion control (the application must know if it has to perform congestion control or not). This should influence at least the protocol and path selection properties."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/157",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -29277,10 +29410,7 @@
     "closed_at": "2018-07-16T15:51:35Z",
     "author_association": "NONE",
     "body": "An application needs a way to know when its Close() or Abort() call is complete, guaranteeing it won't receive any further events on the connection and all current event processing is done.  This is necessary so the application can clean up any application state related to the connection.\r\n\r\nNote that in a multi-threaded environment, events can be executing on other threads at the same time that the Close() or Abort() call is called; in addition, an application can potentially call Close() or Abort() from within an event processing function itself."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/155",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -32477,7 +32607,10 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/128.patch"
     },
     "body": "This is a reworking of the text from Section 4.2 of draft-trammell-taps-post-sockets-03, intended to help motivate the choice of Message-based APIs with framing for the transport services architecture. The level of detail here seems appropriate for the architecture document, rather than the API."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/127",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -32596,10 +32729,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/126.patch"
     },
     "body": "Closes #113 "
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/125",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -35003,7 +35133,10 @@
     "closed_at": "2018-02-26T17:56:18Z",
     "author_association": "CONTRIBUTOR",
     "body": "In 4.2 the concept of Connection Group is broader than just for multiplexing protocols. Suggest to adjust text to:\r\n\r\nConnection Group: a Connections Group is a set of Connections that share all properties. For multiplexing transport protocols, the Connections in a Connection Group can be multiplexed together."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/97",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -35113,10 +35246,7 @@
       "patch_url": "https://github.com/ietf-tapswg/api-drafts/pull/96.patch"
     },
     "body": "Fixes all outstanding London API issues except #92 and #93"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/95",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -38167,7 +38297,10 @@
     "closed_at": "2018-02-21T19:18:14Z",
     "author_association": "CONTRIBUTOR",
     "body": "Section 5.2.2. of the API should include the concept from the architecture of Specific Protocol Properties. I think expecting that all of these timeout/etc values should be the same no matter what protocol is selected is limiting, and a bit naive. I know as an application, for example, that I may need to do more keep alive activity to make NATs happy for UDP-based protocols than for TCP-based protocols (where are you, PLUS?!). \r\n\r\nJust a quick paragraph to indicate that the API can allow protocol-specific options to tune based on what is ultimately selected would be good."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/67",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -38313,10 +38446,7 @@
     "closed_at": "2018-02-21T14:48:23Z",
     "author_association": "NONE",
     "body": "Text: /The Content may also contain metadata from protocols in the Protocol Stack for logging and debugging purposes. In particular, when this information is available, the value of the Explicit Congestion Notification (ECN) field is contained in such metadata./\r\n- I think ECN or IP options and maybe some other metadata are not only for “logging and debugging purposes”. Therefore, I think this first sentence needs to also indicate the metadata can be used by applications that implement protocol functions  above the transport. You can (if you wish) quote UDP Guidelines to suggest this may be necessary for some datagram functions, but that it is general desirable to use standard transport functions when these can provide the desired functionality!"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/65",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -41242,7 +41372,10 @@
     "closed_at": "2018-12-13T11:48:15Z",
     "author_association": "CONTRIBUTOR",
     "body": "When thinking about connection migration and multipath, I disagree that Path Selection Properties can not be changed later on. The question is whether a change to the ~~Transport Parameters~~ Path Selection Properties should trigger connection migration or whether another mechanism is needed."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/37",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -41408,10 +41541,7 @@
     "closed_at": "2018-02-14T15:32:03Z",
     "author_association": "CONTRIBUTOR",
     "body": "§5.2.1 defines \"Control checksum coverage...\" (from minset) as a transport selection property, but there is no support for this in §7 Sending. Need to figure out how to reconcile this."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/35",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -44476,7 +44606,10 @@
     "closed_at": "2018-02-06T10:38:37Z",
     "author_association": "CONTRIBUTOR",
     "body": "and note / design for the fact that an API that requires all send calls to always have all parameters won't get used for reasons of ugliness"
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/7",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
@@ -44736,10 +44869,7 @@
     "closed_at": "2018-02-18T19:51:27Z",
     "author_association": "CONTRIBUTOR",
     "body": "I don't recall whether we came to consensus in Cambridge that there needed to be a separate entry point for peer-to-peer establishment: is this a kinda-simultaneous Initiate on N sides, or is it really its own call? If the latter, tagging @csperkins for this (and feel free to decide it's not necessary after all)"
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/ietf-tapswg/api-drafts/issues/5",
     "repository_url": "https://api.github.com/repos/ietf-tapswg/api-drafts",
