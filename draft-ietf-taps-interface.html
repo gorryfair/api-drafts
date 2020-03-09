@@ -843,7 +843,7 @@ table.left {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Trammell, et al.</td>
-<td class="center">Expires 9 September 2020</td>
+<td class="center">Expires 10 September 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -856,12 +856,12 @@ table.left {
 <dd class="internet-draft">draft-ietf-taps-interface-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-03-08" class="published">8 March 2020</time>
+<time datetime="2020-03-09" class="published">9 March 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-09-09">9 September 2020</time></dd>
+<dd class="expires"><time datetime="2020-09-10">10 September 2020</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -935,7 +935,7 @@ and potential transport protocols to select from.<a href="#section-abstract-1" c
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 September 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 September 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -3487,10 +3487,7 @@ establishment.<a href="#section-7.8-5" class="pilcrow">¶</a></p>
 sending, data is received in terms of Messages. Receiving is an asynchronous
 operation, in which each call to Receive enqueues a request to receive new
 data from the connection. Once data has been received, or an error is encountered,
-an event will be delivered to complete the Receive request (see <a href="#receive-events" class="xref">Section 8.2</a>).<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">As with sending, the type of the Message to be passed is dependent on the
-implementation, and on the constraints on the Protocol Stacks implied by the
-Connection's Transport Properties.<a href="#section-8-2" class="pilcrow">¶</a></p>
+an event will be delivered to complete any pending Receive requests (see <a href="#receive-events" class="xref">Section 8.2</a>). If Messages arrive at the transport system before Receive requests are issued, ensuing Receive requests will first operate on these Messages before awaiting any further Messages.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <div id="enqueuing-receives">
 <section id="section-8.1">
         <h3 id="name-enqueuing-receives">
@@ -4001,7 +3998,7 @@ when a Connection is multiplexed, the guidelines in Section 6 of <span>[<a href=
   the traffic to a lower-effort service. Transport system implementations that
   map the requested capacity profile onto per-connection DSCP signaling
   SHOULD assign the DSCP Less than Best Effort
-  <span>[<a href="#LE-PHB" class="xref">LE-PHB</a>]</span> PHB.<a href="#section-10.1.6-4.4" class="pilcrow">¶</a>
+  <span>[<a href="#RFC8622" class="xref">RFC8622</a>]</span> PHB.<a href="#section-10.1.6-4.4" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.6-4.5">Low Latency/Interactive:</dt>
 <dd id="section-10.1.6-4.6">
@@ -4011,9 +4008,7 @@ when a Connection is multiplexed, the guidelines in Section 6 of <span>[<a href=
   used by the system to disable the coalescing of multiple small Messages into
   larger packets (Nagle's algorithm); to prefer immediate acknowledgment from
   the peer endpoint when supported by the underlying transport; and so on.
-  Transport system implementations that map the requested capacity profile onto
-  per-connection DSCP signaling without multiplexing SHOULD assign the DSCP
-  Expedited Forwarding <span>[<a href="#RFC3246" class="xref">RFC3246</a>]</span> PHB.<a href="#section-10.1.6-4.6" class="pilcrow">¶</a>
+  Transport system implementations that map the requested capacity profile onto per-connection DSCP signaling without multiplexing SHOULD assign a DSCP Assured Forwarding (AF41,AF42,AF43,AF44) <span>[<a href="#RFC2597" class="xref">RFC2597</a>]</span> PHB. Inelastic traffic that is expected to conform to the configured network service rate could be mapped to the DSCP Expedited Forwarding <span>[<a href="#RFC3246" class="xref">RFC3246</a>]</span> or <span>[<a href="#RFC5865" class="xref">RFC5865</a>]</span> PHBs.<a href="#section-10.1.6-4.6" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.6-4.7">Low Latency/Non-Interactive:</dt>
 <dd id="section-10.1.6-4.8">
@@ -4508,9 +4503,6 @@ and for contributing text, e.g., on multicast.<a href="#section-15-5" class="pil
 <dt id="I-D.ietf-tsvwg-datagram-plpmtud">[I-D.ietf-tsvwg-datagram-plpmtud]</dt>
 <dd>
 <span class="refAuthor">Fairhurst, G.</span><span class="refAuthor">, Jones, T.</span><span class="refAuthor">, Tuexen, M.</span><span class="refAuthor">, Ruengeler, I.</span><span class="refAuthor">, and T. Voelker</span>, <span class="refTitle">"Packetization Layer Path MTU Discovery for Datagram Transports"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tsvwg-datagram-plpmtud-15</span>, <time datetime="2020-02-24">24 February 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-datagram-plpmtud-15.txt">http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-datagram-plpmtud-15.txt</a>&gt;</span>. </dd>
-<dt id="LE-PHB">[LE-PHB]</dt>
-<dd>
-<span class="refAuthor">Bless, R.</span>, <span class="refTitle">"A Lower Effort Per-Hop Behavior (LE PHB) for Differentiated Services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tsvwg-le-phb-10</span>, <time datetime="2019-03-11">11 March 2019</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-le-phb-10.txt">http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-le-phb-10.txt</a>&gt;</span>. </dd>
 <dt id="RFC2474">[RFC2474]</dt>
 <dd>
 <span class="refAuthor">Nichols, K.</span><span class="refAuthor">, Blake, S.</span><span class="refAuthor">, Baker, F.</span><span class="refAuthor">, and D. Black</span>, <span class="refTitle">"Definition of the Differentiated Services Field (DS Field) in the IPv4 and IPv6 Headers"</span>, <span class="seriesInfo">RFC 2474</span>, <span class="seriesInfo">DOI 10.17487/RFC2474</span>, <time datetime="1998-12">December 1998</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2474">https://www.rfc-editor.org/info/rfc2474</a>&gt;</span>. </dd>
@@ -4535,6 +4527,9 @@ and for contributing text, e.g., on multicast.<a href="#section-15-5" class="pil
 <dt id="RFC5482">[RFC5482]</dt>
 <dd>
 <span class="refAuthor">Eggert, L.</span><span class="refAuthor"> and F. Gont</span>, <span class="refTitle">"TCP User Timeout Option"</span>, <span class="seriesInfo">RFC 5482</span>, <span class="seriesInfo">DOI 10.17487/RFC5482</span>, <time datetime="2009-03">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5482">https://www.rfc-editor.org/info/rfc5482</a>&gt;</span>. </dd>
+<dt id="RFC5865">[RFC5865]</dt>
+<dd>
+<span class="refAuthor">Baker, F.</span><span class="refAuthor">, Polk, J.</span><span class="refAuthor">, and M. Dolly</span>, <span class="refTitle">"A Differentiated Services Code Point (DSCP) for Capacity-Admitted Traffic"</span>, <span class="seriesInfo">RFC 5865</span>, <span class="seriesInfo">DOI 10.17487/RFC5865</span>, <time datetime="2010-05">May 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5865">https://www.rfc-editor.org/info/rfc5865</a>&gt;</span>. </dd>
 <dt id="RFC7478">[RFC7478]</dt>
 <dd>
 <span class="refAuthor">Holmberg, C.</span><span class="refAuthor">, Hakansson, S.</span><span class="refAuthor">, and G. Eriksson</span>, <span class="refTitle">"Web Real-Time Communication Use Cases and Requirements"</span>, <span class="seriesInfo">RFC 7478</span>, <span class="seriesInfo">DOI 10.17487/RFC7478</span>, <time datetime="2015-03">March 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7478">https://www.rfc-editor.org/info/rfc7478</a>&gt;</span>. </dd>
@@ -4556,6 +4551,9 @@ and for contributing text, e.g., on multicast.<a href="#section-15-5" class="pil
 <dt id="RFC8546">[RFC8546]</dt>
 <dd>
 <span class="refAuthor">Trammell, B.</span><span class="refAuthor"> and M. Kuehlewind</span>, <span class="refTitle">"The Wire Image of a Network Protocol"</span>, <span class="seriesInfo">RFC 8546</span>, <span class="seriesInfo">DOI 10.17487/RFC8546</span>, <time datetime="2019-04">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8546">https://www.rfc-editor.org/info/rfc8546</a>&gt;</span>. </dd>
+<dt id="RFC8622">[RFC8622]</dt>
+<dd>
+<span class="refAuthor">Bless, R.</span>, <span class="refTitle">"A Lower-Effort Per-Hop Behavior (LE PHB) for Differentiated Services"</span>, <span class="seriesInfo">RFC 8622</span>, <span class="seriesInfo">DOI 10.17487/RFC8622</span>, <time datetime="2019-06">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8622">https://www.rfc-editor.org/info/rfc8622</a>&gt;</span>. </dd>
 <dt id="RFC8699">[RFC8699]</dt>
 <dd>
 <span class="refAuthor">Islam, S.</span><span class="refAuthor">, Welzl, M.</span><span class="refAuthor">, and S. Gjessing</span>, <span class="refTitle">"Coupled Congestion Control for RTP Media"</span>, <span class="seriesInfo">RFC 8699</span>, <span class="seriesInfo">DOI 10.17487/RFC8699</span>, <time datetime="2020-01">January 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8699">https://www.rfc-editor.org/info/rfc8699</a>&gt;</span>. </dd>
