@@ -294,11 +294,7 @@ Internet-Draft               TAPS Interface                   March 2020
    implemented as functions or method calls, for instance, and Events
    could be implemented via event queues, handler functions or classes,
    communicating sequential processes, or other asynchronous calling
-   conventions.  The method for dispatching and handling Events is an
-   implementation detail, with the caveat that the interface for
-   receiving Messages must require the application to invoke the
-   Connection.Receive() Action once per Message to be received (see
-   Section 8).
+   conventions.
 
    This specification treats Events and errors similarly.  Errors, just
    as any other Events, may occur asynchronously in network
@@ -331,16 +327,16 @@ Internet-Draft               TAPS Interface                   March 2020
       written to a single API to make use of transport protocols in
       terms of the features they provide;
 
+   *  Message-orientation, as opposed to stream-orientation, using
+      application-assisted framing and deframing where the underlying
+      transport does not provide these;
+
 
 
 Trammell, et al.        Expires 10 September 2020               [Page 6]
 
 Internet-Draft               TAPS Interface                   March 2020
 
-
-   *  Message-orientation, as opposed to stream-orientation, using
-      application-assisted framing and deframing where the underlying
-      transport does not provide these;
 
    *  Asynchronous Connection establishment, transmission, and
       reception, allowing concurrent operations during establishment and
@@ -349,8 +345,9 @@ Internet-Draft               TAPS Interface                   March 2020
       programming languages;
 
    *  Explicit support for security properties as first-order transport
-      features, and for long-term caching of cryptographic identities
-      and parameters for associations among endpoints; and
+      features, and for configuration of cryptographic identities and
+      transport security parameters persistent across multiple
+      Connections; and
 
    *  Explicit support for multistreaming and multipath transport
       protocols, and the grouping of related Connections into Connection
@@ -360,22 +357,22 @@ Internet-Draft               TAPS Interface                   March 2020
 
 4.  API Summary
 
-   The Transport Services Interface is the basic common abstract
-   application programming interface to the Transport Services
-   Architecture defined in the TAPS Architecture [I-D.ietf-taps-arch].
+   The Transport Services API is the basic common abstract application
+   programming interface to the Transport Services Architecture defined
+   in the TAPS Architecture [I-D.ietf-taps-arch].
 
-   An application primarily interacts with this interface through two
-   Objects: Preconnections and Connections.  A Preconnection represents
-   a set of properties and constraints on the selection and
-   configuration of paths and protocols to establish a Connection with a
-   remote Endpoint.  A Connection represents a transport Protocol Stack
-   on which data can be sent to and/or received from a remote Endpoint
-   (i.e., depending on the kind of transport, connections can be bi-
-   directional or unidirectional).  Connections can be created from
-   Preconnections in three ways: by initiating the Preconnection (i.e.,
-   actively opening, as in a client), through listening on the
-   Preconnection (i.e., passively opening, as in a server), or
-   rendezvousing on the Preconnection (i.e. peer to peer establishment).
+   An application primarily interacts with this API through two Objects:
+   Preconnections and Connections.  A Preconnection represents a set of
+   properties and constraints on the selection and configuration of
+   paths and protocols to establish a Connection with a remote Endpoint.
+   A Connection represents a transport Protocol Stack on which data can
+   be sent to and/or received from a remote Endpoint (i.e., depending on
+   the kind of transport, connections can be bi-directional or
+   unidirectional).  Connections can be created from Preconnections in
+   three ways: by initiating the Preconnection (i.e., actively opening,
+   as in a client), through listening on the Preconnection (i.e.,
+   passively opening, as in a server), or rendezvousing on the
+   Preconnection (i.e. peer to peer establishment).
 
    Once a Connection is established, data can be sent and received on it
    in the form of Messages.  The interface supports the preservation of
@@ -385,6 +382,9 @@ Internet-Draft               TAPS Interface                   March 2020
    event handlers registered by the application.  Errors and other
    notifications also happen asynchronously on the Connection.  It is
    not necessary for an application to handle all events; some events
+   may have implementation-specific default handlers.  The application
+   should not assume that ignoring events (e.g. errors) is always safe.
+
 
 
 
@@ -393,9 +393,6 @@ Trammell, et al.        Expires 10 September 2020               [Page 7]
 
 Internet-Draft               TAPS Interface                   March 2020
 
-
-   may have implementation-specific default handlers.  The application
-   should not assume that ignoring events (e.g. errors) is always safe.
 
    Section 5, Section 6, Section 7, Section 8, and Section 11 describe
    the details of application interaction with Objects through Actions
@@ -438,6 +435,9 @@ Internet-Draft               TAPS Interface                   March 2020
    This is an example of how an application might listen for incoming
    Connections using the Transport Services Interface, receive a
    request, and send a response.
+
+
+
 
 
 
@@ -748,11 +748,17 @@ Internet-Draft               TAPS Interface                   March 2020
 
    *  Implementations of this interface SHOULD implement each Selection
       Property, Connection Property, and Message Context Property
-      specified in this document, exclusive of appendices.  Each
-      interface SHOULD be implemented even when this will always result
-      in no operation, e.g. there is no action when the API specifies a
-      Property that is not available in a transport protocol implemented
-      on a specific platform.
+      specified in this document.  Each interface SHOULD be implemented
+      even when this will always result in no operation, e.g. there is
+      no action when the API specifies a Property that is not available
+      in a transport protocol implemented on a specific platform.  For
+      example, if TCP is the only underlying transport protocol, the
+      Message Property "msg-ordered" can be implemented even if
+      disabling ordering will not have any effect TCP because the API
+      does not guarantee out-of-order delivery.  Similarly, the msg-
+      lifetime" Message Property can be implemented but ignored, as the
+      description of this Property states that "it is not guaranteed
+      that a Message will not be sent when its Lifetime has expired".
 
    *  Implementations may use other representations for Transport
       Property Names, e.g., by providing constants, but should provide a
@@ -773,18 +779,17 @@ Internet-Draft               TAPS Interface                   March 2020
    preconfigured Connection Properties (Section 10.1), and the security
    parameters (see Section 5.3):
 
-      Preconnection := NewPreconnection(LocalEndpoint?,
-                                        RemoteEndpoint?,
-                                        TransportProperties,
-                                        SecurityParams)
-
-
 
 
 Trammell, et al.        Expires 10 September 2020              [Page 14]
 
 Internet-Draft               TAPS Interface                   March 2020
 
+
+      Preconnection := NewPreconnection(LocalEndpoint?,
+                                        RemoteEndpoint?,
+                                        TransportProperties,
+                                        SecurityParams)
 
    The Local Endpoint MUST be specified if the Preconnection is used to
    Listen() for incoming Connections, but is OPTIONAL if it is used to
@@ -829,11 +834,6 @@ Internet-Draft               TAPS Interface                   March 2020
    LocalSpecifier.WithInterface("en0")
    LocalSpecifier.WithPort(443)
 
-   As an alternative to specifying an interface name for the Local
-   Endpoint, an application can express more fine-grained preferences
-   using the "Interface Instance or Type" Selection Property, see
-   Section 5.2.10.  However, if the application specifies Selection
-   Properties which are inconsistent with the Local Endpoint, this will
 
 
 
@@ -842,6 +842,11 @@ Trammell, et al.        Expires 10 September 2020              [Page 15]
 Internet-Draft               TAPS Interface                   March 2020
 
 
+   As an alternative to specifying an interface name for the Local
+   Endpoint, an application can express more fine-grained preferences
+   using the "Interface Instance or Type" Selection Property, see
+   Section 5.2.10.  However, if the application specifies Selection
+   Properties which are inconsistent with the Local Endpoint, this will
    result in an error once the application attempts to open a
    Connection.
 
@@ -885,11 +890,6 @@ Internet-Draft               TAPS Interface                   March 2020
    implementation to reduce connection setup latency, at the cost of
    potentially limited scope for alternate path discovery during
    Connection establishment, as well as potential additional information
-   leakage about application interest when used with a resolution method
-   (such as DNS without TLS) which does not protect query
-   confidentiality.
-
-
 
 
 
@@ -897,6 +897,10 @@ Trammell, et al.        Expires 10 September 2020              [Page 16]
 
 Internet-Draft               TAPS Interface                   March 2020
 
+
+   leakage about application interest when used with a resolution method
+   (such as DNS without TLS) which does not protect query
+   confidentiality.
 
    The Resolve() action on Preconnection can be used by the application
    to force early binding when required, for example with some Network
@@ -932,10 +936,6 @@ Internet-Draft               TAPS Interface                   March 2020
 
    Most Selection Properties are represented as preferences, which can
    have one of five preference levels:
-
-
-
-
 
 
 
@@ -1020,7 +1020,7 @@ Internet-Draft               TAPS Interface                   March 2020
 
    TransportProperties.Add(property, value)
 
-   Preference-typed Selection Properties can be frequently used.
+   Selection Properties of type "Preference" can be frequently used.
    Implementations MAY therefore provide additional convenience
    functions, see Appendix A.1 for examples.  In addition,
    implementations MAY provide a mechanism to create TransportProperties
@@ -1042,7 +1042,7 @@ Internet-Draft               TAPS Interface                   March 2020
    many properties are only considered during establishment, and can not
    be changed after a Connection is established; however, they can be
    queried.  Querying a Selection Property after establishment yields
-   the value Required for properties of the selected protocol and path,
+   the value "Require" for properties of the selected protocol and path,
    Avoid for properties avoided during selection, and Ignore for all
    other properties.
 
@@ -1205,7 +1205,7 @@ Internet-Draft               TAPS Interface                   March 2020
    This property allows the application to select which specific network
    interfaces or categories of interfaces it wants to "Require",
    "Prohibit", "Prefer", or "Avoid".  Note that marking a specific
-   interface as "Required" strictly limits path selection to a single
+   interface as "Require" strictly limits path selection to a single
    interface, and may often lead to less flexible and resilient
    connection establishment.
 
@@ -1225,7 +1225,7 @@ Internet-Draft               TAPS Interface                   March 2020
    on both mobile devices and desktop devices, it should define the
    "Cellular" interface type for both systems, since an application may
    want to always "Prohibit Cellular".  Note that marking a specific
-   interface type as "Required" limits path selection to a small set of
+   interface type as "Require" limits path selection to a small set of
 
 
 
@@ -1805,14 +1805,14 @@ Internet-Draft               TAPS Interface                   March 2020
    as in Section 7.5.2: when allocating available network capacity among
    Connections in a Connection Group, sends on Connections with higher
    Priority values will be prioritized over sends on Connections with
-   lower Priority values.  An ideal transport system implementation
-   would assign each Connection the capacity share (M-N) x C / M, where
-   N is the Connection's Priority value, M is the maximum Priority value
-   used by all Connections in the group and C is the total available
-   capacity.  However, the Priority setting is purely advisory, and no
-   guarantees are given about the way capacity is shared.  Each
-   implementation is free to implement a way to share capacity that it
-   sees fit.
+   lower Priority values.  A transport system implementation should, if
+   possible, assign each Connection the capacity share (M-N) x C / M,
+   where N is the Connection's Priority value, M is the maximum Priority
+   value used by all Connections in the group and C is the total
+   available capacity.  However, the Priority setting is purely
+   advisory, and no guarantees are given about the way capacity is
+   shared.  Each implementation is free to implement a way to share
+   capacity that it sees fit.
 
 7.  Sending Data
 
@@ -2250,11 +2250,11 @@ Internet-Draft               TAPS Interface                   March 2020
 
    This property specifies that a message should be sent and received as
    a single packet without transport-layer segmentation or network-layer
-   fragmentation.  Attempts to send a message with this property set
-   with a size greater to the transport's current estimate of its
-   maximum transmission segment size will result in a "SendError".  When
-   used with transports supporting this functionality and running over
-   IP version 4, the Don't Fragment bit will be set.
+   fragmentation, if possible.  Attempts to send a message with this
+   property set with a size greater to the transport's current estimate
+   of its maximum transmission segment size will result in a
+   "SendError".  When used with transports supporting this functionality
+   and running over IP version 4, the Don't Fragment bit will be set.
 
 7.6.  Partial Sends
 
@@ -2771,12 +2771,13 @@ Internet-Draft               TAPS Interface                   March 2020
    Default:  100
 
    This Property is a non-negative integer representing the relative
-   inverse priority of this Connection relative to other Connections in
-   the same Connection Group.  It has no effect on Connections not part
-   of a Connection Group.  As noted in Section 6.4, this property is not
-   entangled when Connections are cloned, i.e., changing the Priority on
-   one Connection in a Connection Group does not change it on the other
-   Connections in the same Connection Group.
+   inverse priority (i.e., a lower value reflects a higher priority) of
+   this Connection relative to other Connections in the same Connection
+   Group.  It has no effect on Connections not part of a Connection
+   Group.  As noted in Section 6.4, this property is not entangled when
+   Connections are cloned, i.e., changing the Priority on one Connection
+   in a Connection Group does not change it on the other Connections in
+   the same Connection Group.
 
 10.1.4.  Timeout for Aborting Connection
 
@@ -2793,7 +2794,6 @@ Internet-Draft               TAPS Interface                   March 2020
    that this timeout is not scheduled to happen.  This can be a valid
    choice with unreliable data transfer (e.g., when UDP is the
    underlying transport protocol).
-
 
 
 
@@ -3047,11 +3047,11 @@ Internet-Draft               TAPS Interface                   March 2020
 10.3.1.  Soft Errors
 
    Asynchronous introspection is also possible, via the SoftError Event.
-   This event informs the application about the receipt of an ICMP error
-   message related to the Connection.  This will only happen if the
-   underlying protocol stack supports access to soft errors; however,
-   even if the underlying stack supports it, there is no guarantee that
-   a soft error will be signaled.
+   This event informs the application about the receipt and contents of
+   an ICMP error message related to the Connection.  This will only
+   happen if the underlying protocol stack supports access to soft
+   errors; however, even if the underlying stack supports it, there is
+   no guarantee that a soft error will be signaled.
 
    Connection -> SoftError<>
 
@@ -3481,7 +3481,7 @@ Appendix A.  Convenience Functions
 
 A.1.  Adding Preference Properties
 
-   As Selection Properties of type Preference will be added to a
+   As Selection Properties of type "Preference" will be added to a
    TransportProperties object quite frequently, implementations should
    provide special actions for adding each preference level i.e,
    "TransportProperties.Add(some_property, avoid)" is equivalent to
