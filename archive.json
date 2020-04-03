@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-02T12:04:04.506639+00:00",
+  "timestamp": "2020-04-03T10:35:37.449890+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -14625,7 +14625,7 @@
       "id": "MDU6SXNzdWU1NTA3MDM3MTM=",
       "title": "Retransmit notify",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/438",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -14637,8 +14637,8 @@
       ],
       "body": "\"   Name: :retransmit-notify\r\n\r\n   This property specifies whether an application considers it useful to\r\n   be informed in case sent data was retransmitted more often than a\r\n   certain threshold.  The default is to Ignore this option.\"\r\n\r\nI guess we then also need an option to set this threshold?\r\n\r\nOr we make this option of type Integer and say 0 is ignore.",
       "createdAt": "2020-01-16T10:09:51Z",
-      "updatedAt": "2020-03-04T11:33:11Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-02T15:03:16Z",
+      "closedAt": "2020-04-02T15:03:16Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -14667,6 +14667,27 @@
           "body": "It's a minset thing. So, backtracking:\r\n\r\n- Appendix: this maps to \"Notification of Excessive Retransmissions (early warning below abortion threshold)\"\r\n\r\n- Minset A.1 points back at ERROR.TCP in RFC 8303, and classifies this as: \"Optimizing because it is an early warning to the application, informing it of an impending functional event.\"\r\n\r\n- In RFC 8303, it gets clear that ERROR.TCP is about soft errors from ICMP, including at least \"ICMP error message arrived and excessive retransmissions\", and there is a pointer to Section 4.2.4.1 of RFC 1122.\r\n\r\n- There, we find: \"However, the conditions that are reported asynchronously to the application MUST include (..) Excessive retransmissions (see 4.2.3.5) (..) \". In Section 4.2.3.5, we have: \"Excessive retransmission of the same segment by TCP indicates some failure of the remote host or the Internet path.  This failure may be of short or long duration.  The following procedure MUST be used to handle excessive retransmissions of data segments [IP:11]:\", followed by text that talks about a configurable threshold for early notification (in addition to having a higher abortion threshold).\r\n\r\nSo: I agree that this may not be super useful - but it's a case where we have a MUST regarding notifying the application, and a MUST for configuring a threshold. Hence we couldn't simply make it a part of the soft error notification, because then wouldn't get to configure the threshold. As stated above, we currently do have a configurable threshold: the Generic Connection Property retransmit-notify-threshold.",
           "createdAt": "2020-03-04T11:33:11Z",
           "updatedAt": "2020-03-04T11:33:11Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I added the reference, which was needed as @mirjak and I agreed above.\r\nIf someone wants to discuss this even more, shout - before the end of this week. If noone shouts, I'll close this next week.",
+          "createdAt": "2020-04-02T12:18:31Z",
+          "updatedAt": "2020-04-02T12:18:31Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "Adding the reference seems like the correct thing to do. If we were to discuss the usefulness - I have doubts - but we don't need to have that discussion. ",
+          "createdAt": "2020-04-02T12:30:34Z",
+          "updatedAt": "2020-04-02T12:30:34Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closing now in this case  :)",
+          "createdAt": "2020-04-02T15:03:16Z",
+          "updatedAt": "2020-04-02T15:03:16Z"
         }
       ]
     },
@@ -16236,6 +16257,215 @@
       "body": "Overall review: I think we need to keep the normative language for the key features that differentiate the API. I'd really like to use REQUIRED, RECOMMENDED, rather MUST and SHOULD - because these are not protocol operation requirements, but are implementation requirements to conform. This includes requirements based on Minset - where the WG dervied this API: This is after all why the WG worked on Minset as the basis of the API.\r\n\r\nI suggest we group all the requirements on architecture as short one or two sentence blocks (preferably as a bullet or definition list) collected into a single subsection, so they are easy to find and read and we say that these are the key architectural requirements. \r\n\r\nWe insert this new requirements text either their own section, or in section 1.3 (although I am open to other places where we can call-out the architectural requirements).\r\n\r\n----\r\n\r\nThe following are key requirements, that define the TAPS architecture:\r\n\r\n* It is RECOMMENDED that functionality that is common across multiple transport protocols is made accessible through a unified set of TAPS interface calls. As a baseline, a Transport Services system interface is REQUIRED to allow access to the minimal set of features offered by transport protocols {{?I-D.ietf-taps-minset}}.\r\n\r\n* A Transport Services system automates the selection of protocols and features and network, based on a set of Properties supplied through the TAPS interface. It is RECOMMENDED that a Transport Services system offers Properties that are common to multiple transport protocols. Specifying common Properties enables a system to appropriately select between protocols that offer equivalent features. This design permits evolution of the transport protocols and functions without affecting the programs using the system.\r\n\r\n* Specifying common Properties enables a Transport Services system to appropriately select an appropriate network interface. It is RECOMMENDED that a system offers Properties that are common to a variety network layer interfaces and paths. This design permits racing of different network paths without affecting the programs using the system.\r\n\r\n* Applications using the Transport Services system interface are REQUIRED to be robust to the automated selection provided by the system, including the possibility to express requirements and preferences that constrain the choices that can be made by the system. \r\n\r\n* If two different Protocol Stacks can be safely swapped, or raced in parallel (see Section 4.2.2), by the Transport Services system then they are considered to be \"equivalent\". Equivalent Protocol Stacks need to meet the requirements for racing  specified  in  section XX.\r\n\r\n* Applications using a Transport Services system MAY explicitly require or prevent the use of specific transport features (and transport protocols) and XXXinterfaces using the \"REQUIRED\" and \"PROHIBIT\" preferences. This allows an application to constrain the set of protocols and features that will be selected for the transport service. It is RECOMMENDED that the default usage by applications does not necessarily restrict this selection, so that the system can make informed choices (e.g., based on the availability of interfaces or set of transport protocols available for the specified remote endpoint).\r\n\r\n* When a Transport Services system races between two different Protocol Stacks, both SHOULD use the same security protocols and options. However, a Transport Services system MAY race different security protocols, e.g., if the application explicitly specifies that it considers them equivalent.\r\n\r\n* Transport Services systems MUST NOT automatically fall back from secure protocols to insecure protocols, or to weaker versions of secure protocols. A Transport Services system MAY allow applications to specify that fallback to a specific other version of a protocol is allowed.\r\n\r\n* It is RECOMMENDED that in normal use, a Transport Services system is designed so that all selection decisions result in consistent choices for the same network conditions when they have the same set of preferences. This is intended to provide predictable outcomes to the application using the transport service.\r\n\r\n---\r\n\r\nI would then suggest to use lower case within other parts of the document - except were pointed to from here,  (we could refer to the requirements subsection, if we thought necessary).",
       "createdAt": "2020-03-27T07:57:32Z",
       "updatedAt": "2020-03-27T08:05:19Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 520,
+      "id": "MDU6SXNzdWU1OTI1OTU0ODc=",
+      "title": "Reliable Data Transfer (Message) default - from Kyle Rose's review",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/520",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API",
+        "discuss"
+      ],
+      "body": "List discussion:\r\n\r\n**Kyle:**\r\n> 7.4.7. Reliable Data Transfer (Message)\r\n> \r\n> * The default isn't \"true\", it's whatever the underlying connection had, right?\r\n> \r\n\r\n**@philsbln**:\r\n>  Ack\r\n\r\n**@mwelzl**:\r\n\r\n> I agree too, but doesn\u2019t this warrant some more discussion?\r\n> I think our defaults all translate into things that can work in some way when TCP is used - with \u201cReliable Data Transfer\u201d being an exception, as it just can\u2019t work in a UDP-only system. Are there others?  I think I\u2019ll open an issue for this one.\r\n> \r\n\r\n**@gorryfair**:\r\n\r\n> I don't agree at all - To me this was just the default behaviour of the API.\r\n> \r\n> I think the default needs to be \"reliable\" and an app will have to over-ride that to get datagram/unreliable operation. That doesn't mean if you have only UDP (for instance) that you can't offer TAPS, to me it simply means you always need to say that the app wants this service.",
+      "createdAt": "2020-04-02T12:32:22Z",
+      "updatedAt": "2020-04-03T10:16:38Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree with the conclusion of @gorryfair above - in which case we should leave things as they are. Other views?",
+          "createdAt": "2020-04-02T12:33:16Z",
+          "updatedAt": "2020-04-02T12:33:16Z"
+        },
+        {
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree that if the application does nothing then communication should be reliable. But I understand Kyle's comment as asking about the relationship to the selection property Reliable Data Transfer (Connection). If you for example set that to Avoid and the TAPS system selects SCTP as the protocol, then if you do not set Reliable Data Transfer (Message) on a message I assume it will be sent as an unreliable message. So in that sense the reliability of a message defaults to whatever is set for the connection, unless it is overridden by setting Reliable Data Transfer (Message). \r\n\r\nAnd the default for Reliable Data Transfer (Connection) is Require so what @gorryfair writes still holds but it is a different thing.",
+          "createdAt": "2020-04-02T22:58:18Z",
+          "updatedAt": "2020-04-02T23:05:05Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "So if we agree upon Reliable Data Transfer (Connection), then it would seem less confusing for Reliable Data Transfer (Message) - to use the same logic. Does an apps writer need to know the data will be sent as an unreliable message? \r\n(I'm not sure I like \"avoid reliable data transfer\" as a meaningful concatenation of keywords BTW:-).",
+          "createdAt": "2020-04-03T06:43:44Z",
+          "updatedAt": "2020-04-03T06:43:44Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Let's see what needs to be done. Suggestion: the only textual change would be to add the following, at the beginning of Section 7.5, just before \"The following Message Properties are supported\":\r\n\r\n\"Connection Properties describe the default behavior for all Messages on a Connection. If a Message Property contradicts a Connection Property, it overrides the Connection Property for the specific Message. For example, if \"Reliable Data Transfer (Connection)\" is set to \"Avoid\" and a protocol with configurable per-Message reliability is used, setting \"Reliable Data Transfer (Message)\" to \"Prefer\" for a particular Message will ensure that this Message is reliably delivered. If the underlying protocol can not support this per-Message behavior, this Message Property choice will yield an error.\"",
+          "createdAt": "2020-04-03T10:16:38Z",
+          "updatedAt": "2020-04-03T10:16:38Z"
+        }
+      ]
+    },
+    {
+      "number": 521,
+      "id": "MDU6SXNzdWU1OTI2NjEwMDA=",
+      "title": "IANA registry of property names or namespaces - from Kyle Rose's review",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/521",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API",
+        "discuss"
+      ],
+      "body": "List discussion:\r\n\r\n**Kyle**:\r\n>  If we're not currently asking IANA to create a registry of property names or namespaces, should we provide a recommendation that such symbols not listed explcitly in this document be prefixed with some experimental identifier?\r\n\r\n**@philsbn**:\r\n> The IANA registry question was explicitly postponed, be maybe we should re-iterate it now.\r\n> The idea of having an \u201ex\u201c namespace was rejected in fear we end up with quasi-standard properties that have an x prefix then. \r\n> \r\n\r\n**Kyle**:\r\n> Which is worse? A complete free-for-all, or a recommendation to have the free-for-all confined to an X- namespace? Do properties starting with X- just offend engineering sensibilities?\r\n> \r\n> One \"right\" alternative is a documentation-required registry, but does that raise the bar too high? How about a TAPS wiki as a compromise? The important outcome is that properties be well-defined and not conflict with each other. Since these properties have entirely local effects (e.g., they don't get encoded as options and transmitted to the peer), we probably don't need the level of precision motivating option registries, for instance. Is there precedent at the IETF for a registry mechanism less formal that what IANA provides?\r\n> ",
+      "createdAt": "2020-04-02T14:07:31Z",
+      "updatedAt": "2020-04-02T14:07:53Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 522,
+      "id": "MDU6SXNzdWU1OTI2NzI1NzY=",
+      "title": "Idempotency vs replay-safe  (from Kyle Rose's review)",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/522",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API",
+        "discuss"
+      ],
+      "body": "_From Kyle:_\r\nidempotency != replay-safe. DELETE is idempotent, but not safe for replay because someone might have done a PUT or POST in the meantime.\r\n\r\nWhat I mean is maybe best illustrated by 0RTT in TLS or QUIC. If a user sends a 0RTT DELETE /object, followed by a PUT /object, then within the replay window and without any replay prevention at the application layer, an attacker could replay the 0RTT DELETE /object and cause the object to be deleted again. DELETE is idempotent but it's not safe to replay.",
+      "createdAt": "2020-04-02T14:23:23Z",
+      "updatedAt": "2020-04-03T10:23:45Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This seems to me to be a case of arrival of Message X, followed by Message Y, followed by Message X. I don't think that TFO, TLS or QUIC would by themselves do this - it's always about immediate repetition of the first Message only, isn't it?\r\n\r\nMaybe we should just clarify that idempotency in our case means that a Message may arrive multiple times **with nothing in between** on the same Connection. Thoughts?",
+          "createdAt": "2020-04-02T14:25:23Z",
+          "updatedAt": "2020-04-02T14:25:23Z"
+        },
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "I don't know if the draft should get into defining what \"idempotent\" means: it has a well-defined mathematical definition, but one that seems to be less well-defined in protocol design. IMO, just use less ambiguous phrasing.",
+          "createdAt": "2020-04-02T19:43:14Z",
+          "updatedAt": "2020-04-02T19:43:14Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "True, that. s/idempotent/repeatable ?",
+          "createdAt": "2020-04-02T20:31:05Z",
+          "updatedAt": "2020-04-02T20:31:05Z"
+        },
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "I would go with \"safely replayable\" to emphasize the attack aspect.",
+          "createdAt": "2020-04-02T22:41:13Z",
+          "updatedAt": "2020-04-02T22:41:13Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "For what it's worth: RFC 7231, Section 4.2.2 of HTTP defines idempotent clearly:\r\n\"A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request.\"\r\n\"safely repayable\" - would need a little more context to explain why it is safe .. maybe you could copy part of this definition.",
+          "createdAt": "2020-04-03T06:34:14Z",
+          "updatedAt": "2020-04-03T06:34:14Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Can we cite that section of RFC 7231 for idempotency, perhaps even quote the meaning that @gorryfair has copied here, and be done with this?",
+          "createdAt": "2020-04-03T10:23:45Z",
+          "updatedAt": "2020-04-03T10:23:45Z"
+        }
+      ]
+    },
+    {
+      "number": 523,
+      "id": "MDU6SXNzdWU1OTI2Nzg2MjM=",
+      "title": "Registry for \"interface instance or type\"  (from Kyle Rose's review)",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/523",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API"
+      ],
+      "body": "_from Kyle_:\r\n> These type symbols really deserve an actual registry, or at least the start of one. Otherwise, we are likely to end up with a mess.\r\n\r\n**Philipp Tiesel**:\r\n> There is already one, but that one was not useful for our matters. \r\n",
+      "createdAt": "2020-04-02T14:31:37Z",
+      "updatedAt": "2020-04-02T14:31:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 524,
+      "id": "MDU6SXNzdWU1OTI2ODQ2MzI=",
+      "title": "What constitutes trust verification prior to the handshake?",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/524",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API"
+      ],
+      "body": "Kyle Rose asked this question in his review, referring to section 5.3.2.",
+      "createdAt": "2020-04-02T14:39:47Z",
+      "updatedAt": "2020-04-02T14:39:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 525,
+      "id": "MDU6SXNzdWU1OTI2ODcyOTc=",
+      "title": "single messageContext object for both sends and receives",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/525",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API"
+      ],
+      "body": "from Kyle Rose's review:\r\n\r\n> 7.3.3. SendError\r\n> \r\n> Is there a reason why a single messageContext object is used for both sends and receives? I probably missed the original discussion about this, but I'd like to understand the reasoning.\r\n> \r\n> (Maybe I should have said \"class\" instead of \"object\".) For example, the \"lifetime\" property makes sense as metadata for sends, but is completely irrelevant to the receiver. The same is true of several other message properties. It might make sense for an implementation to use a single type to represent metadata both for sends and receives, but is that also true for an abstract API?\r\n> ",
+      "createdAt": "2020-04-02T14:43:26Z",
+      "updatedAt": "2020-04-02T14:45:41Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree that implementations would have two different messageContext subtypes for sending and receiving, but I also think that this may be an implementation issue and unnecessary detail for this abstract API. Others?",
+          "createdAt": "2020-04-02T14:45:40Z",
+          "updatedAt": "2020-04-02T14:45:40Z"
+        }
+      ]
+    },
+    {
+      "number": 526,
+      "id": "MDU6SXNzdWU1OTI2ODk5MjQ=",
+      "title": "7.3.1 Sent   (from Kyle Rose's review)",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/526",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API"
+      ],
+      "body": "Kyle wrote:\r\n> It seems like an abstract API would be helpful for the reference to the Message to which a Sent event applies: this seems like something many, many applications would need to do. With callbacks, the application can always curry in a reference to the original message (that's what my event system from ~2001 did), so maybe that should be the recommendation and the message reference removed...? I don't have a strong feeling here other than that if something is included then its use should be more well-defined.",
+      "createdAt": "2020-04-02T14:46:54Z",
+      "updatedAt": "2020-04-02T14:46:54Z",
       "closedAt": null,
       "comments": []
     }
@@ -42178,7 +42408,7 @@
       "id": "MDExOlB1bGxSZXF1ZXN0MzY1MjcyMjIz",
       "title": "Minor API nits",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/483",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "MaxF12",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -42187,11 +42417,19 @@
       ],
       "body": "",
       "createdAt": "2020-01-21T12:10:50Z",
-      "updatedAt": "2020-01-28T16:17:05Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "comments": [],
+      "updatedAt": "2020-04-03T10:35:08Z",
+      "closedAt": "2020-04-03T10:35:08Z",
+      "mergedAt": "2020-04-03T10:35:08Z",
+      "mergedBy": "mwelzl",
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think this discussion has converged and found a happy ending.",
+          "createdAt": "2020-04-03T10:35:00Z",
+          "updatedAt": "2020-04-03T10:35:00Z"
+        }
+      ],
       "reviews": [
         {
           "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzQ1ODgyNDM2",
@@ -42222,13 +42460,13 @@
               "originalPosition": 26,
               "body": "Does this imply that Connection Properties SHOULD not influence candidate selection?\r\nWe agreed some time ago that Implementations may consider all Transport Properties, including Connection Properties, for candidate selection.\r\nI think this cache makes the sentence even more over-specific than it already is",
               "createdAt": "2020-01-22T08:56:03Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             },
             {
               "originalPosition": 26,
               "body": "Suggested change:\r\n```\r\nSelection Properties (see {{selection-props}}) can only be set during pre-establishment. They are only used to specify which paths and protocol stacks can be used and are preferred by the application. \r\nConnection Properties {{connection-props}}) can also be set and may be changed later and are used to influence decisions made during\testablishment and to fine-tune the established connection. \r\n```",
               "createdAt": "2020-01-22T09:07:15Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         },
@@ -42248,7 +42486,7 @@
               "originalPosition": 26,
               "body": "@philsbln Your suggested text changes the \"can be used to influence decisions\" for Connection properties to \"are used to influence decisions\". I think we should not say \"are used\". Implementations may consider all Transport Properties, but do not have to use them. If it is something required by the application it should go in a Selection Property I think.",
               "createdAt": "2020-01-22T09:28:45Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         },
@@ -42268,7 +42506,7 @@
               "originalPosition": 26,
               "body": "@abrunstrom The application can use them to influence decisions \u2013 whether he implementation cares about anything that isn't \"require\" or \"prohibit\" or throws an error because the properties are unsupported is implementation specific. Influence does not mean that it is actually chnaging anything.",
               "createdAt": "2020-01-22T12:59:29Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         },
@@ -42288,7 +42526,7 @@
               "originalPosition": 26,
               "body": "I'd say /influence/ can change end results. Would prefer /inform/ to /influence/?",
               "createdAt": "2020-01-22T13:04:30Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         },
@@ -42308,7 +42546,7 @@
               "originalPosition": 26,
               "body": "I am also fine with inform.",
               "createdAt": "2020-01-22T13:06:51Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         },
@@ -42328,7 +42566,7 @@
               "originalPosition": 26,
               "body": "Yes, inform is better so let's use that either way. \r\nBut I would still prefer \"can be used\" rather than \"are used\" also becuase there are two  parts to the sentence and the second part may also not happen. So I think \"are used\" does not read right. @philsbln was there a reason you changed it? I thought it was accidental when reformulating the text. You actually write that \"applications can  use them to influence decisions\" in your latest reply, so seems \"can use\" is also a natural formulation for you?",
               "createdAt": "2020-01-22T17:14:18Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         },
@@ -42348,7 +42586,7 @@
               "originalPosition": 26,
               "body": "@abrunstrom the reason I changed it was to avoid having six \"can\"s in four consecutive sentences.\r\nI don't see that this \"are used\" suggests a necessary action except when you really want to do the thing these properties are designed for.",
               "createdAt": "2020-01-23T08:51:46Z",
-              "updatedAt": "2020-01-28T16:15:13Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         },
@@ -42368,7 +42606,7 @@
               "originalPosition": 26,
               "body": "For me, the original text didn't make a clear enough distinction when and how each set of properties is used. \r\nThanks for the suggestion @philsbln, yours works even better. ",
               "createdAt": "2020-01-28T16:17:04Z",
-              "updatedAt": "2020-01-28T16:17:05Z"
+              "updatedAt": "2020-04-03T10:33:42Z"
             }
           ]
         }
@@ -44784,6 +45022,25 @@
           ]
         }
       ]
+    },
+    {
+      "number": 527,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mzk3NjI3NDQz",
+      "title": "Closes #515.  + addresses a few more of the easy things from Kyle's review.",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/527",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "... such as: using CamlCase instead of dashes for property names.\r\nAlso: fixes consistency problem of apostrophs / quotation marks  (` vs `` vs \" )",
+      "createdAt": "2020-04-02T14:49:14Z",
+      "updatedAt": "2020-04-02T14:49:14Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
