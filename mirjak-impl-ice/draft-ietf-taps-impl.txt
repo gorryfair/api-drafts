@@ -143,8 +143,8 @@ Internet-Draft             TAPS Implementation                April 2020
      14.2.  Informative References . . . . . . . . . . . . . . . . .  46
    Appendix A.  Additional Properties  . . . . . . . . . . . . . . .  47
      A.1.  Properties Affecting Sorting of Branches  . . . . . . . .  47
-   Appendix B.  Reasons for errors . . . . . . . . . . . . . . . . .  48
-   Appendix C.  Existing Implementations . . . . . . . . . . . . . .  49
+   Appendix B.  Reasons for errors . . . . . . . . . . . . . . . . .  47
+   Appendix C.  Existing Implementations . . . . . . . . . . . . . .  48
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  49
 
 1.  Introduction
@@ -434,14 +434,14 @@ Internet-Draft             TAPS Implementation                April 2020
 
    If NAT traversal is required, the process of gathering Local
    Endpoints becomes broadly equivalent to the ICE candidate gathering
-   phase [RFC5245].  The endpoint determines its server reflexive Local
-   Endpoints (i.e., the translated address of a local, on the other side
-   of a NAT) and relayed locals (e.g., via a TURN server or other
-   relay), for each interface and network protocol.  These are added to
-   the set of candidate Local Endpoints for this connection.
+   phase (see section 5.1.1. of [RFC8445]).  The endpoint determines its
+   server reflexive Local Endpoints (i.e., the translated address of a
+   local, on the other side of a NAT) and relayed locals (e.g., via a
+   TURN server or other relay), for each interface and network protocol.
+   These are added to the set of candidate Local Endpoints for this
+   connection.
 
-   Gathering Local Endpoints is primarily a local operation, although it
-   might involve exchanges with a STUN server to derive server reflexive
+
 
 
 
@@ -450,6 +450,8 @@ Brunstrom, et al.        Expires 8 October 2020                 [Page 8]
 Internet-Draft             TAPS Implementation                April 2020
 
 
+   Gathering Local Endpoints is primarily a local operation, although it
+   might involve exchanges with a STUN server to derive server reflexive
    locals, or with a TURN server or other relay to derive relayed
    locals.  It does not involve communication with the Remote Endpoint.
 
@@ -496,8 +498,6 @@ Internet-Draft             TAPS Implementation                April 2020
    will have a parent node of the tree for the decision between the
    paths, with a branch for each interface.
 
-   The example aggregate connection attempt above can be drawn as a tree
-
 
 
 
@@ -506,6 +506,7 @@ Brunstrom, et al.        Expires 8 October 2020                 [Page 9]
 Internet-Draft             TAPS Implementation                April 2020
 
 
+   The example aggregate connection attempt above can be drawn as a tree
    by grouping the addresses resolved on the same interface into
    branches:
 
@@ -553,7 +554,6 @@ Internet-Draft             TAPS Implementation                April 2020
    a single interface with a single protocol.
 
    1 [192.0.2.1:80, Wi-Fi, TCP]
-
 
 
 
@@ -2581,12 +2581,6 @@ Internet-Draft             TAPS Implementation                April 2020
               "Transparent Flow Mapping for NEAT (in Workshop on Future
               of Internet Transport (FIT 2017))", 2017.
 
-   [RFC5245]  Rosenberg, J., "Interactive Connectivity Establishment
-              (ICE): A Protocol for Network Address Translator (NAT)
-              Traversal for Offer/Answer Protocols", RFC 5245,
-              DOI 10.17487/RFC5245, April 2010,
-              <https://www.rfc-editor.org/info/rfc5245>.
-
    [RFC8445]  Keranen, A., Holmberg, C., and J. Rosenberg, "Interactive
               Connectivity Establishment (ICE): A Protocol for Network
               Address Translator (NAT) Traversal", RFC 8445,
@@ -2624,6 +2618,12 @@ A.1.  Properties Affecting Sorting of Branches
       expensive paths, paths that are associated with a cost should be
       purged from the decision tree.
 
+Appendix B.  Reasons for errors
+
+   The Transport Services API [I-D.ietf-taps-interface] allows for the
+   several generic error types to specify a more detailed reason as to
+   why an error occurred.  This appendix lists some of the possible
+   reasons.
 
 
 
@@ -2633,13 +2633,6 @@ Brunstrom, et al.        Expires 8 October 2020                [Page 47]
 
 Internet-Draft             TAPS Implementation                April 2020
 
-
-Appendix B.  Reasons for errors
-
-   The Transport Services API [I-D.ietf-taps-interface] allows for the
-   several generic error types to specify a more detailed reason as to
-   why an error occurred.  This appendix lists some of the possible
-   reasons.
 
    *  InvalidConfiguration: The transport properties and endpoints
       provided by the application are either contradictory or
@@ -2679,17 +2672,6 @@ Appendix B.  Reasons for errors
 
    *  Timeout: Delivery of a message was not possible after a timeout.
 
-
-
-
-
-
-
-Brunstrom, et al.        Expires 8 October 2020                [Page 48]
-
-Internet-Draft             TAPS Implementation                April 2020
-
-
 Appendix C.  Existing Implementations
 
    This appendix gives an overview of existing implementations, at the
@@ -2700,6 +2682,14 @@ Appendix C.  Existing Implementations
 
       -  Network.framework is a transport-level API built for C,
          Objective-C, and Swift.  It a connect-by-name API that supports
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 48]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
          transport security protocols.  It provides userspace
          implementations of TCP, UDP, TLS, DTLS, proxy protocols, and
          allows extension via custom framers.
@@ -2740,12 +2730,6 @@ Authors' Addresses
    Email: anna.brunstrom@kau.se
 
 
-
-Brunstrom, et al.        Expires 8 October 2020                [Page 49]
-
-Internet-Draft             TAPS Implementation                April 2020
-
-
    Tommy Pauly (editor)
    Apple Inc.
    One Apple Park Way
@@ -2753,6 +2737,13 @@ Internet-Draft             TAPS Implementation                April 2020
    United States of America
 
    Email: tpauly@apple.com
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 49]
+
+Internet-Draft             TAPS Implementation                April 2020
 
 
    Theresa Enghardt
@@ -2794,14 +2785,6 @@ Internet-Draft             TAPS Implementation                April 2020
    Colin Perkins
    University of Glasgow
    School of Computing Science
-
-
-
-Brunstrom, et al.        Expires 8 October 2020                [Page 50]
-
-Internet-Draft             TAPS Implementation                April 2020
-
-
    Glasgow G12 8QQ
    United Kingdom
 
@@ -2811,10 +2794,27 @@ Internet-Draft             TAPS Implementation                April 2020
    Michael Welzl
    University of Oslo
    PO Box 1080 Blindern
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 50]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    0316  Oslo
    Norway
 
    Email: michawe@ifi.uio.no
+
+
+
+
+
+
+
+
+
 
 
 
