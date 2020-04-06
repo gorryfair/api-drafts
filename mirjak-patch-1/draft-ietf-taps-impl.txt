@@ -5,7 +5,7 @@
 TAPS Working Group                                     A. Brunstrom, Ed.
 Internet-Draft                                       Karlstad University
 Intended status: Informational                             T. Pauly, Ed.
-Expires: 5 September 2020                                     Apple Inc.
+Expires: 8 October 2020                                       Apple Inc.
                                                              T. Enghardt
                                                                TU Berlin
                                                            K-J. Grinnemo
@@ -18,7 +18,7 @@ Expires: 5 September 2020                                     Apple Inc.
                                                    University of Glasgow
                                                                 M. Welzl
                                                       University of Oslo
-                                                            4 March 2020
+                                                            6 April 2020
 
 
              Implementing Interfaces to Transport Services
@@ -26,10 +26,12 @@ Expires: 5 September 2020                                     Apple Inc.
 
 Abstract
 
-   The Transport Services architecture [I-D.ietf-taps-arch] defines a
-   system that allows applications to use transport networking protocols
-   flexibly.  This document serves as a guide to implementation on how
-   to build such a system.
+   The Transport Services (TAPS) system enables applications to use
+   transport protocols flexibly for network communication and defines an
+   protocol-independent TAPS Application Programming Interface (API)
+   that is based on an asynchronous, event-driven interaction pattern.
+   This document serves as a guide to implementation on how to build
+   such a system.
 
 Status of This Memo
 
@@ -46,16 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 September 2020.
+   This Internet-Draft will expire on 8 October 2020.
 
 
 
 
-
-
-Brunstrom, et al.       Expires 5 September 2020                [Page 1]
+Brunstrom, et al.        Expires 8 October 2020                 [Page 1]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
 Copyright Notice
@@ -86,7 +86,7 @@ Table of Contents
        4.1.3.  Branch Types  . . . . . . . . . . . . . . . . . . . .  11
      4.2.  Branching Order-of-Operations . . . . . . . . . . . . . .  13
      4.3.  Sorting Branches  . . . . . . . . . . . . . . . . . . . .  14
-     4.4.  Candidate Racing  . . . . . . . . . . . . . . . . . . . .  15
+     4.4.  Candidate Racing  . . . . . . . . . . . . . . . . . . . .  16
        4.4.1.  Delayed . . . . . . . . . . . . . . . . . . . . . . .  16
        4.4.2.  Failover  . . . . . . . . . . . . . . . . . . . . . .  17
      4.5.  Completing Establishment  . . . . . . . . . . . . . . . .  17
@@ -95,57 +95,57 @@ Table of Contents
      4.7.  Handling racing with "unconnected" protocols  . . . . . .  19
      4.8.  Implementing listeners  . . . . . . . . . . . . . . . . .  20
        4.8.1.  Implementing listeners for Connected Protocols  . . .  20
-       4.8.2.  Implementing listeners for Unconnected Protocols  . .  20
+       4.8.2.  Implementing listeners for Unconnected Protocols  . .  21
        4.8.3.  Implementing listeners for Multiplexed Protocols  . .  21
    5.  Implementing Sending and Receiving Data . . . . . . . . . . .  21
-     5.1.  Sending Messages  . . . . . . . . . . . . . . . . . . . .  21
-       5.1.1.  Message Properties  . . . . . . . . . . . . . . . . .  21
+     5.1.  Sending Messages  . . . . . . . . . . . . . . . . . . . .  22
+       5.1.1.  Message Properties  . . . . . . . . . . . . . . . . .  22
        5.1.2.  Send Completion . . . . . . . . . . . . . . . . . . .  23
        5.1.3.  Batching Sends  . . . . . . . . . . . . . . . . . . .  23
-     5.2.  Receiving Messages  . . . . . . . . . . . . . . . . . . .  23
+     5.2.  Receiving Messages  . . . . . . . . . . . . . . . . . . .  24
      5.3.  Handling of data for fast-open protocols  . . . . . . . .  24
    6.  Implementing Message Framers  . . . . . . . . . . . . . . . .  25
-     6.1.  Defining Message Framers  . . . . . . . . . . . . . . . .  25
+     6.1.  Defining Message Framers  . . . . . . . . . . . . . . . .  26
 
 
 
-Brunstrom, et al.       Expires 5 September 2020                [Page 2]
+Brunstrom, et al.        Expires 8 October 2020                 [Page 2]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
-     6.2.  Sender-side Message Framing . . . . . . . . . . . . . . .  26
+     6.2.  Sender-side Message Framing . . . . . . . . . . . . . . .  27
      6.3.  Receiver-side Message Framing . . . . . . . . . . . . . .  27
    7.  Implementing Connection Management  . . . . . . . . . . . . .  28
-     7.1.  Pooled Connection . . . . . . . . . . . . . . . . . . . .  28
+     7.1.  Pooled Connection . . . . . . . . . . . . . . . . . . . .  29
      7.2.  Handling Path Changes . . . . . . . . . . . . . . . . . .  29
-   8.  Implementing Connection Termination . . . . . . . . . . . . .  29
-   9.  Cached State  . . . . . . . . . . . . . . . . . . . . . . . .  30
-     9.1.  Protocol state caches . . . . . . . . . . . . . . . . . .  30
-     9.2.  Performance caches  . . . . . . . . . . . . . . . . . . .  31
-   10. Specific Transport Protocol Considerations  . . . . . . . . .  32
-     10.1.  TCP  . . . . . . . . . . . . . . . . . . . . . . . . . .  33
-     10.2.  UDP  . . . . . . . . . . . . . . . . . . . . . . . . . .  34
+   8.  Implementing Connection Termination . . . . . . . . . . . . .  30
+   9.  Cached State  . . . . . . . . . . . . . . . . . . . . . . . .  31
+     9.1.  Protocol state caches . . . . . . . . . . . . . . . . . .  31
+     9.2.  Performance caches  . . . . . . . . . . . . . . . . . . .  32
+   10. Specific Transport Protocol Considerations  . . . . . . . . .  33
+     10.1.  TCP  . . . . . . . . . . . . . . . . . . . . . . . . . .  34
+     10.2.  UDP  . . . . . . . . . . . . . . . . . . . . . . . . . .  35
      10.3.  UDP Multicast Receive  . . . . . . . . . . . . . . . . .  36
-     10.4.  TLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  37
-     10.5.  DTLS . . . . . . . . . . . . . . . . . . . . . . . . . .  38
-     10.6.  HTTP . . . . . . . . . . . . . . . . . . . . . . . . . .  39
-     10.7.  QUIC . . . . . . . . . . . . . . . . . . . . . . . . . .  40
+     10.4.  TLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  38
+     10.5.  DTLS . . . . . . . . . . . . . . . . . . . . . . . . . .  39
+     10.6.  HTTP . . . . . . . . . . . . . . . . . . . . . . . . . .  40
+     10.7.  QUIC . . . . . . . . . . . . . . . . . . . . . . . . . .  41
      10.8.  HTTP/2 transport . . . . . . . . . . . . . . . . . . . .  41
-     10.9.  SCTP . . . . . . . . . . . . . . . . . . . . . . . . . .  41
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  43
-   12. Security Considerations . . . . . . . . . . . . . . . . . . .  43
-     12.1.  Considerations for Candidate Gathering . . . . . . . . .  43
+     10.9.  SCTP . . . . . . . . . . . . . . . . . . . . . . . . . .  42
+   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  44
+   12. Security Considerations . . . . . . . . . . . . . . . . . . .  44
+     12.1.  Considerations for Candidate Gathering . . . . . . . . .  44
      12.2.  Considerations for Candidate Racing  . . . . . . . . . .  44
-   13. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  44
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  44
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  44
+   13. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  45
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  45
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  45
      14.2.  Informative References . . . . . . . . . . . . . . . . .  46
-   Appendix A.  Additional Properties  . . . . . . . . . . . . . . .  46
-     A.1.  Properties Affecting Sorting of Branches  . . . . . . . .  46
+   Appendix A.  Additional Properties  . . . . . . . . . . . . . . .  47
+     A.1.  Properties Affecting Sorting of Branches  . . . . . . . .  47
    Appendix B.  Reasons for errors . . . . . . . . . . . . . . . . .  47
    Appendix C.  Existing Implementations . . . . . . . . . . . . . .  48
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  48
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  49
 
 1.  Introduction
 
@@ -165,9 +165,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020                [Page 3]
+Brunstrom, et al.        Expires 8 October 2020                 [Page 3]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
    terminology used in this document is based on the Architecture
@@ -221,9 +221,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020                [Page 4]
+Brunstrom, et al.        Expires 8 October 2020                 [Page 4]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
 3.  Implementing Pre-Establishment
@@ -277,9 +277,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020                [Page 5]
+Brunstrom, et al.        Expires 8 October 2020                 [Page 5]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
    find out later that there is no protocol that satisfies the
@@ -333,9 +333,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020                [Page 6]
+Brunstrom, et al.        Expires 8 October 2020                 [Page 6]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
 4.  Implementing Connection Establishment
@@ -389,15 +389,21 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020                [Page 7]
+Brunstrom, et al.        Expires 8 October 2020                 [Page 7]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
    Any one of these sub-entries on the aggregate connection attempt
    would satisfy the original application intent.  The concern of this
    section is the algorithm defining which of these options to try,
    when, and in what order.
+
+   During Candidate Gathering, an implementation first excludes all
+   protocols and paths that match a Prohibit or do not match all Require
+   properties.  Then, the implementation will sort branches according to
+   Preferred properties, Avoided properties, and possibly other
+   criteria.
 
 4.1.  Candidate Gathering
 
@@ -435,20 +441,17 @@ Internet-Draft             TAPS Implementation                March 2020
 
    Gathering Local Endpoints is primarily a local operation, although it
    might involve exchanges with a STUN server to derive server reflexive
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                 [Page 8]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    locals, or with a TURN server or other relay to derive relayed
    locals.  It does not involve communication with the Remote Endpoint.
-
-
-
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020                [Page 8]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
 4.1.1.2.  Remote Endpoint Candidates
 
@@ -494,17 +497,17 @@ Internet-Draft             TAPS Implementation                March 2020
    paths, with a branch for each interface.
 
    The example aggregate connection attempt above can be drawn as a tree
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                 [Page 9]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    by grouping the addresses resolved on the same interface into
    branches:
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020                [Page 9]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
                                 ||
                    +==========================+
@@ -551,16 +554,16 @@ Internet-Draft             TAPS Implementation                March 2020
 
    1 [192.0.2.1:80, Wi-Fi, TCP]
 
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 10]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    A parent node may also only have one child (or leaf) node, such as a
    when a hostname resolves to only a single IP address.
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 10]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
    1 [www.example.com:80, Wi-Fi, TCP]
      1.1 [192.0.2.1:80, Wi-Fi, TCP]
@@ -610,12 +613,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 11]
+Brunstrom, et al.        Expires 8 October 2020                [Page 11]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
 4.1.3.2.  Alternate Paths
@@ -669,9 +669,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020               [Page 12]
+Brunstrom, et al.        Expires 8 October 2020                [Page 12]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
    1 [www.example.com:443, Any, Any HTTP]
@@ -725,9 +725,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020               [Page 13]
+Brunstrom, et al.        Expires 8 October 2020                [Page 13]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
    multiple paths are attempted, the overall connection can be seen as a
@@ -781,9 +781,9 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020               [Page 14]
+Brunstrom, et al.        Expires 8 October 2020                [Page 14]
 
-Internet-Draft             TAPS Implementation                March 2020
+Internet-Draft             TAPS Implementation                April 2020
 
 
    Section 3.2, in the ranking.  Two examples of how Selection and
@@ -818,7 +818,29 @@ Internet-Draft             TAPS Implementation                March 2020
    properties, it should only keep branches that satisfy these
    requirements.  Finally, it should order branches according to
    preferred properties, and finally use avoided properties as a
-   tiebreaker.
+   tiebreaker.  When ordering branches, an implementation may give more
+   weight to properties that the application has explicitly set than to
+   properties that are default.
+
+   As the available protocols and paths on a specific system and in a
+   specific context may vary, the result of sorting and the outcome of
+   racing may vary even given the same Selection and Connection
+   Properties.  However, an implementation ought to aim to provide a
+   consistent outcome to applications, e.g., by preferring protocols and
+   paths that existing Connections with similar Properties are already
+   using.
+
+
+
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 15]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
 4.4.  Candidate Racing
 
@@ -834,13 +856,6 @@ Internet-Draft             TAPS Implementation                March 2020
    architectural model, an implementation does not know what the full
    tree may become up front, nor will many of the possible branches be
    used in the common case.
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 15]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
    There are three different approaches to racing the attempts for
    different nodes of the connection establishment tree:
@@ -876,6 +891,13 @@ Internet-Draft             TAPS Implementation                March 2020
    not terminate an earlier child connection attempt upon starting a
    secondary child.
 
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 16]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    The delay between starting child nodes should be based on the
    properties of the previously started child node.  For example, if the
    first child represents an IP address with a known route, and the
@@ -888,15 +910,6 @@ Internet-Draft             TAPS Implementation                March 2020
    based on the expected time in which the branch for the first
    interface would be able to establish a connection, based on link
    quality and historical round-trip-time.
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 16]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
    Any delay should have a defined minimum and maximum value based on
    the branch type.  Generally, branches between paths and protocols
@@ -933,6 +946,14 @@ Internet-Draft             TAPS Implementation                March 2020
    It is useful to process success and failure throughout the tree by
    child nodes reporting to their parent nodes (towards the trunk of the
    tree).  For example, in the following case, if 1.1.1 fails to
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 17]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    connect, it reports the failure to 1.1.  Since 1.1 has no other child
    nodes, it also has failed and reports that failure to 1.  Because 1.2
    has not yet failed, 1 is not considered to have failed.  Since 1.2
@@ -941,18 +962,6 @@ Internet-Draft             TAPS Implementation                March 2020
    connected, which propagates to the trunk node 1.  At this point, the
    connection as a whole is considered to be successfully connected and
    ready to process application data
-
-
-
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 17]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
    1 [www.example.com:80, Any, TCP]
      1.1 [www.example.com:80, Wi-Fi, TCP]
@@ -993,6 +1002,14 @@ Internet-Draft             TAPS Implementation                March 2020
    to complete as well.  The benefit of declaring completion when the
    TCP handshake finishes, and thus stopping the race for other branches
    of the tree, is that there will be less burden on the network from
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 18]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    other connection attempts.  On the other hand, by waiting until the
    TLS handshake is complete, an implementation avoids the scenario in
    which a TCP handshake completes quickly, but TLS negotiation is
@@ -1000,15 +1017,6 @@ Internet-Draft             TAPS Implementation                March 2020
    or to a particular endpoint.  To avoid the issue of TLS possibly
    failing, the implementation should not generate a Ready event for the
    Connection until TLS is established.
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 18]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
    If all of the leaf nodes fail to connect during racing, i.e. none of
    the configurations that satisfy all requirements given in the
@@ -1049,6 +1057,15 @@ Internet-Draft             TAPS Implementation                March 2020
    consider such a protocol stack to be established as soon as a local
    route to the peer endpoint is confirmed.
 
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 19]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    However, if a peer is not reachable over the network using the
    unconnected protocol, or data cannot be exchanged for any other
    reason, the application may want to attempt using another candidate
@@ -1057,15 +1074,6 @@ Internet-Draft             TAPS Implementation                March 2020
    that the application signals that the initial Protocol Stack is
    failing for some reason and that another option should be attempted,
    the Connection can be updated to point to the next candidate Protocol
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 19]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    Stack.  This can be viewed as an application-driven form of Protocol
    Stack racing.
 
@@ -1100,6 +1108,20 @@ Internet-Draft             TAPS Implementation                March 2020
    should generate a new Connection object and pass it to the
    application.
 
+
+
+
+
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 20]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
 4.8.2.  Implementing listeners for Unconnected Protocols
 
    Unconnected protocols such as UDP and UDP-lite generally do not
@@ -1111,16 +1133,6 @@ Internet-Draft             TAPS Implementation                March 2020
    facilities to create a "virtual connection" for unconnected protocols
    implementations should use these mechanisms to minimise the handling
    of datagrams intended for already created Connection objects.
-
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 20]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
 4.8.3.  Implementing listeners for Multiplexed Protocols
 
@@ -1155,6 +1167,17 @@ Internet-Draft             TAPS Implementation                March 2020
    protocols corresponds to a single frame, which may be sent either as
    a complete Message, or in multiple parts.
 
+
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 21]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
 5.1.  Sending Messages
 
    The effect of the application sending a Message is determined by the
@@ -1170,14 +1193,6 @@ Internet-Draft             TAPS Implementation                March 2020
       its queue of pending Messages after the Lifetime has expired.  A
       queue of pending Messages within the transport system
       implementation that have yet to be handed to the Protocol Stack
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 21]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       can always support this property, but once a Message has been sent
       into the send buffer of a protocol, only certain protocols may
       support de-queueing a message.  For example, TCP cannot remove
@@ -1211,6 +1226,14 @@ Internet-Draft             TAPS Implementation                March 2020
       than -1, it limits the required checksum in protocols that allow
       limiting the checksum length (e.g.  UDP-Lite).
 
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 22]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    *  Transmission Profile: TBD - because it's not final in the API yet.
       Old text follows: when this is set to "Interactive/Low Latency",
       the Message should be sent immediately, even when this comes at
@@ -1226,14 +1249,6 @@ Internet-Draft             TAPS Implementation                March 2020
 
    *  Singular Transmission: when this is true, the application requests
       to avoid transport-layer segmentation or network-layer
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 22]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       fragmentation.  Some transports implement network-layer
       fragmentation avoidance (Path MTU Discovery) without exposing this
       functionality to the application; in this case, only transport-
@@ -1265,6 +1280,16 @@ Internet-Draft             TAPS Implementation                March 2020
    is complete.  This can also help context switches when enqueuing data
    in the interface driver if the operation can be batched.
 
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 23]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
 5.2.  Receiving Messages
 
    Similar to sending, Receiving a Message is determined by the top-
@@ -1282,14 +1307,6 @@ Internet-Draft             TAPS Implementation                March 2020
    boundaries; if, on the other hand, the top-level protocol only
    supports a byte-stream and no deframers were supported, the
    application must specify the minimum number of bytes of Message
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 23]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    content it wants to receive (which may be just a single byte) to
    control the flow of received data.
 
@@ -1320,6 +1337,15 @@ Internet-Draft             TAPS Implementation                March 2020
    truly idempotent, this should be permissible.
 
    Once the application has provided its 0-RTT data, an implementation
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 24]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    should keep a copy of this data and provide it to each new leaf node
    that is started and for which a 0-RTT protocol is being used.
 
@@ -1338,13 +1364,6 @@ Internet-Draft             TAPS Implementation                March 2020
    attempt must use a different ticket.  In effect, each leaf node will
    send the same early application data, yet encoded (encrypted)
    differently on the wire.
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 24]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
 6.  Implementing Message Framers
 
@@ -1374,6 +1393,15 @@ Internet-Draft             TAPS Implementation                March 2020
    software.  This section describes one possible interface for defining
    Message Framers as an example.
 
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 25]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
 6.1.  Defining Message Framers
 
    A Message Framer is primarily defined by the set of code that handles
@@ -1392,15 +1420,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Connection is being torn down.  The framer implementation can use the
    Connection object to look up specific properties of the Connection or
    the network being used that may influence how to frame Messages.
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 25]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
    MessageFramer -> Start(Connection)
    MessageFramer -> Stop(Connection)
@@ -1430,6 +1449,15 @@ Internet-Draft             TAPS Implementation                March 2020
    racing unsuitable it can signal this by failing the Connection prior
    to marking it as ready.  If there are no other candidates available,
    the Connection will fail.  Otherwise, the Connection will select a
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 26]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    different candidate and the Message Framer will generate a new
    "Start" event.
 
@@ -1450,14 +1478,6 @@ Internet-Draft             TAPS Implementation                March 2020
 
    Upon receiving this event, a framer implementation is responsible for
    performing any necessary transformations and sending the resulting
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 26]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    data back to the Message Framer, which will in turn send it to the
    next protocol.  Implementations SHOULD ensure that there is a way to
    pass the original data through without copying to improve
@@ -1487,6 +1507,13 @@ Internet-Draft             TAPS Implementation                March 2020
 
    MessageFramer.Parse(Connection, MinimumIncompleteLength, MaximumLength) -> (Data, MessageContext, IsEndOfMessage)
 
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 27]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    The framer implementation can directly advance the receive cursor
    once it has parsed data to effectively discard data (for example,
    discard a header once the content has been parsed).
@@ -1505,14 +1532,6 @@ Internet-Draft             TAPS Implementation                March 2020
    before they are received by the transport.  This allows the delivery
    of very large Messages without requiring the implementation to
    directly inspect all of the bytes.
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 27]
-
-Internet-Draft             TAPS Implementation                March 2020
-
 
    To provide an example, a simple protocol that parses a length as a
    header value would receive the "HandleReceivedData" event, and call
@@ -1542,6 +1561,15 @@ Internet-Draft             TAPS Implementation                March 2020
    If an error is encountered in setting a property (for example, if the
    application tries to set a TCP-specific property on a Connection that
    is not using TCP), the action should fail gracefully.  The
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 28]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    application may be informed of the error, but the Connection itself
    should not be terminated.
 
@@ -1562,14 +1590,6 @@ Internet-Draft             TAPS Implementation                March 2020
    These Pooled Connections can use multiple connections or multiple
    streams of multi-streaming connections between endpoints, as long as
    all of these satisfy the requirements, and prohibitions specified in
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 28]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    the Selection Properties of the Pooled Connection.  This enables
    implementations to realize transparent connection coalescing,
    connection migration, and to perform per-message endpoint and path
@@ -1597,6 +1617,15 @@ Internet-Draft             TAPS Implementation                March 2020
    Policy changes to prohibit traffic from the Connection based on its
    properties, in which case the Protocol Stack should be disconnected.
 
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 29]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
 8.  Implementing Connection Termination
 
    With TCP, when an application closes a connection, this means that it
@@ -1619,13 +1648,6 @@ Internet-Draft             TAPS Implementation                March 2020
    has given to the Transport System, but it cannot expect to be able to
    read any more data after calling Close.
 
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 29]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    Abort differs from Close only in that no guarantees are given
    regarding data that the application has handed over to the Transport
    System before calling Abort.
@@ -1645,6 +1667,20 @@ Internet-Draft             TAPS Implementation                March 2020
    guarantees can be given.  With SCTP, the transport system can use the
    stream reset procedure to cause a Finish event upon a Close action
    from the peer [NEAT-flow-mapping].
+
+
+
+
+
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 30]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
 9.  Cached State
 
@@ -1673,15 +1709,6 @@ Internet-Draft             TAPS Implementation                March 2020
 
    *  The DNS protocol can cache resolution answers (A and AAAA queries,
       for example), associated with a Time To Live (TTL) to be used for
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 30]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       future hostname resolutions without requiring asking the DNS
       resolver again.
 
@@ -1701,6 +1728,15 @@ Internet-Draft             TAPS Implementation                March 2020
    desired.  This may be necessary, for example, if application-layer
    identifiers rotate and clients wish to avoid linkability via
    trackable TLS tickets or TFO cookies.
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 31]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
 9.2.  Performance caches
 
@@ -1730,14 +1766,6 @@ Internet-Draft             TAPS Implementation                March 2020
 
    An implementation should use this information, when possible, to
    determine preference between candidate paths, endpoints, and protocol
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 31]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    options.  Eligible options that historically had significantly better
    performance than others should be selected first when gathering
    candidates (see Section 4.1) to ensure better performance for the
@@ -1753,6 +1781,18 @@ Internet-Draft             TAPS Implementation                March 2020
    over a relatively short time interval.  For such values, the
    implementation should remove them from the cache more quickly, or
    treat older values with less confidence/weight.
+
+
+
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 32]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
 10.  Specific Transport Protocol Considerations
 
@@ -1785,15 +1825,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Protocols also define a notion of Data Unit.  Possible values for
    Data Unit are:
 
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 32]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    *  Byte-stream.  Byte-stream protocols do not define any Message
       boundaries of their own apart from the end of a stream in each
       direction.
@@ -1811,6 +1842,14 @@ Internet-Draft             TAPS Implementation                March 2020
    "CATEGORY.[SUBCATEGORY].PRIMITIVENAME.PROTOCOL" (e.g.,
    "CONNECT.SCTP") refer to the primitives with the same name in section
    4 of [RFC8303].  For further implementation details, the description
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 33]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    of these primitives in [RFC8303] points to section 3, which refers
    back to the specifications for each protocol.  This back-tracking
    method applies to all elements of [I-D.ietf-taps-minset] (see
@@ -1841,15 +1880,6 @@ Internet-Draft             TAPS Implementation                March 2020
       complete.
 
    InitiateError:  Failure of CONNECT.TCP.  TCP can throw various errors
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 33]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       during connection setup.  Specifically, it is important to handle
       a RST being sent by the peer during the handshake.
 
@@ -1866,6 +1896,15 @@ Internet-Draft             TAPS Implementation                March 2020
    Clone:  Calling "Clone" on a TCP Connection creates a new Connection
       with equivalent parameters.  The two Connections are otherwise
       independent.
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 34]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    Send:  SEND.TCP.  TCP does not on its own preserve Message
       boundaries.  Calling "Send" on a TCP connection lays out the bytes
@@ -1898,14 +1937,6 @@ Internet-Draft             TAPS Implementation                March 2020
 
    API mappings for UDP are as follows:
 
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 34]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    Connection Object:  UDP connections represent a pair of specific IP
       addresses and ports on two hosts.
 
@@ -1922,6 +1953,14 @@ Internet-Draft             TAPS Implementation                March 2020
 
    InitiateError:  UDP Connections can only generate errors on
       initiation due to port conflicts on the local system.
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 35]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    ConnectionError:  Once in use, UDP throws "soft errors" (ERROR.UDP(-
       Lite)) upon receiving ICMP notifications indicating failures in
@@ -1955,13 +1994,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Abort:  Calling "Abort" on a UDP Connection (ABORT.UDP(-Lite)) is
       identical to calling "Close".
 
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 35]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
 10.3.  UDP Multicast Receive
 
    Connectedness: Unconnected
@@ -1977,6 +2009,15 @@ Internet-Draft             TAPS Implementation                March 2020
       port.
 
    Initiate:  Calling "Initiate" on a UDP Multicast Receive Connection
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 36]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
       causes an immediate InitiateError.  This is an unsupported
       operation.
 
@@ -2011,13 +2052,6 @@ Internet-Draft             TAPS Implementation                March 2020
       a new Connection with equivalent parameters.  The two Connections
       are otherwise independent.
 
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 36]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    Send:  SEND.UDP(-Lite).  Calling "Send" on a UDP Multicast Receive
       connection causes an immediate SendError.  This is an unsupported
       operation.
@@ -2031,6 +2065,14 @@ Internet-Draft             TAPS Implementation                March 2020
    Close:  Calling "Close" on a UDP Multicast Receive Connection
       (ABORT.UDP(-Lite)) releases the local port reservation and leaves
       the group.
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 37]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    Abort:  Calling "Abort" on a UDP Multicast Receive Connection
       (ABORT.UDP(-Lite)) is identical to calling "Close".
@@ -2066,14 +2108,6 @@ Internet-Draft             TAPS Implementation                March 2020
 
    InitiateError:  In addition to TCP initiation errors, TLS can
       generate errors during its handshake.  Examples of error include a
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 37]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       failure of the peer to successfully authenticate, the peer
       rejecting the local authentication, or a failure to match versions
       or algorithms.
@@ -2086,6 +2120,15 @@ Internet-Draft             TAPS Implementation                March 2020
 
    ConnectionReceived:  TLS Listeners will deliver new connections once
       they have successfully completed both TCP and TLS handshakes.
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 38]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    Clone:  As with TCP, calling "Clone" on a TLS Connection creates a
       new Connection with equivalent parameters.  The two Connections
@@ -2123,13 +2166,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Differences from TLS are detailed below, and all cases not explicitly
    mentioned should be considered the same as TLS.
 
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 38]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    Connectedness: Connected
 
    Data Unit: Datagram
@@ -2141,6 +2177,14 @@ Internet-Draft             TAPS Implementation                March 2020
       a UDP local port, and begin sending handshake messages to the peer
       over UDP.  These messages are reliable, and will be automatically
       retransmitted.
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 39]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    Ready:  A DTLS Connection is ready once the TLS handshake is complete
       and keys have been established to encrypt application data.
@@ -2179,13 +2223,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Initiate:  Calling "Initiate" on an HTTP connection intiates a TCP or
       TLS connection as a client.
 
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 39]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    Clone:  Calling "Clone" on an HTTP Connection opens a new stream on
       an existing HTTP/2 connection when possible.  If the underlying
       version does not support multiplexed streams, calling "Clone"
@@ -2196,6 +2233,14 @@ Internet-Draft             TAPS Implementation                March 2020
       form, along with any associated HTTP message body as the Message
       data.  The HTTP header values are encoded in the specific version
       format upon sending.
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 40]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    Receive:  HTTP Connections deliver Messages in which HTTP header
       values attached to MessageContexts, and HTTP bodies in Message
@@ -2229,19 +2274,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Connection Object:  Connection objects represent a single QUIC stream
       on a QUIC connection.
 
-
-
-
-
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 40]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
 10.8.  HTTP/2 transport
 
    Similar to QUIC (Section 10.7), HTTP/2 provides a multi-streaming
@@ -2258,6 +2290,13 @@ Internet-Draft             TAPS Implementation                March 2020
    Connectedness: Multiplexing Connected
 
    Data Unit: Stream
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 41]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    Connection Object:  Connection objects represent a single HTTP/2
       stream on a HTTP/2 connection.
@@ -2290,14 +2329,6 @@ Internet-Draft             TAPS Implementation                March 2020
       endpoints map new flows simultaneously, the peer which initiated
       the transport connection will use even stream numbers whereas the
       remote side will map its flows to odd stream numbers.  Both sides
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 41]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       maintain a status map of the assigned stream numbers.  Generally,
       new streams must consume the lowest available (even or odd,
       depending on the side) stream number; this rule is relevant when
@@ -2314,6 +2345,14 @@ Internet-Draft             TAPS Implementation                March 2020
       resource usage and the number of Connection objects that can be
       mapped without requiring a reconfiguration signal.  When running
       out of streams, ADD_STREAM.SCTP must be called.
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 42]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    InitiateWithSend:  If this is the only Connection object that is
       assigned to the SCTP association or stream mapping has not been
@@ -2346,14 +2385,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Clone:  Calling "Clone" on an SCTP association creates a new
       Connection object and assigns it a new stream number in accordance
       with the stream number assignment procedure described above.  If
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 42]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       there are not enough streams available, ADD_STREAM.SCTP must be
       called.
 
@@ -2371,6 +2402,14 @@ Internet-Draft             TAPS Implementation                March 2020
 
    Close: If this is the only Connection object that is assigned to the
    SCTP association, CLOSE.SCTP is called.  Else, the Connection object
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 43]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    is one out of several Connection objects that are assigned to the
    same SCTP assocation, and RESET_STREAM.SCTP must be called, which
    informs the peer that the stream will no longer be used for mapping
@@ -2401,15 +2440,6 @@ Internet-Draft             TAPS Implementation                March 2020
    interference to cause the implementation to select less secure, or
    entirely insecure, combinations of paths and protocols.
 
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 43]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
 12.2.  Considerations for Candidate Racing
 
    See Section 5.3 for security considerations around racing with 0-RTT
@@ -2428,6 +2458,14 @@ Internet-Draft             TAPS Implementation                March 2020
    it is possible for the network to cause an implementation to consume
    significant on-device resources.  Implementations should limit the
    maximum amount of state allowed for any given node, including the
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 44]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    number of child nodes, especially when the state is based on results
    from the network.
 
@@ -2458,32 +2496,32 @@ Internet-Draft             TAPS Implementation                March 2020
    [I-D.ietf-taps-arch]
               Pauly, T., Trammell, B., Brunstrom, A., Fairhurst, G.,
               Perkins, C., Tiesel, P., and C. Wood, "An Architecture for
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 44]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
               Transport Services", Work in Progress, Internet-Draft,
-              draft-ietf-taps-arch-06, 23 December 2019,
+              draft-ietf-taps-arch-07, 9 March 2020,
               <http://www.ietf.org/internet-drafts/draft-ietf-taps-arch-
-              06.txt>.
+              07.txt>.
 
    [I-D.ietf-taps-interface]
               Trammell, B., Welzl, M., Enghardt, T., Fairhurst, G.,
               Kuehlewind, M., Perkins, C., Tiesel, P., Wood, C., and T.
               Pauly, "An Abstract Application Layer Interface to
               Transport Services", Work in Progress, Internet-Draft,
-              draft-ietf-taps-interface-05, 4 November 2019,
+              draft-ietf-taps-interface-06, 9 March 2020,
               <http://www.ietf.org/internet-drafts/draft-ietf-taps-
-              interface-05.txt>.
+              interface-06.txt>.
 
    [I-D.ietf-taps-minset]
               Welzl, M. and S. Gjessing, "A Minimal Set of Transport
               Services for End Systems", Work in Progress, Internet-
               Draft, draft-ietf-taps-minset-11, 27 September 2018,
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 45]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
               <http://www.ietf.org/internet-drafts/draft-ietf-taps-
               minset-11.txt>.
 
@@ -2514,14 +2552,6 @@ Internet-Draft             TAPS Implementation                March 2020
 
    [RFC8305]  Schinazi, D. and T. Pauly, "Happy Eyeballs Version 2:
               Better Connectivity Using Concurrency", RFC 8305,
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 45]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
               DOI 10.17487/RFC8305, December 2017,
               <https://www.rfc-editor.org/info/rfc8305>.
 
@@ -2539,6 +2569,15 @@ Internet-Draft             TAPS Implementation                March 2020
               transport-27.txt>.
 
    [NEAT-flow-mapping]
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 46]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
               "Transparent Flow Mapping for NEAT (in Workshop on Future
               of Internet Transport (FIT 2017))", 2017.
 
@@ -2569,15 +2608,6 @@ A.1.  Properties Affecting Sorting of Branches
       bound on the expected Send or Receive bitrate, an implementation
       may prefer a path that can likely provide the desired bandwidth,
       based on cached maximum throughput, see Section 9.2.  The
-
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 46]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
       application may know the Send or Receive Bitrate from metadata in
       adaptive HTTP streaming, such as MPEG-DASH.
 
@@ -2594,6 +2624,15 @@ Appendix B.  Reasons for errors
    several generic error types to specify a more detailed reason as to
    why an error occurred.  This appendix lists some of the possible
    reasons.
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 47]
+
+Internet-Draft             TAPS Implementation                April 2020
+
 
    *  InvalidConfiguration: The transport properties and endpoints
       provided by the application are either contradictory or
@@ -2626,14 +2665,6 @@ Appendix B.  Reasons for errors
       contradictory to the transport properties or they can not be
       satisfied by the transport system.
 
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 47]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    *  DeframingFailed: The data that was received by the underlying
       protocol stack could not be deframed.
 
@@ -2651,6 +2682,14 @@ Appendix C.  Existing Implementations
 
       -  Network.framework is a transport-level API built for C,
          Objective-C, and Swift.  It a connect-by-name API that supports
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 48]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
          transport security protocols.  It provides userspace
          implementations of TCP, UDP, TLS, DTLS, proxy protocols, and
          allows extension via custom framers.
@@ -2682,14 +2721,6 @@ Appendix C.  Existing Implementations
 
 Authors' Addresses
 
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 48]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    Anna Brunstrom (editor)
    Karlstad University
    Universitetsgatan 2
@@ -2706,6 +2737,13 @@ Internet-Draft             TAPS Implementation                March 2020
    United States of America
 
    Email: tpauly@apple.com
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 49]
+
+Internet-Draft             TAPS Implementation                April 2020
 
 
    Theresa Enghardt
@@ -2738,14 +2776,6 @@ Internet-Draft             TAPS Implementation                March 2020
    Philipp S. Tiesel
    TU Berlin
    Einsteinufer 25
-
-
-
-Brunstrom, et al.       Expires 5 September 2020               [Page 49]
-
-Internet-Draft             TAPS Implementation                March 2020
-
-
    10587 Berlin
    Germany
 
@@ -2764,6 +2794,14 @@ Internet-Draft             TAPS Implementation                March 2020
    Michael Welzl
    University of Oslo
    PO Box 1080 Blindern
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 50]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    0316  Oslo
    Norway
 
@@ -2797,4 +2835,22 @@ Internet-Draft             TAPS Implementation                March 2020
 
 
 
-Brunstrom, et al.       Expires 5 September 2020               [Page 50]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 51]
