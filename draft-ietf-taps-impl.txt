@@ -84,19 +84,19 @@ Table of Contents
        4.1.1.  Gathering Endpoint Candidates . . . . . . . . . . . .   8
        4.1.2.  Structuring Options as a Tree . . . . . . . . . . . .   9
        4.1.3.  Branch Types  . . . . . . . . . . . . . . . . . . . .  11
-     4.2.  Branching Order-of-Operations . . . . . . . . . . . . . .  13
-     4.3.  Sorting Branches  . . . . . . . . . . . . . . . . . . . .  14
-     4.4.  Candidate Racing  . . . . . . . . . . . . . . . . . . . .  16
-       4.4.1.  Delayed . . . . . . . . . . . . . . . . . . . . . . .  16
-       4.4.2.  Failover  . . . . . . . . . . . . . . . . . . . . . .  17
-     4.5.  Completing Establishment  . . . . . . . . . . . . . . . .  17
-       4.5.1.  Determining Successful Establishment  . . . . . . . .  18
-     4.6.  Establishing multiplexed connections  . . . . . . . . . .  19
-     4.7.  Handling racing with "unconnected" protocols  . . . . . .  19
-     4.8.  Implementing listeners  . . . . . . . . . . . . . . . . .  20
-       4.8.1.  Implementing listeners for Connected Protocols  . . .  20
-       4.8.2.  Implementing listeners for Unconnected Protocols  . .  21
-       4.8.3.  Implementing listeners for Multiplexed Protocols  . .  21
+       4.1.4.  Branching Order-of-Operations . . . . . . . . . . . .  13
+       4.1.5.  Sorting Branches  . . . . . . . . . . . . . . . . . .  14
+     4.2.  Candidate Racing  . . . . . . . . . . . . . . . . . . . .  16
+       4.2.1.  Delayed . . . . . . . . . . . . . . . . . . . . . . .  16
+       4.2.2.  Failover  . . . . . . . . . . . . . . . . . . . . . .  17
+     4.3.  Completing Establishment  . . . . . . . . . . . . . . . .  17
+       4.3.1.  Determining Successful Establishment  . . . . . . . .  18
+     4.4.  Establishing multiplexed connections  . . . . . . . . . .  19
+     4.5.  Handling racing with "unconnected" protocols  . . . . . .  19
+     4.6.  Implementing listeners  . . . . . . . . . . . . . . . . .  20
+       4.6.1.  Implementing listeners for Connected Protocols  . . .  20
+       4.6.2.  Implementing listeners for Unconnected Protocols  . .  21
+       4.6.3.  Implementing listeners for Multiplexed Protocols  . .  21
    5.  Implementing Sending and Receiving Data . . . . . . . . . . .  21
      5.1.  Sending Messages  . . . . . . . . . . . . . . . . . . . .  22
        5.1.1.  Message Properties  . . . . . . . . . . . . . . . . .  22
@@ -212,7 +212,7 @@ Internet-Draft             TAPS Implementation                April 2020
    Listener objects are created with a Preconnection, at which point
    their configuration should be considered immutable by the
    implementation.  The process of listening is described in
-   Section 4.8.
+   Section 4.6.
 
 
 
@@ -694,7 +694,7 @@ Internet-Draft             TAPS Implementation                April 2020
    This information can influence future racing decisions to prioritize
    or prune branches.
 
-4.2.  Branching Order-of-Operations
+4.1.4.  Branching Order-of-Operations
 
    Branch types must occur in a specific order relative to one another
    to avoid creating leaf nodes with invalid or incompatible settings.
@@ -765,7 +765,7 @@ Internet-Draft             TAPS Implementation                April 2020
    1.2.1 [192.0.3.1:80, LTE, SCTP]
    1.2.2 [192.0.3.1:80, LTE, TCP]
 
-4.3.  Sorting Branches
+4.1.5.  Sorting Branches
 
    Implementations should sort the branches of the tree of connection
    options in order of their preference rank.  Leaf nodes on branches
@@ -842,7 +842,7 @@ Brunstrom, et al.        Expires 8 October 2020                [Page 15]
 Internet-Draft             TAPS Implementation                April 2020
 
 
-4.4.  Candidate Racing
+4.2.  Candidate Racing
 
    The primary goal of the Candidate Racing process is to successfully
    negotiate a protocol stack to an endpoint over an interface--to
@@ -876,7 +876,7 @@ Internet-Draft             TAPS Implementation                April 2020
    given parent node, and is not ordered precisely with regards to other
    children of other nodes.
 
-4.4.1.  Delayed
+4.2.1.  Delayed
 
    Delayed racing can be used whenever a single node of the tree has
    multiple child nodes.  Based on the order determined when building
@@ -920,7 +920,7 @@ Internet-Draft             TAPS Implementation                April 2020
    If a child node fails to connect before the delay timer has fired for
    the next child, the next child should be started immediately.
 
-4.4.2.  Failover
+4.2.2.  Failover
 
    If an implementation or application has a strong preference for one
    branch over another, the branching node may choose to wait until one
@@ -935,7 +935,7 @@ Internet-Draft             TAPS Implementation                April 2020
    misconfigured, but any more aggressive type of racing may end up
    unnecessarily avoiding a proxy that was preferred by policy.
 
-4.5.  Completing Establishment
+4.3.  Completing Establishment
 
    The process of connection establishment completes when one leaf node
    of the tree has completed negotiation with the remote endpoint
@@ -983,7 +983,7 @@ Internet-Draft             TAPS Implementation                April 2020
    is generally not recommended since those attempts were slower to
    connect and may exhibit less desirable properties.
 
-4.5.1.  Determining Successful Establishment
+4.3.1.  Determining Successful Establishment
 
    Implementations may select the criteria by which a leaf node is
    considered to be successfully connected differently on a per-protocol
@@ -993,7 +993,7 @@ Internet-Draft             TAPS Implementation                April 2020
    has been received.  If the only protocol being used is an
    "unconnected" protocol, like UDP, the implementation may consider the
    node fully "connected" the moment it determines a route is present,
-   before sending any packets on the network, see further Section 4.7.
+   before sending any packets on the network, see further Section 4.5.
 
    For protocol stacks with multiple handshakes, the decision becomes
    more nuanced.  If the protocol stack involves both TLS and TCP, an
@@ -1025,7 +1025,7 @@ Internet-Draft             TAPS Implementation                April 2020
    event.  An InitiateError event should also be generated in case the
    transport system finds no usable candidates to race.
 
-4.6.  Establishing multiplexed connections
+4.4.  Establishing multiplexed connections
 
    Multiplexing several Connections over a single underlying transport
    connection requires that the Connections to be multiplexed belong to
@@ -1047,7 +1047,7 @@ Internet-Draft             TAPS Implementation                April 2020
    endpoint's Inititate.  Instead, calling the ConnectionReceived event
    may be delayed until the first Message arrives.
 
-4.7.  Handling racing with "unconnected" protocols
+4.5.  Handling racing with "unconnected" protocols
 
    While protocols that use an explicit handshake to validate a
    Connection to a peer can be used for racing multiple establishment
@@ -1077,7 +1077,7 @@ Internet-Draft             TAPS Implementation                April 2020
    Stack.  This can be viewed as an application-driven form of Protocol
    Stack racing.
 
-4.8.  Implementing listeners
+4.6.  Implementing listeners
 
    When an implementation is asked to Listen, it registers with the
    system to wait for incoming traffic to the Local Endpoint.  If no
@@ -1099,7 +1099,7 @@ Internet-Draft             TAPS Implementation                April 2020
    means that inbound Connections delivered by the implementation may
    have heterogeneous protocol stacks.
 
-4.8.1.  Implementing listeners for Connected Protocols
+4.6.1.  Implementing listeners for Connected Protocols
 
    Connected protocols such as TCP and TLS-over-TCP have a strong
    mapping between the Local and Remote Endpoints (five-tuple) and their
@@ -1122,7 +1122,7 @@ Brunstrom, et al.        Expires 8 October 2020                [Page 20]
 Internet-Draft             TAPS Implementation                April 2020
 
 
-4.8.2.  Implementing listeners for Unconnected Protocols
+4.6.2.  Implementing listeners for Unconnected Protocols
 
    Unconnected protocols such as UDP and UDP-lite generally do not
    provide the same mechanisms that connected protocols do to offer
@@ -1134,7 +1134,7 @@ Internet-Draft             TAPS Implementation                April 2020
    implementations should use these mechanisms to minimise the handling
    of datagrams intended for already created Connection objects.
 
-4.8.3.  Implementing listeners for Multiplexed Protocols
+4.6.3.  Implementing listeners for Multiplexed Protocols
 
    Protocols that provide multiplexing of streams into a single five-
    tuple can listen both for entirely new connections (a new HTTP/2
@@ -1652,7 +1652,7 @@ Internet-Draft             TAPS Implementation                April 2020
    regarding data that the application has handed over to the Transport
    System before calling Abort.
 
-   As explained in Section 4.6, when a new stream is multiplexed on an
+   As explained in Section 4.4, when a new stream is multiplexed on an
    already existing connection of a Transport Protocol Instance, there
    is no need for a connection establishment procedure.  Because the
    Connections that are offered by the Transport System can be
@@ -2620,7 +2620,7 @@ Appendix A.  Additional Properties
 A.1.  Properties Affecting Sorting of Branches
 
    In addition to the Protocol and Path Selection Properties discussed
-   in Section 4.3, the following properties under discussion can
+   in Section 4.1.5, the following properties under discussion can
    influence branch sorting:
 
    *  Bounds on Send or Receive Rate: If the application indicates a
