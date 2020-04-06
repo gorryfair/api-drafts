@@ -415,9 +415,10 @@ Internet-Draft             TAPS Implementation                April 2020
 4.1.1.  Gathering Endpoint Candidates
 
    Both Local and Remote Endpoint Candidates must be discovered during
-   connection establishment.  To support ICE, or similar protocols, that
-   involve out-of-band indirect signalling to exchange candidates with
-   the Remote Endpoint, it's important to be able to query the set of
+   connection establishment.  To support Interactive Connectivity
+   Establishment (ICE) [RFC8445], or similar protocols, that involve
+   out-of-band indirect signalling to exchange candidates with the
+   Remote Endpoint, it's important to be able to query the set of
    candidate Local Endpoints, and give the protocol stack a set of
    candidate Remote Endpoints, before it attempts to establish
    connections.
@@ -433,14 +434,13 @@ Internet-Draft             TAPS Implementation                April 2020
 
    If NAT traversal is required, the process of gathering Local
    Endpoints becomes broadly equivalent to the ICE candidate gathering
-   phase [RFC5245].  The endpoint determines its server reflexive Local
-   Endpoints (i.e., the translated address of a local, on the other side
-   of a NAT) and relayed locals (e.g., via a TURN server or other
+   phase (see Section 5.1.1. of [RFC8445]).  The endpoint determines its
+   server reflexive Local Endpoints (i.e., the translated address of a
+   local, on the other side of a NAT, e.g via a STUN sever [RFC5389])
+   and relayed locals (e.g., via a TURN server [RFC5766] or other
    relay), for each interface and network protocol.  These are added to
    the set of candidate Local Endpoints for this connection.
 
-   Gathering Local Endpoints is primarily a local operation, although it
-   might involve exchanges with a STUN server to derive server reflexive
 
 
 
@@ -450,8 +450,11 @@ Brunstrom, et al.        Expires 8 October 2020                 [Page 8]
 Internet-Draft             TAPS Implementation                April 2020
 
 
+   Gathering Local Endpoints is primarily a local operation, although it
+   might involve exchanges with a STUN server to derive server reflexive
    locals, or with a TURN server or other relay to derive relayed
-   locals.  It does not involve communication with the Remote Endpoint.
+   locals.  However, it does not involve communication with the Remote
+   Endpoint.
 
 4.1.1.2.  Remote Endpoint Candidates
 
@@ -496,9 +499,6 @@ Internet-Draft             TAPS Implementation                April 2020
    will have a parent node of the tree for the decision between the
    paths, with a branch for each interface.
 
-   The example aggregate connection attempt above can be drawn as a tree
-
-
 
 
 Brunstrom, et al.        Expires 8 October 2020                 [Page 9]
@@ -506,6 +506,7 @@ Brunstrom, et al.        Expires 8 October 2020                 [Page 9]
 Internet-Draft             TAPS Implementation                April 2020
 
 
+   The example aggregate connection attempt above can be drawn as a tree
    by grouping the addresses resolved on the same interface into
    branches:
 
@@ -553,7 +554,6 @@ Internet-Draft             TAPS Implementation                April 2020
    a single interface with a single protocol.
 
    1 [192.0.2.1:80, Wi-Fi, TCP]
-
 
 
 
@@ -2581,11 +2581,16 @@ Internet-Draft             TAPS Implementation                April 2020
               "Transparent Flow Mapping for NEAT (in Workshop on Future
               of Internet Transport (FIT 2017))", 2017.
 
-   [RFC5245]  Rosenberg, J., "Interactive Connectivity Establishment
-              (ICE): A Protocol for Network Address Translator (NAT)
-              Traversal for Offer/Answer Protocols", RFC 5245,
-              DOI 10.17487/RFC5245, April 2010,
-              <https://www.rfc-editor.org/info/rfc5245>.
+   [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
+              "Session Traversal Utilities for NAT (STUN)", RFC 5389,
+              DOI 10.17487/RFC5389, October 2008,
+              <https://www.rfc-editor.org/info/rfc5389>.
+
+   [RFC5766]  Mahy, R., Matthews, P., and J. Rosenberg, "Traversal Using
+              Relays around NAT (TURN): Relay Extensions to Session
+              Traversal Utilities for NAT (STUN)", RFC 5766,
+              DOI 10.17487/RFC5766, April 2010,
+              <https://www.rfc-editor.org/info/rfc5766>.
 
    [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
               DOI 10.17487/RFC6762, February 2013,
@@ -2594,6 +2599,12 @@ Internet-Draft             TAPS Implementation                April 2020
    [RFC6763]  Cheshire, S. and M. Krochmal, "DNS-Based Service
               Discovery", RFC 6763, DOI 10.17487/RFC6763, February 2013,
               <https://www.rfc-editor.org/info/rfc6763>.
+
+   [RFC8445]  Keranen, A., Holmberg, C., and J. Rosenberg, "Interactive
+              Connectivity Establishment (ICE): A Protocol for Network
+              Address Translator (NAT) Traversal", RFC 8445,
+              DOI 10.17487/RFC8445, July 2018,
+              <https://www.rfc-editor.org/info/rfc8445>.
 
 Appendix A.  Additional Properties
 
@@ -2615,6 +2626,14 @@ A.1.  Properties Affecting Sorting of Branches
    *  Bounds on Send or Receive Rate: If the application indicates a
       bound on the expected Send or Receive bitrate, an implementation
       may prefer a path that can likely provide the desired bandwidth,
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 47]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
       based on cached maximum throughput, see Section 9.2.  The
       application may know the Send or Receive Bitrate from metadata in
       adaptive HTTP streaming, such as MPEG-DASH.
@@ -2625,14 +2644,6 @@ A.1.  Properties Affecting Sorting of Branches
       such paths.  If the application indicates that it prohibits using
       expensive paths, paths that are associated with a cost should be
       purged from the decision tree.
-
-
-
-
-Brunstrom, et al.        Expires 8 October 2020                [Page 47]
-
-Internet-Draft             TAPS Implementation                April 2020
-
 
 Appendix B.  Reasons for errors
 
@@ -2672,23 +2683,19 @@ Appendix B.  Reasons for errors
       contradictory to the transport properties or they can not be
       satisfied by the transport system.
 
-   *  DeframingFailed: The data that was received by the underlying
-      protocol stack could not be deframed.
-
-   *  ConnectionAborted: The connection was aborted by the peer.
-
-   *  Timeout: Delivery of a message was not possible after a timeout.
-
-
-
-
-
 
 
 Brunstrom, et al.        Expires 8 October 2020                [Page 48]
 
 Internet-Draft             TAPS Implementation                April 2020
 
+
+   *  DeframingFailed: The data that was received by the underlying
+      protocol stack could not be deframed.
+
+   *  ConnectionAborted: The connection was aborted by the peer.
+
+   *  Timeout: Delivery of a message was not possible after a timeout.
 
 Appendix C.  Existing Implementations
 
@@ -2731,6 +2738,14 @@ Appendix C.  Existing Implementations
 
 Authors' Addresses
 
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 49]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    Anna Brunstrom (editor)
    Karlstad University
    Universitetsgatan 2
@@ -2738,12 +2753,6 @@ Authors' Addresses
    Sweden
 
    Email: anna.brunstrom@kau.se
-
-
-
-Brunstrom, et al.        Expires 8 October 2020                [Page 49]
-
-Internet-Draft             TAPS Implementation                April 2020
 
 
    Tommy Pauly (editor)
@@ -2785,6 +2794,14 @@ Internet-Draft             TAPS Implementation                April 2020
    Philipp S. Tiesel
    TU Berlin
    Einsteinufer 25
+
+
+
+Brunstrom, et al.        Expires 8 October 2020                [Page 50]
+
+Internet-Draft             TAPS Implementation                April 2020
+
+
    10587 Berlin
    Germany
 
@@ -2794,14 +2811,6 @@ Internet-Draft             TAPS Implementation                April 2020
    Colin Perkins
    University of Glasgow
    School of Computing Science
-
-
-
-Brunstrom, et al.        Expires 8 October 2020                [Page 50]
-
-Internet-Draft             TAPS Implementation                April 2020
-
-
    Glasgow G12 8QQ
    United Kingdom
 
@@ -2815,15 +2824,6 @@ Internet-Draft             TAPS Implementation                April 2020
    Norway
 
    Email: michawe@ifi.uio.no
-
-
-
-
-
-
-
-
-
 
 
 
