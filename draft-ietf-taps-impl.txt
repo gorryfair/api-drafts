@@ -26,10 +26,12 @@ Expires: 8 October 2020                                       Apple Inc.
 
 Abstract
 
-   The Transport Services architecture [I-D.ietf-taps-arch] defines a
-   system that allows applications to use transport networking protocols
-   flexibly.  This document serves as a guide to implementation on how
-   to build such a system.
+   The Transport Services (TAPS) system enables applications to use
+   transport protocols flexibly for network communication and defines a
+   protocol-independent TAPS Application Programming Interface (API)
+   that is based on an asynchronous, event-driven interaction pattern.
+   This document serves as a guide to implementation on how to build
+   such a system.
 
 Status of This Memo
 
@@ -47,8 +49,6 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on 8 October 2020.
-
-
 
 
 
@@ -178,11 +178,12 @@ Internet-Draft             TAPS Implementation                April 2020
    The connection objects that are exposed to applications for Transport
    Services are:
 
-   *  the Preconnection, the bundle of properties that describes the
+   *  the Preconnection, the bundle of Properties that describes the
       application constraints on the transport;
 
-   *  the Connection, the basic object that represents a flow of data in
-      either direction between the Local and Remote Endpoints;
+   *  the Connection, the basic object that represents a flow of data as
+      Messages in either direction between the Local and Remote
+      Endpoints;
 
    *  and the Listener, a passive waiting object that delivers new
       Connections.
@@ -212,7 +213,6 @@ Internet-Draft             TAPS Implementation                April 2020
    their configuration should be considered immutable by the
    implementation.  The process of listening is described in
    Section 4.8.
-
 
 
 

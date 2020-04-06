@@ -14,7 +14,9 @@
 <meta content="Colin Perkins" name="author">
 <meta content="Michael Welzl" name="author">
 <meta content="
-       The Transport Services architecture   defines a system that allows applications to use transport networking protocols flexibly. This document serves as a guide to implementation on how to build such a system. 
+       The Transport Services (TAPS) system enables applications to use transport protocols flexibly for network communication
+and defines a protocol-independent TAPS Application Programming Interface (API) that is based on an asynchronous, 
+event-driven interaction pattern. This document serves as a guide to implementation on how to build such a system. 
     " name="description">
 <meta content="xml2rfc 2.42.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
@@ -897,7 +899,9 @@ table.left {
 <h1 id="title">Implementing Interfaces to Transport Services</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">The Transport Services architecture <span>[<a href="#I-D.ietf-taps-arch" class="xref">I-D.ietf-taps-arch</a>]</span> defines a system that allows applications to use transport networking protocols flexibly. This document serves as a guide to implementation on how to build such a system.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">The Transport Services (TAPS) system enables applications to use transport protocols flexibly for network communication
+and defines a protocol-independent TAPS Application Programming Interface (API) that is based on an asynchronous, 
+event-driven interaction pattern. This document serves as a guide to implementation on how to build such a system.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1189,9 +1193,9 @@ table.left {
       </h2>
 <p id="section-2-1">The connection objects that are exposed to applications for Transport Services are:<a href="#section-2-1" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-2-2.1">the Preconnection, the bundle of properties that describes the application constraints on the transport;<a href="#section-2-2.1" class="pilcrow">¶</a>
+<li id="section-2-2.1">the Preconnection, the bundle of Properties that describes the application constraints on the transport;<a href="#section-2-2.1" class="pilcrow">¶</a>
 </li>
-<li id="section-2-2.2">the Connection, the basic object that represents a flow of data in either direction between the Local and Remote Endpoints;<a href="#section-2-2.2" class="pilcrow">¶</a>
+<li id="section-2-2.2">the Connection, the basic object that represents a flow of data as Messages in either direction between the Local and Remote Endpoints;<a href="#section-2-2.2" class="pilcrow">¶</a>
 </li>
 <li id="section-2-2.3">and the Listener, a passive waiting object that delivers new Connections.<a href="#section-2-2.3" class="pilcrow">¶</a>
 </li>
