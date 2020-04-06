@@ -434,7 +434,7 @@ Internet-Draft             TAPS Implementation                April 2020
 
    If NAT traversal is required, the process of gathering Local
    Endpoints becomes broadly equivalent to the ICE candidate gathering
-   phase (see section 5.1.1. of [RFC8445]).  The endpoint determines its
+   phase (see Section 5.1.1. of [RFC8445]).  The endpoint determines its
    server reflexive Local Endpoints (i.e., the translated address of a
    local, on the other side of a NAT, e.g via a STUN sever [RFC5389])
    and relayed locals (e.g., via a TURN server [RFC5766] or other
