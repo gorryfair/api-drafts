@@ -1360,11 +1360,12 @@ Internet-Draft             TAPS Implementation                April 2020
    distributed pre-shared keys (PSKs).  Implementations should be aware
    of security concerns around using these tokens across multiple
    addresses or paths when racing.  In the case of TLS, any given ticket
-   or PSK should only be used on one leaf node.  If implementations have
-   multiple tickets available from a previous connection, each leaf node
-   attempt must use a different ticket.  In effect, each leaf node will
-   send the same early application data, yet encoded (encrypted)
-   differently on the wire.
+   or PSK should only be used on one leaf node as servers likely will
+   not accept dublicate tickets to prevent replays (see section-8.1
+   [RFC8446]).  If implementations have multiple tickets available from
+   a previous connection, each leaf node attempt can use a different
+   ticket.  In effect, each leaf node will send the same early
+   application data, yet encoded (encrypted) differently on the wire.
 
 6.  Implementing Message Framers
 
@@ -1393,7 +1394,6 @@ Internet-Draft             TAPS Implementation                April 2020
    Framers to be defined by the application or some other piece of
    software.  This section describes one possible interface for defining
    Message Framers as an example.
-
 
 
 
