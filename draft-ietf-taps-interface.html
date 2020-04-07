@@ -843,7 +843,7 @@ table.left {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Trammell, et al.</td>
-<td class="center">Expires 8 October 2020</td>
+<td class="center">Expires 9 October 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -856,12 +856,12 @@ table.left {
 <dd class="internet-draft">draft-ietf-taps-interface-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-04-06" class="published">6 April 2020</time>
+<time datetime="2020-04-07" class="published">7 April 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-10-08">8 October 2020</time></dd>
+<dd class="expires"><time datetime="2020-10-09">9 October 2020</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -935,7 +935,7 @@ and potential transport protocols to select from.<a href="#section-abstract-1" c
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 October 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 October 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1744,7 +1744,7 @@ form [&lt;Namespace&gt;.]&lt;PropertyName&gt;.<a href="#section-4.2.1-3" class="
 properties that are not specific to a protocol and are defined in an RFC.<a href="#section-4.2.1-4.1" class="pilcrow">¶</a>
 </li>
 <li id="section-4.2.1-4.2">Protocol Specific Properties MUST use the protocol acronym as Namespace, e.g.,
-"tcp" for TCP specific Transport Properties. For IETF protocols, property
+<code>tcp</code> for TCP specific Transport Properties. For IETF protocols, property
 names under these namespaces SHOULD be defined in an RFC.<a href="#section-4.2.1-4.2" class="pilcrow">¶</a>
 </li>
 <li id="section-4.2.1-4.3">Vendor or implementation specific properties MUST use a string identifying
@@ -1764,7 +1764,7 @@ specific properties.<a href="#section-4.2.1-5" class="pilcrow">¶</a></p>
           </h4>
 <p id="section-4.2.2-1">Transport Properties can have one of a set of data types:<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-4.2.2-2.1">Boolean: can take the values "true" and "false"; representation is
+<li id="section-4.2.2-2.1">Boolean: can take the values <code>true</code> and <code>false</code>; representation is
 implementation-dependent.<a href="#section-4.2.2-2.1" class="pilcrow">¶</a>
 </li>
 <li id="section-4.2.2-2.2">Integer: can take positive or negative numeric integer values; range and
@@ -1783,6 +1783,9 @@ Require) for the level of preference of a given property during protocol
 selection; see <a href="#selection-props" class="xref">Section 5.2</a>.<a href="#section-4.2.2-2.5" class="pilcrow">¶</a>
 </li>
 </ul>
+<p id="section-4.2.2-3">For types Integer and Numeric, special values can be defined
+per property; it is up to implementations how these special values are
+represented (e.g., by using -1 for an otherwise non-negative value).<a href="#section-4.2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1814,7 +1817,7 @@ substantially equivalent objects for networking by convention.<a href="#section-
 Connection Property, and Message Context Property specified in this document. Each interface SHOULD be implemented even when this
 will always result in no operation, e.g. there is no action when the API
 specifies a Property that is not available in a transport protocol implemented
-on a specific platform. For example, if TCP is the only underlying transport protocol, the Message Property "msg-ordered" can be implemented even if disabling ordering will not have any effect TCP because the API does not guarantee out-of-order delivery. Similarly, the msg-lifetime" Message Property can be implemented but ignored, as the description of this Property states that "it is not guaranteed that a Message will not be sent when its Lifetime has expired".<a href="#section-4.3-4.2" class="pilcrow">¶</a>
+on a specific platform. For example, if TCP is the only underlying transport protocol, the Message Property <code>msgOrdered</code> can be implemented even if disabling ordering will not have any effect TCP because the API does not guarantee out-of-order delivery. Similarly, the <code>msg-lifetime</code> Message Property can be implemented but ignored, as the description of this Property states that "it is not guaranteed that a Message will not be sent when its Lifetime has expired".<a href="#section-4.3-4.2" class="pilcrow">¶</a>
 </li>
 <li id="section-4.3-4.3">Implementations may use other representations for Transport Property Names,
 e.g., by providing constants, but should provide a straight-forward mapping
@@ -1900,7 +1903,7 @@ LocalSpecifier.WithInterface("en0")
 LocalSpecifier.WithPort(443)
 </pre><a href="#section-5.1-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-10">As an alternative to specifying an interface name for the Local Endpoint, an application can express more fine-grained preferences using the "Interface Instance or Type" Selection Property, see <a href="#prop-interface" class="xref">Section 5.2.10</a>. However, if the application specifies Selection Properties which are inconsistent with the Local Endpoint, this will result in an error once the application attempts to open a Connection.<a href="#section-5.1-10" class="pilcrow">¶</a></p>
+<p id="section-5.1-10">As an alternative to specifying an interface name for the Local Endpoint, an application can express more fine-grained preferences using the <code>Interface Instance or Type</code> Selection Property, see <a href="#prop-interface" class="xref">Section 5.2.10</a>. However, if the application specifies Selection Properties which are inconsistent with the Local Endpoint, this will result in an error once the application attempts to open a Connection.<a href="#section-5.1-10" class="pilcrow">¶</a></p>
 <p id="section-5.1-11">Specify a Local Endpoint using a STUN server:<a href="#section-5.1-11" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-5.1-12">
 <pre>
@@ -2034,7 +2037,7 @@ TransportProperties := NewTransportProperties()
 TransportProperties.Add(property, value)
 </pre><a href="#section-5.2-11" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-12">Selection Properties of type "Preference" can be frequently used. Implementations MAY therefore provide additional convenience functions, see <a href="#preference-conv" class="xref">Appendix A.1</a> for examples.
+<p id="section-5.2-12">Selection Properties of type <code>Preference</code> can be frequently used. Implementations MAY therefore provide additional convenience functions, see <a href="#preference-conv" class="xref">Appendix A.1</a> for examples.
 In addition, implementations MAY provide a mechanism to create TransportProperties objects that are preconfigured for common use cases as outlined in <a href="#property-profiles" class="xref">Appendix A.2</a>.<a href="#section-5.2-12" class="pilcrow">¶</a></p>
 <p id="section-5.2-13">For an existing Connection, the Transport Properties can be queried any time
 by using the following call on the Connection Object:<a href="#section-5.2-13" class="pilcrow">¶</a></p>
@@ -2091,7 +2094,7 @@ aborted when reliable data transfer is enabled.<a href="#section-5.2.1-2" class=
 <dl class="dlParallel" id="section-5.2.2-1">
             <dt id="section-5.2.2-1.1">Name:</dt>
 <dd id="section-5.2.2-1.2">
-  preserve-msg-boundaries<a href="#section-5.2.2-1.2" class="pilcrow">¶</a>
+  preserveMsgBoundaries<a href="#section-5.2.2-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.2-1.3">Type:</dt>
 <dd id="section-5.2.2-1.4">
@@ -2114,7 +2117,7 @@ protocol that preserves message boundaries.<a href="#section-5.2.2-2" class="pil
 <dl class="dlParallel" id="section-5.2.3-1">
             <dt id="section-5.2.3-1.1">Name:</dt>
 <dd id="section-5.2.3-1.2">
-  per-msg-reliability<a href="#section-5.2.3-1.2" class="pilcrow">¶</a>
+  perMsgReliability<a href="#section-5.2.3-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.3-1.3">Type:</dt>
 <dd id="section-5.2.3-1.4">
@@ -2138,7 +2141,7 @@ Connections and Connection Groups.<a href="#section-5.2.3-2" class="pilcrow">¶<
 <dl class="dlParallel" id="section-5.2.4-1">
             <dt id="section-5.2.4-1.1">Name:</dt>
 <dd id="section-5.2.4-1.2">
-  preserve-order<a href="#section-5.2.4-1.2" class="pilcrow">¶</a>
+  preserveOrder<a href="#section-5.2.4-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.4-1.3">Type:</dt>
 <dd id="section-5.2.4-1.4">
@@ -2162,7 +2165,7 @@ end in the same order as it was sent.<a href="#section-5.2.4-2" class="pilcrow">
 <dl class="dlParallel" id="section-5.2.5-1">
             <dt id="section-5.2.5-1.1">Name:</dt>
 <dd id="section-5.2.5-1.2">
-  zero-rtt-msg<a href="#section-5.2.5-1.2" class="pilcrow">¶</a>
+  zeroRttMsg<a href="#section-5.2.5-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.5-1.3">Type:</dt>
 <dd id="section-5.2.5-1.4">
@@ -2215,7 +2218,7 @@ transport connection where possible.<a href="#section-5.2.6-2" class="pilcrow">�
 <dl class="dlParallel" id="section-5.2.7-1">
             <dt id="section-5.2.7-1.1">Name:</dt>
 <dd id="section-5.2.7-1.2">
-  per-msg-checksum-len-send<a href="#section-5.2.7-1.2" class="pilcrow">¶</a>
+  perMsgChecksumLenSend<a href="#section-5.2.7-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.7-1.3">Type:</dt>
 <dd id="section-5.2.7-1.4">
@@ -2239,7 +2242,7 @@ to control checksum coverage later (see <a href="#msg-checksum" class="xref">Sec
 <dl class="dlParallel" id="section-5.2.8-1">
             <dt id="section-5.2.8-1.1">Name:</dt>
 <dd id="section-5.2.8-1.2">
-  per-msg-checksum-len-recv<a href="#section-5.2.8-1.2" class="pilcrow">¶</a>
+  perMsgChecksumLenRecv<a href="#section-5.2.8-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.8-1.3">Type:</dt>
 <dd id="section-5.2.8-1.4">
@@ -2262,7 +2265,7 @@ corruption for all data received on this Connection.<a href="#section-5.2.8-2" c
 <dl class="dlParallel" id="section-5.2.9-1">
             <dt id="section-5.2.9-1.1">Name:</dt>
 <dd id="section-5.2.9-1.2">
-  congestion-control<a href="#section-5.2.9-1.2" class="pilcrow">¶</a>
+  congestionControl<a href="#section-5.2.9-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.9-1.3">Type:</dt>
 <dd id="section-5.2.9-1.4">
@@ -2379,7 +2382,7 @@ over these options.<a href="#section-5.2.11-5" class="pilcrow">¶</a></p>
 <dl class="dlParallel" id="section-5.2.12-1">
             <dt id="section-5.2.12-1.1">Name:</dt>
 <dd id="section-5.2.12-1.2">
-  use-temporary-local-address<a href="#section-5.2.12-1.2" class="pilcrow">¶</a>
+  useTemporaryLocalAddress<a href="#section-5.2.12-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.12-1.3">Type:</dt>
 <dd id="section-5.2.12-1.4">
@@ -2437,10 +2440,10 @@ availability and performance properties change. Possible values are:<a href="#se
 </dd>
 <dt id="section-5.2.13-3.7">Aggregate:</dt>
 <dd id="section-5.2.13-3.8">
-  The connection should attempt to use multiple paths in parallel in order to maximize bandwidth<a href="#section-5.2.13-3.8" class="pilcrow">¶</a>
+  The connection should attempt to use multiple paths in parallel in order to maximize throughput<a href="#section-5.2.13-3.8" class="pilcrow">¶</a>
 </dd>
 </dl>
-<p id="section-5.2.13-4">Enumeration values other than "Disabled" are interpreted as preferences.<a href="#section-5.2.13-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.13-4">Enumeration values other than <code>Disabled</code> are interpreted as preferences.<a href="#section-5.2.13-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="direction-of-communication">
@@ -2491,7 +2494,7 @@ bidirectional communication to be selected.<a href="#section-5.2.14-4" class="pi
 <dl class="dlParallel" id="section-5.2.15-1">
             <dt id="section-5.2.15-1.1">Name:</dt>
 <dd id="section-5.2.15-1.2">
-  retransmit-notify<a href="#section-5.2.15-1.2" class="pilcrow">¶</a>
+  retransmitNotify<a href="#section-5.2.15-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.15-1.3">Type:</dt>
 <dd id="section-5.2.15-1.4">
@@ -2515,7 +2518,7 @@ threshold (see <a href="#conn-excss-retransmit" class="xref">Section 10.1.1</a> 
 <dl class="dlParallel" id="section-5.2.16-1">
             <dt id="section-5.2.16-1.1">Name:</dt>
 <dd id="section-5.2.16-1.2">
-  soft-error-notify<a href="#section-5.2.16-1.2" class="pilcrow">¶</a>
+  softErrorNotify<a href="#section-5.2.16-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-5.2.16-1.3">Type:</dt>
 <dd id="section-5.2.16-1.4">
@@ -2870,8 +2873,8 @@ Connection on which Clone was called, and the resulting cloned Connection. These
 connections are "entangled" with each other, and become part of a Connection
 Group. Calling Clone on any of these two Connections adds a third Connection to
 the Connection Group, and so on. Connections in a Connection Group generally share
-Connection Properties. However, there may be exceptions, such as "Priority
-(Connection)", see <a href="#conn-priority" class="xref">Section 10.1.3</a>. Like all other Properties, Priority is copied to the new Connection when calling Clone(), but it is not entangled: Changing Priority on one Connection does not change it on the other Connections in the same Connection Group.<a href="#section-6.4-3" class="pilcrow">¶</a></p>
+Connection Properties. However, there may be exceptions, such as <code>Priority
+(Connection)</code>, see <a href="#conn-priority" class="xref">Section 10.1.3</a>. Like all other Properties, Priority is copied to the new Connection when calling Clone(), but it is not entangled: Changing Priority on one Connection does not change it on the other Connections in the same Connection Group.<a href="#section-6.4-3" class="pilcrow">¶</a></p>
 <p id="section-6.4-4">In addition, incoming entangled Connections can be received by creating a
 Listener on an existing connection:<a href="#section-6.4-4" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-6.4-5">
@@ -2884,10 +2887,10 @@ cloned Connection is using. Any new Connection received by this Listener will be
 entangled with the cloned Connection.
 Changing one of the Connection Properties on one Connection in the group
 changes it for all others. Message Properties, however, are not
-entangled. For example, changing "Timeout for aborting Connection" (see
+entangled. For example, changing <code>Timeout for aborting Connection</code> (see
 <a href="#conn-timeout" class="xref">Section 10.1.4</a>) on one Connection in a group will automatically change this
 Connection Property for all Connections in the group in the same way. However,
-changing "Lifetime" (see <a href="#msg-lifetime" class="xref">Section 7.5.1</a>) of a Message will only affect a
+changing <code>Lifetime</code> (see <a href="#msg-lifetime" class="xref">Section 7.5.1</a>) of a Message will only affect a
 single Message on a single Connection, entangled or not.<a href="#section-6.4-6" class="pilcrow">¶</a></p>
 <p id="section-6.4-7">If the underlying protocol supports multi-streaming, it is natural to use this
 functionality to implement Clone. In that case, entangled Connections are
@@ -3141,7 +3144,7 @@ inconsistent with the Selection Properties of the Connection yields an error.<a 
 <dl class="dlParallel" id="section-7.5.1-1">
             <dt id="section-7.5.1-1.1">Name:</dt>
 <dd id="section-7.5.1-1.2">
-  msg-lifetime<a href="#section-7.5.1-1.2" class="pilcrow">¶</a>
+  msgLifetime<a href="#section-7.5.1-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.1-1.3">Type:</dt>
 <dd id="section-7.5.1-1.4">
@@ -3158,7 +3161,7 @@ remote endpoint before it is irrelevant and no longer needs to be
 that a Message will not be sent when its Lifetime has expired.<a href="#section-7.5.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.5.1-3">Setting a Message's Lifetime to infinite indicates that the application does
 not wish to apply a time constraint on the transmission of the Message, but it does not express a need for
-reliable delivery; reliability is adjustable per Message via the "Reliable Data Transfer (Message)"
+reliable delivery; reliability is adjustable per Message via the <code>Reliable Data Transfer (Message)</code>
 property (see <a href="#msg-reliable-message" class="xref">Section 7.5.7</a>). The type and units of Lifetime are implementation-specific.<a href="#section-7.5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3170,7 +3173,7 @@ property (see <a href="#msg-reliable-message" class="xref">Section 7.5.7</a>). T
 <dl class="dlParallel" id="section-7.5.2-1">
             <dt id="section-7.5.2-1.1">Name:</dt>
 <dd id="section-7.5.2-1.2">
-  msg-prio<a href="#section-7.5.2-1.2" class="pilcrow">¶</a>
+  msgPrio<a href="#section-7.5.2-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.2-1.3">Type:</dt>
 <dd id="section-7.5.2-1.4">
@@ -3201,7 +3204,7 @@ independently and be realized by different mechanisms.<a href="#section-7.5.2-4"
 <dl class="dlParallel" id="section-7.5.3-1">
             <dt id="section-7.5.3-1.1">Name:</dt>
 <dd id="section-7.5.3-1.2">
-  msg-ordered<a href="#section-7.5.3-1.2" class="pilcrow">¶</a>
+  msgOrdered<a href="#section-7.5.3-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.3-1.3">Type:</dt>
 <dd id="section-7.5.3-1.4">
@@ -3290,24 +3293,24 @@ been sent on a Connection, the Send Action for the new Message will cause a Send
 <dl class="dlParallel" id="section-7.5.6-1">
             <dt id="section-7.5.6-1.1">Name:</dt>
 <dd id="section-7.5.6-1.2">
-  msg-checksum-len<a href="#section-7.5.6-1.2" class="pilcrow">¶</a>
+  msgChecksumLen<a href="#section-7.5.6-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.6-1.3">Type:</dt>
 <dd id="section-7.5.6-1.4">
-  Integer (non-negative with -1 as special value)<a href="#section-7.5.6-1.4" class="pilcrow">¶</a>
+  Integer (non-negative with special value <code>Full Coverage</code>)<a href="#section-7.5.6-1.4" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.6-1.5">Default:</dt>
 <dd id="section-7.5.6-1.6">
-  -1 (full coverage)<a href="#section-7.5.6-1.6" class="pilcrow">¶</a>
+  Full Coverage<a href="#section-7.5.6-1.6" class="pilcrow">¶</a>
 </dd>
 </dl>
 <p id="section-7.5.6-2">This property specifies the minimum length of the section of the Message,
 starting from byte 0, that the application requires to be delivered without
 corruption due to lower layer errors. It is used to specify options for simple
 integrity protection via checksums. A value of 0 means that no checksum
-is required, and -1 means
-that the entire Message is protected by a checksum. Only full coverage is
-guaranteed, any other requests are advisory, meaning that full coverage is applied
+is required, and <code>Full Coverage</code> means
+that the entire Message is protected by a checksum. Only <code>Full Coverage</code> is
+guaranteed, any other requests are advisory, meaning that <code>Full Coverage</code> is applied
 anyway.<a href="#section-7.5.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3319,7 +3322,7 @@ anyway.<a href="#section-7.5.6-2" class="pilcrow">¶</a></p>
 <dl class="dlParallel" id="section-7.5.7-1">
             <dt id="section-7.5.7-1.1">Name:</dt>
 <dd id="section-7.5.7-1.2">
-  msg-reliable<a href="#section-7.5.7-1.2" class="pilcrow">¶</a>
+  msgReliable<a href="#section-7.5.7-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.7-1.3">Type:</dt>
 <dd id="section-7.5.7-1.4">
@@ -3332,8 +3335,8 @@ anyway.<a href="#section-7.5.6-2" class="pilcrow">¶</a></p>
 </dl>
 <p id="section-7.5.7-2">When true, this property specifies that a message should be sent in such a way
 that the transport protocol ensures all data is received on the other side
-without corruption. Changing the 'Reliable Data Transfer' property on Messages
-is only possible for Connections that were established with the Selection Property 'Configure Per-Message Reliability' enabled.
+without corruption. Changing the <code>Reliable Data Transfer</code> property on Messages
+is only possible for Connections that were established with the Selection Property <code>Configure Per-Message Reliability</code> enabled.
 When this is not the case, changing it will generate an error.
 Disabling this property indicates that the transport system may disable retransmissions
 or other reliability mechanisms for this particular Message, but such disabling is not guaranteed.<a href="#section-7.5.7-2" class="pilcrow">¶</a></p>
@@ -3347,7 +3350,7 @@ or other reliability mechanisms for this particular Message, but such disabling 
 <dl class="dlParallel" id="section-7.5.8-1">
             <dt id="section-7.5.8-1.1">Name:</dt>
 <dd id="section-7.5.8-1.2">
-  msg-capacity-profile<a href="#section-7.5.8-1.2" class="pilcrow">¶</a>
+  msgCapacityProfile<a href="#section-7.5.8-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.8-1.3">Type:</dt>
 <dd id="section-7.5.8-1.4">
@@ -3367,7 +3370,7 @@ connection property (see <a href="#prop-cap-profile" class="xref">Section 10.1.6
 <dl class="dlParallel" id="section-7.5.9-1">
             <dt id="section-7.5.9-1.1">Name:</dt>
 <dd id="section-7.5.9-1.2">
-  singular-transmission<a href="#section-7.5.9-1.2" class="pilcrow">¶</a>
+  singularTransmission<a href="#section-7.5.9-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.9-1.3">Type:</dt>
 <dd id="section-7.5.9-1.4">
@@ -3474,7 +3477,8 @@ establishment.<a href="#section-7.8-5" class="pilcrow">¶</a></p>
       <h2 id="name-receiving-data">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-receiving-data" class="section-name selfRef">Receiving Data</a>
       </h2>
-<p id="section-8-1">Once a Connection is established, it can be used for receiving data. As with
+<p id="section-8-1">Once a Connection is established, it can be used for receiving data (unless the
+<code>Direction of Communication</code> property is set to <code>unidirectional send</code>). As with
 sending, data is received in terms of Messages. Receiving is an asynchronous
 operation, in which each call to Receive enqueues a request to receive new
 data from the connection. Once data has been received, or an error is encountered,
@@ -3788,13 +3792,13 @@ Establishing, Established, Closing, or Closed.<a href="#section-10-9.1" class="p
 </li>
 <li id="section-10-9.2">Whether the connection can be used to send data. A connection can not be used
 for sending if the connection was created with the Selection Property
-"Direction of Communication" set to "unidirectional receive" or if a Message
-marked as "Final" was sent over this connection, see <a href="#msg-final" class="xref">Section 7.5.5</a>.<a href="#section-10-9.2" class="pilcrow">¶</a>
+<code>Direction of Communication</code> set to <code>unidirectional receive</code> or if a Message
+marked as <code>Final</code> was sent over this connection, see <a href="#msg-final" class="xref">Section 7.5.5</a>.<a href="#section-10-9.2" class="pilcrow">¶</a>
 </li>
 <li id="section-10-9.3">Whether the connection can be used to receive data. A connection can not be
 used for reading if the connection was created with the Selection Property
-"Direction of Communication" set to "unidirectional send" or if a Message
-marked as "Final" was received, see <a href="#receiving-final-messages" class="xref">Section 8.3.3</a>. The latter
+<code>Direction of Communication</code> set to <code>unidirectional send</code> or if a Message
+marked as <code>Final</code> was received, see <a href="#receiving-final-messages" class="xref">Section 8.3.3</a>. The latter
 is only supported by certain transport protocols, e.g., by TCP as half-closed
 connection.<a href="#section-10-9.3" class="pilcrow">¶</a>
 </li>
@@ -3834,20 +3838,19 @@ enables applications to express their preference for protocols providing a suppo
 <dl class="dlParallel" id="section-10.1.1-1">
             <dt id="section-10.1.1-1.1">Name:</dt>
 <dd id="section-10.1.1-1.2">
-  retransmit-notify-threshold<a href="#section-10.1.1-1.2" class="pilcrow">¶</a>
+  retransmitNotifyThreshold<a href="#section-10.1.1-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.1-1.3">Type:</dt>
 <dd id="section-10.1.1-1.4">
-  Integer<a href="#section-10.1.1-1.4" class="pilcrow">¶</a>
+  Integer, with special value <code>Disabled</code><a href="#section-10.1.1-1.4" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.1-1.5">Default:</dt>
 <dd id="section-10.1.1-1.6">
-  -1<a href="#section-10.1.1-1.6" class="pilcrow">¶</a>
+  Disabled<a href="#section-10.1.1-1.6" class="pilcrow">¶</a>
 </dd>
 </dl>
 <p id="section-10.1.1-2">This property specifies after how many retransmissions to inform the application
-about "Excessive Retransmissions". The special value
--1 means that this notification is disabled.<a href="#section-10.1.1-2" class="pilcrow">¶</a></p>
+about <code>Excessive Retransmissions</code>.<a href="#section-10.1.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conn-recv-checksum">
@@ -3858,21 +3861,20 @@ about "Excessive Retransmissions". The special value
 <dl class="dlParallel" id="section-10.1.2-1">
             <dt id="section-10.1.2-1.1">Name:</dt>
 <dd id="section-10.1.2-1.2">
-  recv-checksum-len<a href="#section-10.1.2-1.2" class="pilcrow">¶</a>
+  recvChecksumLen<a href="#section-10.1.2-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.2-1.3">Type:</dt>
 <dd id="section-10.1.2-1.4">
-  Integer<a href="#section-10.1.2-1.4" class="pilcrow">¶</a>
+  Integer, with special value <code>Full Coverage</code><a href="#section-10.1.2-1.4" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.2-1.5">Default:</dt>
 <dd id="section-10.1.2-1.6">
-  -1<a href="#section-10.1.2-1.6" class="pilcrow">¶</a>
+  Full Coverage<a href="#section-10.1.2-1.6" class="pilcrow">¶</a>
 </dd>
 </dl>
 <p id="section-10.1.2-2">This property specifies the part of the received data that needs
 to be covered by a checksum. It is given in Bytes. A value of 0 means
-that no checksum is required, and the special value -1 indicates
-full checksum coverage.<a href="#section-10.1.2-2" class="pilcrow">¶</a></p>
+that no checksum is required.<a href="#section-10.1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conn-priority">
@@ -3883,7 +3885,7 @@ full checksum coverage.<a href="#section-10.1.2-2" class="pilcrow">¶</a></p>
 <dl class="dlParallel" id="section-10.1.3-1">
             <dt id="section-10.1.3-1.1">Name:</dt>
 <dd id="section-10.1.3-1.2">
-  conn-prio<a href="#section-10.1.3-1.2" class="pilcrow">¶</a>
+  connPrio<a href="#section-10.1.3-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.3-1.3">Type:</dt>
 <dd id="section-10.1.3-1.4">
@@ -3909,21 +3911,21 @@ are cloned, i.e., changing the Priority on one Connection in a Connection Group 
 <dl class="dlParallel" id="section-10.1.4-1">
             <dt id="section-10.1.4-1.1">Name:</dt>
 <dd id="section-10.1.4-1.2">
-  conn-timeout<a href="#section-10.1.4-1.2" class="pilcrow">¶</a>
+  connTimeout<a href="#section-10.1.4-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.4-1.3">Type:</dt>
 <dd id="section-10.1.4-1.4">
-  Numeric<a href="#section-10.1.4-1.4" class="pilcrow">¶</a>
+  Numeric, with special value <code>Disabled</code><a href="#section-10.1.4-1.4" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.4-1.5">Default:</dt>
 <dd id="section-10.1.4-1.6">
-  -1<a href="#section-10.1.4-1.6" class="pilcrow">¶</a>
+  Disabled<a href="#section-10.1.4-1.6" class="pilcrow">¶</a>
 </dd>
 </dl>
 <p id="section-10.1.4-2">This property specifies how long to wait before deciding that a Connection has
 failed when trying to reliably deliver data to the destination. Adjusting this Property
 will only take effect when the underlying stack supports reliability. The special value
--1 means that this timeout is not scheduled to happen. This can be a valid
+<code>Disabled</code> means that this timeout is not scheduled to happen. This can be a valid
 choice with unreliable data transfer (e.g., when UDP is the underlying transport protocol).<a href="#section-10.1.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3935,7 +3937,7 @@ choice with unreliable data transfer (e.g., when UDP is the underlying transport
 <dl class="dlParallel" id="section-10.1.5-1">
             <dt id="section-10.1.5-1.1">Name:</dt>
 <dd id="section-10.1.5-1.2">
-  conn-scheduler<a href="#section-10.1.5-1.2" class="pilcrow">¶</a>
+  connScheduler<a href="#section-10.1.5-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.5-1.3">Type:</dt>
 <dd id="section-10.1.5-1.4">
@@ -3959,7 +3961,7 @@ be taken from <span>[<a href="#RFC8260" class="xref">RFC8260</a>]</span>.<a href
 <dl class="dlParallel" id="section-10.1.6-1">
             <dt id="section-10.1.6-1.1">Name:</dt>
 <dd id="section-10.1.6-1.2">
-  conn-capacity-profile<a href="#section-10.1.6-1.2" class="pilcrow">¶</a>
+  connCapacityProfile<a href="#section-10.1.6-1.2" class="pilcrow">¶</a>
 </dd>
 </dl>
 <p id="section-10.1.6-2">This property specifies the desired network treatment for traffic sent by the
@@ -3967,7 +3969,7 @@ application and the tradeoffs the application is prepared to make in path and
 protocol selection to receive that desired treatment. When the capacity profile
 is set to a value other than Default, the transport system SHOULD select paths
 and configure protocols to optimize the tradeoff between delay, delay variation, and
-bandwidth efficiency based on the capacity profile specified. How this is realized
+efficient use of the available capacity based on the capacity profile specified. How this is realized
 is implementation-specific. The Capacity Profile MAY also be used
 to set priorities on the wire for Protocol Stacks supporting prioritization. 
 Recommendations for use with DSCP are provided below for each profile; note that
@@ -3994,8 +3996,8 @@ when a Connection is multiplexed, the guidelines in Section 6 of <span>[<a href=
 <dt id="section-10.1.6-4.5">Low Latency/Interactive:</dt>
 <dd id="section-10.1.6-4.6">
   The application is interactive, and prefers loss to
-  latency. Response time should be optimized at the expense of bandwidth
-  efficiency and delay variation when sending on this connection. This can be
+  latency. Response time should be optimized at the expense of delay variation
+  and efficient use of the available capacity when sending on this connection. This can be
   used by the system to disable the coalescing of multiple small Messages into
   larger packets (Nagle's algorithm); to prefer immediate acknowledgment from
   the peer endpoint when supported by the underlying transport; and so on.
@@ -4004,8 +4006,8 @@ when a Connection is multiplexed, the guidelines in Section 6 of <span>[<a href=
 <dt id="section-10.1.6-4.7">Low Latency/Non-Interactive:</dt>
 <dd id="section-10.1.6-4.8">
   The application prefers loss to latency but is
-  not interactive. Response time should be optimized at the expense of bandwidth
-  efficiency and delay variation when sending on this connection. Transport
+  not interactive. Response time should be optimized at the expense of delay
+  variation and efficient use of the available capacity when sending on this connection. Transport
   system implementations that map the requested capacity profile onto
   per-connection DSCP signaling without multiplexing SHOULD assign a DSCP
   Assured Forwarding (AF21,AF22,AF23,AF24) <span>[<a href="#RFC2597" class="xref">RFC2597</a>]</span> PHB.<a href="#section-10.1.6-4.8" class="pilcrow">¶</a>
@@ -4014,7 +4016,7 @@ when a Connection is multiplexed, the guidelines in Section 6 of <span>[<a href=
 <dd id="section-10.1.6-4.10">
   The application expects to send/receive data at a
   constant rate after Connection establishment. Delay and delay variation should
-  be minimized at the expense of bandwidth efficiency. This implies that the
+  be minimized at the expense of efficient use of the available capacity. This implies that the
   Connection may fail if the desired rate cannot be maintained across the Path.
   A transport may interpret this capacity profile as preferring a circuit
   breaker <span>[<a href="#RFC8084" class="xref">RFC8084</a>]</span> to a rate-adaptive congestion controller. Transport
@@ -4022,7 +4024,7 @@ when a Connection is multiplexed, the guidelines in Section 6 of <span>[<a href=
   per-connection DSCP signaling without multiplexing SHOULD assign a DSCP
   Assured Forwarding (AF31,AF32,AF33,AF34) <span>[<a href="#RFC2597" class="xref">RFC2597</a>]</span> PHB.<a href="#section-10.1.6-4.10" class="pilcrow">¶</a>
 </dd>
-<dt id="section-10.1.6-4.11">High Throughput Data:</dt>
+<dt id="section-10.1.6-4.11">Capacity-Seeking:</dt>
 <dd id="section-10.1.6-4.12">
   The application expects to send/receive data at the
   maximum rate allowed by its congestion controller over a relatively long
@@ -4045,22 +4047,21 @@ per-Message basis using the Transmission Profile Message Property; see
 <dl class="dlParallel" id="section-10.1.7-1">
             <dt id="section-10.1.7-1.1">Name:</dt>
 <dd id="section-10.1.7-1.2">
-  max-send-rate / max-recv-rate<a href="#section-10.1.7-1.2" class="pilcrow">¶</a>
+  maxSendRate / maxRecvRate<a href="#section-10.1.7-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.7-1.3">Type:</dt>
 <dd id="section-10.1.7-1.4">
-  Numeric / Numeric<a href="#section-10.1.7-1.4" class="pilcrow">¶</a>
+  Numeric (with special value <code>Unlimited</code>) / Numeric (with special value <code>Unlimited</code>)<a href="#section-10.1.7-1.4" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.7-1.5">Default:</dt>
 <dd id="section-10.1.7-1.6">
-  -1 / -1 (unlimited, for both values)<a href="#section-10.1.7-1.6" class="pilcrow">¶</a>
+  Unlimited / Unlimited<a href="#section-10.1.7-1.6" class="pilcrow">¶</a>
 </dd>
 </dl>
 <p id="section-10.1.7-2">This property specifies an upper-bound rate that a transfer is not expected to
 exceed (even if flow control and congestion control allow higher rates), and/or a
 lower-bound rate below which the application does not deem
-a data transfer useful. It is given in bits per second. The special value -1 indicates
-that no bound is specified.<a href="#section-10.1.7-2" class="pilcrow">¶</a></p>
+a data transfer useful. It is given in bits per second. The special value <code>Unlimited</code> indicates that no bound is specified.<a href="#section-10.1.7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="read-only-conn-prop">
@@ -4077,7 +4078,7 @@ that no bound is specified.<a href="#section-10.1.7-2" class="pilcrow">¶</a></p
 <dl class="dlParallel" id="section-10.1.8.1-1">
               <dt id="section-10.1.8.1-1.1">Name:</dt>
 <dd id="section-10.1.8.1-1.2">
-  zero-rtt-msg-max-len<a href="#section-10.1.8.1-1.2" class="pilcrow">¶</a>
+  zeroRttMsgMaxLen<a href="#section-10.1.8.1-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.8.1-1.3">Type:</dt>
 <dd id="section-10.1.8.1-1.4">
@@ -4097,7 +4098,7 @@ It is given in Bytes.<a href="#section-10.1.8.1-2" class="pilcrow">¶</a></p>
 <dl class="dlParallel" id="section-10.1.8.2-1">
               <dt id="section-10.1.8.2-1.1">Name:</dt>
 <dd id="section-10.1.8.2-1.2">
-  singular-transmission-msg-max-len<a href="#section-10.1.8.2-1.2" class="pilcrow">¶</a>
+  singularTransmissionMsgMaxLen<a href="#section-10.1.8.2-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.8.2-1.3">Type:</dt>
 <dd id="section-10.1.8.2-1.4">
@@ -4118,7 +4119,7 @@ as described in Datagram PLPMTUD <span>[<a href="#I-D.ietf-tsvwg-datagram-plpmtu
 <dl class="dlParallel" id="section-10.1.8.3-1">
               <dt id="section-10.1.8.3-1.1">Name:</dt>
 <dd id="section-10.1.8.3-1.2">
-  send-msg-max-len<a href="#section-10.1.8.3-1.2" class="pilcrow">¶</a>
+  sendMsgMaxLen<a href="#section-10.1.8.3-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.8.3-1.3">Type:</dt>
 <dd id="section-10.1.8.3-1.4">
@@ -4136,7 +4137,7 @@ as described in Datagram PLPMTUD <span>[<a href="#I-D.ietf-tsvwg-datagram-plpmtu
 <dl class="dlParallel" id="section-10.1.8.4-1">
               <dt id="section-10.1.8.4-1.1">Name:</dt>
 <dd id="section-10.1.8.4-1.2">
-  recv-msg-max-len<a href="#section-10.1.8.4-1.2" class="pilcrow">¶</a>
+  recvMsgMaxLen<a href="#section-10.1.8.4-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1.8.4-1.3">Type:</dt>
 <dd id="section-10.1.8.4-1.4">
@@ -4158,14 +4159,14 @@ as described in Datagram PLPMTUD <span>[<a href="#I-D.ietf-tsvwg-datagram-plpmtu
 <p id="section-10.2-1">These properties specify configurations for the User Timeout Option (UTO), 
 in case TCP becomes the chosen transport protocol. 
 Implementation is optional and of course only sensible if TCP is implemented in the transport system.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
-<p id="section-10.2-2">These TCP-specific properties are included here because the feature "Suggest
-timeout to the peer" is part of the minimal set of transport services
+<p id="section-10.2-2">These TCP-specific properties are included here because the feature <code>Suggest
+timeout to the peer</code> is part of the minimal set of transport services
 <span>[<a href="#I-D.ietf-taps-minset" class="xref">I-D.ietf-taps-minset</a>]</span>, where this feature was categorized as "functional".
 This means that when an implementation offers this feature, it has to expose an
 interface to it to the application. Otherwise, the implementation might
 violate assumptions by the application, which could cause the application to
 fail.<a href="#section-10.2-2" class="pilcrow">¶</a></p>
-<p id="section-10.2-3">All of the below properties are optional (e.g., it is possible to specify "User Timeout Enabled" as true,
+<p id="section-10.2-3">All of the below properties are optional (e.g., it is possible to specify <code>User Timeout Enabled</code> as true,
 but not specify an Advertised User Timeout value; in this case, the TCP default will be used).<a href="#section-10.2-3" class="pilcrow">¶</a></p>
 <div id="advertised-user-timeout">
 <section id="section-10.2.1">
@@ -4175,7 +4176,7 @@ but not specify an Advertised User Timeout value; in this case, the TCP default 
 <dl class="dlParallel" id="section-10.2.1-1">
             <dt id="section-10.2.1-1.1">Name:</dt>
 <dd id="section-10.2.1-1.2">
-  tcp.user-timeout-value<a href="#section-10.2.1-1.2" class="pilcrow">¶</a>
+  tcp.userTimeoutValue<a href="#section-10.2.1-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.2.1-1.3">Type:</dt>
 <dd id="section-10.2.1-1.4">
@@ -4187,7 +4188,7 @@ but not specify an Advertised User Timeout value; in this case, the TCP default 
 </dd>
 </dl>
 <p id="section-10.2.1-2">This time value is advertised via the TCP User Timeout Option (UTO) <span>[<a href="#RFC5482" class="xref">RFC5482</a>]</span> at the remote endpoint
-to adapt its own "Timeout for aborting Connection" (see <a href="#conn-timeout" class="xref">Section 10.1.4</a>) value accordingly.<a href="#section-10.2.1-2" class="pilcrow">¶</a></p>
+to adapt its own <code>Timeout for aborting Connection</code> (see <a href="#conn-timeout" class="xref">Section 10.1.4</a>) value accordingly.<a href="#section-10.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="user-timeout-enabled">
@@ -4198,7 +4199,7 @@ to adapt its own "Timeout for aborting Connection" (see <a href="#conn-timeout" 
 <dl class="dlParallel" id="section-10.2.2-1">
             <dt id="section-10.2.2-1.1">Name:</dt>
 <dd id="section-10.2.2-1.2">
-  tcp.user-timeout<a href="#section-10.2.2-1.2" class="pilcrow">¶</a>
+  tcp.userTimeout<a href="#section-10.2.2-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.2.2-1.3">Type:</dt>
 <dd id="section-10.2.2-1.4">
@@ -4221,7 +4222,7 @@ connection. This applies to both sending and receiving.<a href="#section-10.2.2-
 <dl class="dlParallel" id="section-10.2.3-1">
             <dt id="section-10.2.3-1.1">Name:</dt>
 <dd id="section-10.2.3-1.2">
-  tcp.user-timeout-recv<a href="#section-10.2.3-1.2" class="pilcrow">¶</a>
+  tcp.userTimeoutRecv<a href="#section-10.2.3-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.2.3-1.3">Type:</dt>
 <dd id="section-10.2.3-1.4">
@@ -4232,10 +4233,10 @@ connection. This applies to both sending and receiving.<a href="#section-10.2.2-
   true<a href="#section-10.2.3-1.6" class="pilcrow">¶</a>
 </dd>
 </dl>
-<p id="section-10.2.3-2">This property controls whether the "Timeout for aborting Connection" (see <a href="#conn-timeout" class="xref">Section 10.1.4</a>)
+<p id="section-10.2.3-2">This property controls whether the <code>Timeout for aborting Connection</code> (see <a href="#conn-timeout" class="xref">Section 10.1.4</a>)
 may be changed
 based on a UTO option received from the remote peer. This boolean becomes false when
-"Timeout for aborting Connection" (see <a href="#conn-timeout" class="xref">Section 10.1.4</a>) is used.<a href="#section-10.2.3-2" class="pilcrow">¶</a></p>
+<code>Timeout for aborting Connection</code> (see <a href="#conn-timeout" class="xref">Section 10.1.4</a>) is used.<a href="#section-10.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -4603,15 +4604,15 @@ It should consist of the following properties:<a href="#section-a.2.1-1" class="
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">preserve-order</td>
+                <td class="text-left" rowspan="1" colspan="1">preserveOrder</td>
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">congestion-control</td>
+                <td class="text-left" rowspan="1" colspan="1">congestionControl</td>
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">preserve-msg-boundaries</td>
+                <td class="text-left" rowspan="1" colspan="1">preserveMsgBoundaries</td>
                 <td class="text-left" rowspan="1" colspan="1">ignore</td>
               </tr>
             </tbody>
@@ -4641,15 +4642,15 @@ It should consist of the following properties:<a href="#section-a.2.2-1" class="
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">preserve-order</td>
+                <td class="text-left" rowspan="1" colspan="1">preserveOrder</td>
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">congestion-control</td>
+                <td class="text-left" rowspan="1" colspan="1">congestionControl</td>
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">preserve-msg-boundaries</td>
+                <td class="text-left" rowspan="1" colspan="1">preserveMsgBoundaries</td>
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
             </tbody>
@@ -4678,15 +4679,15 @@ It should consist of the following properties:<a href="#section-a.2.3-1" class="
                 <td class="text-left" rowspan="1" colspan="1">ignore</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">preserve-order</td>
+                <td class="text-left" rowspan="1" colspan="1">preserveOrder</td>
                 <td class="text-left" rowspan="1" colspan="1">ignore</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">congestion-control</td>
+                <td class="text-left" rowspan="1" colspan="1">congestionControl</td>
                 <td class="text-left" rowspan="1" colspan="1">ignore</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">preserve-msg-boundaries</td>
+                <td class="text-left" rowspan="1" colspan="1">preserveMsgBoundaries</td>
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
@@ -4713,13 +4714,13 @@ coverage, see <a href="#prop-checksum-control-send" class="xref">Section 5.2.7</
 <p id="section-appendix.b-1"><span>[<a href="#I-D.ietf-taps-minset" class="xref">I-D.ietf-taps-minset</a>]</span> identifies a minimal set of transport services that end systems should offer. These services make all non-security-related transport features of TCP, MPTCP, UDP, UDP-Lite, SCTP and LEDBAT available that 1) require interaction with the application, and 2) do not get in the way of a possible implementation over TCP (or, with limitations, UDP). The following text explains how this minimal set is reflected in the present API. For brevity, it is based on the list in Section 4.1 of <span>[<a href="#I-D.ietf-taps-minset" class="xref">I-D.ietf-taps-minset</a>]</span>, updated according to the discussion in Section 5 of <span>[<a href="#I-D.ietf-taps-minset" class="xref">I-D.ietf-taps-minset</a>]</span>. This list is a subset of the transport features in Appendix A of <span>[<a href="#I-D.ietf-taps-minset" class="xref">I-D.ietf-taps-minset</a>]</span>, which refers to the primitives in "pass 2" (Section 4) of <span>[<a href="#RFC8303" class="xref">RFC8303</a>]</span> for further details on the implementation with TCP, MPTCP, UDP, UDP-Lite, SCTP and LEDBAT.<a href="#section-appendix.b-1" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-appendix.b-2.1">Connect:
-"Initiate" Action (<a href="#initiate" class="xref">Section 6.1</a>).<a href="#section-appendix.b-2.1" class="pilcrow">¶</a>
+<code>Initiate</code> Action (<a href="#initiate" class="xref">Section 6.1</a>).<a href="#section-appendix.b-2.1" class="pilcrow">¶</a>
 </li>
 <li id="section-appendix.b-2.2">Listen:
-"Listen" Action (<a href="#listen" class="xref">Section 6.2</a>).<a href="#section-appendix.b-2.2" class="pilcrow">¶</a>
+<code>Listen</code> Action (<a href="#listen" class="xref">Section 6.2</a>).<a href="#section-appendix.b-2.2" class="pilcrow">¶</a>
 </li>
 <li id="section-appendix.b-2.3">Specify number of attempts and/or timeout for the first establishment message:
-"timeout" parameter of <code>Initiate</code> (<a href="#initiate" class="xref">Section 6.1</a>) or <code>InitiateWithSend</code> Action (<a href="#initiate-and-send" class="xref">Section 7.8</a>).<a href="#section-appendix.b-2.3" class="pilcrow">¶</a>
+<code>timeout</code> parameter of <code>Initiate</code> (<a href="#initiate" class="xref">Section 6.1</a>) or <code>InitiateWithSend</code> Action (<a href="#initiate-and-send" class="xref">Section 7.8</a>).<a href="#section-appendix.b-2.3" class="pilcrow">¶</a>
 </li>
 <li id="section-appendix.b-2.4">Disable MPTCP:
 <code>Parallel Use of Multiple Paths</code> Property (<a href="#parallel-multipath" class="xref">Section 5.2.13</a>).<a href="#section-appendix.b-2.4" class="pilcrow">¶</a>
@@ -4766,7 +4767,7 @@ the <code>Singular Transmission</code> Message Property combines both of these r
 <li id="section-appendix.b-2.18">Obtain ECN field:
 <code>ECN</code> is a defined UDP(-Lite)-specific read-only Message Property of the MessageContext object (<a href="#receive-ecn" class="xref">Section 8.3.1</a>).<a href="#section-appendix.b-2.18" class="pilcrow">¶</a>
 </li>
-<li id="section-appendix.b-2.19">"Specify DSCP field", "Disable Nagle algorithm", "Enable and configure a 'Low Extra Delay Background Transfer'":
+<li id="section-appendix.b-2.19">"Specify DSCP field", "Disable Nagle algorithm", "Enable and configure a <code>Low Extra Delay Background Transfer</code>":
 as suggested in Section 5.5 of <span>[<a href="#I-D.ietf-taps-minset" class="xref">I-D.ietf-taps-minset</a>]</span>, these transport features are collectively offered via the <code>Capacity Profile</code> property (<a href="#prop-cap-profile" class="xref">Section 10.1.6</a>). Per-Message control is offered via the <code>Message Capacity Profile Override</code> property (<a href="#send-profile" class="xref">Section 7.5.8</a>).<a href="#section-appendix.b-2.19" class="pilcrow">¶</a>
 </li>
 <li id="section-appendix.b-2.20">Close after reliably delivering all remaining data, causing an event informing the application on the other side:
@@ -4785,7 +4786,7 @@ the <code>Lifetime</code> Message Property implements a time-based way to config
 these two transport features are controlled via the Message Property <code>Ordered</code> (<a href="#msg-ordered" class="xref">Section 7.5.3</a>).<a href="#section-appendix.b-2.24" class="pilcrow">¶</a>
 </li>
 <li id="section-appendix.b-2.25">Request not to delay the acknowledgement (SACK) of a message:
-should the protocol support it, this is one of the transport features the transport system can apply when an application uses the <code>Capacity Profile</code> Property (<a href="#prop-cap-profile" class="xref">Section 10.1.6</a>) or the <code>Message Capacity Profile Override</code> Message Property (<a href="#send-profile" class="xref">Section 7.5.8</a>) with value "Low Latency/Interactive".<a href="#section-appendix.b-2.25" class="pilcrow">¶</a>
+should the protocol support it, this is one of the transport features the transport system can apply when an application uses the <code>Capacity Profile</code> Property (<a href="#prop-cap-profile" class="xref">Section 10.1.6</a>) or the <code>Message Capacity Profile Override</code> Message Property (<a href="#send-profile" class="xref">Section 7.5.8</a>) with value <code>Low Latency/Interactive</code>.<a href="#section-appendix.b-2.25" class="pilcrow">¶</a>
 </li>
 <li id="section-appendix.b-2.26">Receive data (with no message delimiting):
 <code>Received</code> Event (<a href="#receive-complete" class="xref">Section 8.2.1</a>). See <a href="#framing" class="xref">Section 9</a> for handling Message framing in situations where the Protocol
