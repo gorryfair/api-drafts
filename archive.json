@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-06T15:55:56.260467+00:00",
+  "timestamp": "2020-04-07T09:48:41.409559+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -16213,7 +16213,7 @@
       "id": "MDU6SXNzdWU1NzYwOTg1Njg=",
       "title": "Bandwidth Efficiency as a term in API",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/515",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gorryfair",
       "authorAssociation": "NONE",
       "assignees": [],
@@ -16222,8 +16222,8 @@
       ],
       "body": "I am going to query  /bandwidth efficiency/ - since this sounds like it should be measured in b/Hz, which isn't at all what this draft are talking about. In fact, I did not see anything in the text about the efficiency or the use of bandwith ... as I read, it is all about capacity sharing tradeoffs.\r\n\r\nI suspect the tyerm should be \"capacity-seeking\" or we just say latency-seeking rather than capacity-seeking? \r\n\r\n--\r\nAnd while I am digging here ... how about /to use multiple paths in parallel in order to maximize bandwidth/to use multiple paths in parallel in  maximize use of available capacity/.\r\n",
       "createdAt": "2020-03-05T09:09:47Z",
-      "updatedAt": "2020-03-05T09:09:47Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-07T09:48:15Z",
+      "closedAt": "2020-04-07T09:48:15Z",
       "comments": []
     },
     {
@@ -16554,6 +16554,106 @@
       "body": "From Kyle Rose:\r\n\r\n> 5.2. Specifying Transport Properties\r\n> \r\n> * Using the same enum (Require(d[sic])/Avoid/Ignore) for the queried output of selected properties seems like a shortcut that will lead to some confusion.\r\n> \r\n> Alternative: an output enum something like { Selected, Avoided, Ignored } independent of the input type. As long as you understand this and are still okay with the interface you've chosen, that is fine by me.\r\n\r\n@mwelzl says: I think this isn't very controversial, I believe we should just do this as he suggested. This issue is just a reminder for myself to do this.",
       "createdAt": "2020-04-03T10:41:32Z",
       "updatedAt": "2020-04-03T10:41:32Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 531,
+      "id": "MDU6SXNzdWU1OTUyNTM3NjI=",
+      "title": "(hopefully) minor point about properties terminology",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/531",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Implementation draft sec 3:\r\n\"In the remainder of this document, we only refer to Selection Properties because they are the more typical case and have to be handled by all implementations.\r\n\r\nThe implementation stores these objects and properties as part of the Preconnection object for use during connection establishment.\"\r\n\r\nI don't understand these two sentences. In the API doc it seems we use the term Transport Properties for both selection and configuration properties. Why do we only talk about selection properties in this doc?\r\n\r\nAlso in the next sentence what's meant by \"objects and properties\"? I guess the object(s) that hold the properties? But then this is saying twice the same and we should only use one term to avoid confusion.",
+      "createdAt": "2020-04-06T16:26:38Z",
+      "updatedAt": "2020-04-06T16:36:01Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also in the next section 3.1:\r\n\"Once an application specifies its Transport Parameters\"\r\n\r\nI guess that should be Transport Properties instead?\r\n\r\nMaybe it would also be good to say here \"Once an application specifies its Transport Properties and Preference (required, prefer, ignore, avoid, prohibit - see section 5.2. of [draft-taps-arch])\".",
+          "createdAt": "2020-04-06T16:30:27Z",
+          "updatedAt": "2020-04-06T16:36:01Z"
+        }
+      ]
+    },
+    {
+      "number": 533,
+      "id": "MDU6SXNzdWU1OTUyNzc0NDc=",
+      "title": "What's a path...?",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/533",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Impl draft, section 4.1.2:\r\n\"Each node will be summarized by a tuple of three elements: Endpoint, Path, and Protocol. The above example can now be written more succinctly as:\r\n\r\n1 [www.example.com:80, Any, TCP]\r\n  1.1 [www.example.com:80, Wi-Fi, TCP]\r\n    1.1.1 [192.0.2.1:80, Wi-Fi, TCP]\r\n  1.2 [www.example.com:80, LTE, TCP]\r\n    1.2.1 [192.0.2.1:80, LTE, TCP]\r\n    1.2.2 [2001:DB8::1.80, LTE, TCP]\"\r\n\r\nlooking at the example I would not call this \"Endpoint, Path, and Protocol\" but \"Remote Endpoint, Local Endpoint or interface, and Protocol\".\r\n\r\nNot sure we have defined the term Path well but I would consider a path to consists of both the local and remote endpoint plus optionally maybe even some more information about the path characteristics that might be known for this endpoint pair.",
+      "createdAt": "2020-04-06T17:04:31Z",
+      "updatedAt": "2020-04-06T17:38:37Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yeah, it is \"remote endpoint\", \"interface/local endpoint\", and \"protocol\".",
+          "createdAt": "2020-04-06T17:12:02Z",
+          "updatedAt": "2020-04-06T17:12:02Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "note that the wording needs to be fix at least in a few more places, so whoever puts the PR in should probably reach for the word path and ensure it's used correctly...",
+          "createdAt": "2020-04-06T17:34:02Z",
+          "updatedAt": "2020-04-06T17:34:13Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "especially 4.1.3.2. (Alternate Paths) wouldn't fit that well anymore and would probably need some rewriting...",
+          "createdAt": "2020-04-06T17:38:37Z",
+          "updatedAt": "2020-04-06T17:38:37Z"
+        }
+      ]
+    },
+    {
+      "number": 536,
+      "id": "MDU6SXNzdWU1OTU3MjgwODI=",
+      "title": "Branching Order-of-Operations",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/536",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "In section 4.2 in the impl draft, we have:\r\n\r\n\"The order of operations for branching, where lower numbers are acted upon first, should be:\r\n\r\n1. Alternate Paths\r\n2. Protocol Options\r\n3. Derived Endpoints\"\r\n\r\nHowever, I would say there is not really a strict ordering required. The text actually indicates that selection of the protocol is rather independent while there is usually a dependency between the interface and derived endpoint. I think this is related to my other issue about the use of the term path, because a path consists of both the local and remote endpoint and therefore there is of course a dependency. \r\n\r\nSo in summary I'm not sure how useful I find this whole section as currently written...",
+      "createdAt": "2020-04-07T09:31:35Z",
+      "updatedAt": "2020-04-07T09:31:35Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 537,
+      "id": "MDU6SXNzdWU1OTU3Mzc2NzE=",
+      "title": "Recommendations for Delayed Racing",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/537",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 4.4.1  on delayed racing:\r\n\"For example, if the first child represents an IP address with a known route, and the second child represents another IP address, the delay between starting the first and second IP addresses can be based on the expected retransmission cadence for the first child's connection (derived from historical round-trip-time). Alternatively, if the first child represents a branch on a Wi-Fi interface, and the second child represents a branch on an LTE interface, the delay should be based on the expected time in which the branch for the first interface would be able to establish a connection, based on link quality and historical round-trip-time.\"\r\n\r\nWhat the reasoning for these two recommendations? I'm actually not sure what exactly is meant. Is the first case 3xRTT (-> initial RTO) and the second 1xRTT? Why?\r\n\r\nAlso in the next paragraph:\r\n\"Generally, branches between paths and protocols should have longer delays than branches between derived endpoints.\"\r\n\r\nWhat? Why?\r\n\r\nAnd then \r\n\"The maximum delay should be considered with regards to how long a user is expected to wait for the connection to complete.\"\r\n\r\nHow do I know this?\r\n",
+      "createdAt": "2020-04-07T09:47:03Z",
+      "updatedAt": "2020-04-07T09:47:03Z",
       "closedAt": null,
       "comments": []
     }
@@ -45196,37 +45296,226 @@
       "id": "MDExOlB1bGxSZXF1ZXN0Mzk3NjI3NDQz",
       "title": "Closes #515.  + addresses a few more of the easy things from Kyle's review.",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/527",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "... such as: using CamlCase instead of dashes for property names.\r\nAlso: fixes consistency problem of apostrophs / quotation marks  (` vs `` vs \" )",
       "createdAt": "2020-04-02T14:49:14Z",
-      "updatedAt": "2020-04-02T14:49:14Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "comments": [],
+      "updatedAt": "2020-04-07T09:48:19Z",
+      "closedAt": "2020-04-07T09:48:13Z",
+      "mergedAt": "2020-04-07T09:48:13Z",
+      "mergedBy": "mwelzl",
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'll just merge this now, to avoid conflicts with a new PR I'm writing (I'd like to continue using camlCase for property names). Moving to camlCase has been discussed on the list, and the other things here - ensuring uniform appearance of quotation marks, and replacing \"-1\" with special values - seem quite non-controversial.",
+          "createdAt": "2020-04-07T09:48:04Z",
+          "updatedAt": "2020-04-07T09:48:04Z"
+        }
+      ],
       "reviews": []
     },
     {
       "number": 529,
       "id": "MDExOlB1bGxSZXF1ZXN0Mzk5NzQyNzM5",
-      "title": "No reference abstract",
+      "title": "No reference in abstract",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/529",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "You cannot have references in the abstract. Initially I only wanted to remove that reference but then I also took the opportunity to rewrite the abstract a bit to not only talk about the architecture but an TAPS _system_ and the interface that this guide helps with its implementation.",
       "createdAt": "2020-04-06T15:55:29Z",
-      "updatedAt": "2020-04-06T15:55:29Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-06T17:16:19Z",
+      "closedAt": "2020-04-06T17:16:19Z",
+      "mergedAt": "2020-04-06T17:16:18Z",
+      "mergedBy": "tfpauly",
       "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzg4NDA1MjYx",
+          "commit": {
+            "abbreviatedOid": "dabc791"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM  (I fixed a tiny nit directly with a commit)",
+          "createdAt": "2020-04-06T16:12:47Z",
+          "updatedAt": "2020-04-06T16:12:47Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzg4NDM4MjEx",
+          "commit": {
+            "abbreviatedOid": "dabc791"
+          },
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks looks good.",
+          "createdAt": "2020-04-06T16:52:45Z",
+          "updatedAt": "2020-04-06T16:52:45Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzg4NDU2Nzgx",
+          "commit": {
+            "abbreviatedOid": "dabc791"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-06T17:16:13Z",
+          "updatedAt": "2020-04-06T17:16:13Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 530,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mzk5NzU2MTcw",
+      "title": "Introduce the term Message early on",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/530",
+      "state": "MERGED",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-04-06T16:18:27Z",
+      "updatedAt": "2020-04-06T17:16:42Z",
+      "closedAt": "2020-04-06T17:16:42Z",
+      "mergedAt": "2020-04-06T17:16:42Z",
+      "mergedBy": "tfpauly",
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzg4NDU3MTAy",
+          "commit": {
+            "abbreviatedOid": "bb9d3e9"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-06T17:16:38Z",
+          "updatedAt": "2020-04-06T17:16:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 532,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mzk5NzcwMDk3",
+      "title": "Add reference to RFC8445 on first occurrence of ICE",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/532",
+      "state": "MERGED",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "and spell out ICE.",
+      "createdAt": "2020-04-06T16:44:56Z",
+      "updatedAt": "2020-04-06T17:14:54Z",
+      "closedAt": "2020-04-06T17:14:54Z",
+      "mergedAt": "2020-04-06T17:14:54Z",
+      "mergedBy": "tfpauly",
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I also updated a later reference and added references for STUN and TURN in this same PR now.",
+          "createdAt": "2020-04-06T16:54:54Z",
+          "updatedAt": "2020-04-06T16:54:54Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzg4NDU0NzY0",
+          "commit": {
+            "abbreviatedOid": "321237d"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-06T17:13:38Z",
+          "updatedAt": "2020-04-06T17:13:42Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nIf NAT traversal is required, the process of gathering Local Endpoints becomes broadly equivalent to the ICE candidate gathering phase (see Section 5.1.1. of {{RFC8445}}).  The endpoint determines its server reflexive Local Endpoints (i.e., the translated address of a local, on the other side of a NAT, e.g via a STUN sever {{?RFC5389}}) and relayed locals (e.g., via a TURN server {{?RFC5766}} or other relay), for each interface and network protocol.  These are added to the set of candidate Local Endpoints for this connection.\r\n```",
+              "createdAt": "2020-04-06T17:13:38Z",
+              "updatedAt": "2020-04-06T17:14:04Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 534,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mzk5NzgzODc5",
+      "title": "RFC references for mDNS and DNS-SD",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/534",
+      "state": "MERGED",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-04-06T17:11:09Z",
+      "updatedAt": "2020-04-06T17:12:32Z",
+      "closedAt": "2020-04-06T17:12:32Z",
+      "mergedAt": "2020-04-06T17:12:32Z",
+      "mergedBy": "tfpauly",
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzg4NDUzNzkx",
+          "commit": {
+            "abbreviatedOid": "3916ac1"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-06T17:12:21Z",
+          "updatedAt": "2020-04-06T17:12:21Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 535,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mzk5ODAyMzE1",
+      "title": "Adjust level of branching related subsections",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/535",
+      "state": "MERGED",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I think this is just an minor oversight that needs fixing but I would like someone to double-check before merged...",
+      "createdAt": "2020-04-06T17:44:40Z",
+      "updatedAt": "2020-04-06T17:51:18Z",
+      "closedAt": "2020-04-06T17:51:18Z",
+      "mergedAt": "2020-04-06T17:51:18Z",
+      "mergedBy": "tfpauly",
+      "comments": [
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yes, I think that this is more correct also. Thanks!",
+          "createdAt": "2020-04-06T17:51:11Z",
+          "updatedAt": "2020-04-06T17:51:11Z"
+        }
+      ],
       "reviews": []
     }
   ]
