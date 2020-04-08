@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-08T06:03:05.844214+00:00",
+  "timestamp": "2020-04-08T23:04:29.430110+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -16699,9 +16699,45 @@
       ],
       "body": "Impl draft section 4.6 (Implementing listeners):\r\n\"If no Local Endpoint is specified, the implementation should either use an ephemeral port or generate an error.\"\r\nDo we need an interface for the application to indicate that an ephemeral port should be used?",
       "createdAt": "2020-04-07T10:08:34Z",
-      "updatedAt": "2020-04-07T10:08:34Z",
+      "updatedAt": "2020-04-08T16:07:22Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "It's implicit in the old socket API - accept just gives me a new socket, which I can use to continue communication, but I don't see the port numbers associated with this socket and never have to say that they are ephermal. I believe it's similarly implicit in ours. So ... what's missing?",
+          "createdAt": "2020-04-08T06:17:49Z",
+          "updatedAt": "2020-04-08T06:25:03Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The text above says \"use an ephemeral port or generate an error\". So when would you throw an error? If the assumption is that always an ephemeral port should be used (no matter actually how the underlying interfaces works) that should be stated (in the API doc).",
+          "createdAt": "2020-04-08T10:39:18Z",
+          "updatedAt": "2020-04-08T10:39:18Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "If you do not use an \"ephemeral port\", and choose to specify the port - then you may get the error if it can't be completed.",
+          "createdAt": "2020-04-08T10:58:34Z",
+          "updatedAt": "2020-04-08T10:58:34Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "... or if the system is out of resources for some reasons. Just like \"accept\" can fail in the normal socket API.",
+          "createdAt": "2020-04-08T15:57:06Z",
+          "updatedAt": "2020-04-08T15:57:06Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "That too.",
+          "createdAt": "2020-04-08T16:07:22Z",
+          "updatedAt": "2020-04-08T16:07:22Z"
+        }
+      ]
     },
     {
       "number": 540,
@@ -16826,7 +16862,69 @@
       ],
       "body": "Section 10 of impl draft:\r\n\"Below, primitives in the style of \"CATEGORY.[SUBCATEGORY].PRIMITIVENAME.PROTOCOL\" (e.g., \"CONNECT.SCTP\") refer to the primitives with the same name in section 4 of [RFC8303].\"\r\n\r\nI know it's specified like this in RFC8303 but PRIMITIVENAME does not seem to be explained or used. Maybe I didn't look careful enough but to be honest I also didn't find the use of this nomenclature from RFC8303 very helpful...",
       "createdAt": "2020-04-07T15:56:49Z",
-      "updatedAt": "2020-04-07T15:56:57Z",
+      "updatedAt": "2020-04-08T06:10:40Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Just to answer the comment of usefulness of this nomenclature: this allows back-tracking to the relevant spec., which (I believe) is valuable for people implementing a TAPS system. In the example of CONNECT.SCTP, RFC 8303 describes this as consisting of:\r\n>  Pass 1 primitive/event: 'Initialize', followed by 'Enable/Disable\r\n      Interleaving' (optional), followed by 'Associate'\r\n\r\nInitialize and Associate are obvious; naturally, they come from RFC 4960. Considering to use 'Enable/Disable Interleaving' (which is very important for a TAPS system - to implement priorities between streams) is perhaps less obvious, and the text points back at RFC 8260.",
+          "createdAt": "2020-04-08T06:10:40Z",
+          "updatedAt": "2020-04-08T06:10:40Z"
+        }
+      ]
+    },
+    {
+      "number": 551,
+      "id": "MDU6SXNzdWU1OTY1NDIxMjg=",
+      "title": "Close for HTTP",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/551",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "In the implementation draft section 10.6 says:\r\n\" For HTTP/2, for example, closing the connection only closes a specific stream.\"\r\n\r\nShould the close call also close the TCP/transport connection if the last stream was closed? Otherwise how do I gracefully close a HTTP connection?",
+      "createdAt": "2020-04-08T12:31:59Z",
+      "updatedAt": "2020-04-08T12:31:59Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 552,
+      "id": "MDU6SXNzdWU1OTY1NDQwOTM=",
+      "title": "What HTTP/2 transport?",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/552",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "In the implementation draft there is an own section (10.8) on HTTP/2 transport. However HTTP/2 seems to be covered by section 10.6. However, we should probably cover HTTP/3 as well.",
+      "createdAt": "2020-04-08T12:35:13Z",
+      "updatedAt": "2020-04-08T12:35:13Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 553,
+      "id": "MDU6SXNzdWU1OTY1NDUzNTM=",
+      "title": "Implementation details for QUIC missing",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/553",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "I'm sure people are aware of this but just to have an issue to track this: section 10.7. on QUIC in the implementation is incomplete.",
+      "createdAt": "2020-04-08T12:37:14Z",
+      "updatedAt": "2020-04-08T12:37:14Z",
       "closedAt": null,
       "comments": []
     }
@@ -45766,6 +45864,58 @@
           "body": "I like this of course!  :-)",
           "createdAt": "2020-04-07T15:47:47Z",
           "updatedAt": "2020-04-07T15:47:47Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 550,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAwNjQ2NDUx",
+      "title": "Text around \"PRIMITIVENAME\" in implementation draft (issue #549)",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/550",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #549.",
+      "createdAt": "2020-04-08T06:03:26Z",
+      "updatedAt": "2020-04-08T06:03:26Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 554,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAwODI3NDA3",
+      "title": "preamble text in security considerations section",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/554",
+      "state": "MERGED",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Mainly adding references to arch and API docs...",
+      "createdAt": "2020-04-08T12:47:17Z",
+      "updatedAt": "2020-04-08T23:03:55Z",
+      "closedAt": "2020-04-08T23:03:55Z",
+      "mergedAt": "2020-04-08T23:03:55Z",
+      "mergedBy": "tfpauly",
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkwMzg5MDM3",
+          "commit": {
+            "abbreviatedOid": "3ea1661"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-08T23:03:49Z",
+          "updatedAt": "2020-04-08T23:03:49Z",
           "comments": []
         }
       ]
