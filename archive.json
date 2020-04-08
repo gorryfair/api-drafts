@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-07T09:48:41.409559+00:00",
+  "timestamp": "2020-04-08T06:03:05.844214+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -15457,7 +15457,7 @@
       ],
       "body": "I know we moved some text about framers into the implementation doc but that really doesn't seem right when I look at it now.\r\n\r\nThe section about framers in the implementation doc is the only section that defines an interface which probably is already an indication that just moving this text there was not right. However, also the text in the API doc seems now incomplete. \r\n\r\nI think we should move it back and rather define some real simple examples framers in the implementation document (just a prefixed length field (as many UDP mapping use) or maybe even an example implementation for STARTTLS). Further after moving it back we could figure out if really all parts of the interface are necessary or if there would be a more minimal interface that we could use. E.g. I'm not sure about the FailConnection() call or at least I think this could need more explanation.",
       "createdAt": "2020-01-17T11:44:26Z",
-      "updatedAt": "2020-01-20T09:11:16Z",
+      "updatedAt": "2020-04-07T13:06:42Z",
       "closedAt": null,
       "comments": [
         {
@@ -15487,6 +15487,13 @@
           "body": "First as I say that's the only piece of additional interface we define in the implementation draft which already is a sign that it's maybe not ideal. \r\n\r\nBut for the API draft the part of how a framer interact with the transport is really unclear and looking at the part of interface, that now defined in the implementation doc, makes it really clear.\r\n\r\nI disagree that this part of the interface can or should be left to the implementation. The fact that you have to call the framer before you start any transmission and the events a framer should be aware of are generic and nothing implementation specific.",
           "createdAt": "2020-01-20T09:11:16Z",
           "updatedAt": "2020-01-20T09:11:16Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "In the implementation draft we say:\r\n\"A Message Framer is primarily defined by the set of code that handles events for a framer implementation\"\r\n\r\nMy assumption is that a custom framer implementation could be part of the application logic and therefore we need to define this interface as well.\r\n\r\nHowever looking at the implementation draft I guess I now confused myself about how this actually works. Why is the sending logic asynchronous? Isn't this something that happens iteratively when the application calls send(). How would that actually work? I thought the application could just call Connection.send() and then the connection could call MessageFramer.send() and that would simply return a modified message... can you give an example for sending and receiving based on the interfaces currently defined in the implementation draft?\r\n\r\nAlso please note that while I think the interface definition belongs in API draft, however, there are comments about copying and curser handling which should/could probably say in the implementation draft.",
+          "createdAt": "2020-04-07T13:06:42Z",
+          "updatedAt": "2020-04-07T13:06:42Z"
         }
       ]
     },
@@ -16635,9 +16642,9 @@
       "labels": [
         "Implementation"
       ],
-      "body": "In section 4.2 in the impl draft, we have:\r\n\r\n\"The order of operations for branching, where lower numbers are acted upon first, should be:\r\n\r\n1. Alternate Paths\r\n2. Protocol Options\r\n3. Derived Endpoints\"\r\n\r\nHowever, I would say there is not really a strict ordering required. The text actually indicates that selection of the protocol is rather independent while there is usually a dependency between the interface and derived endpoint. I think this is related to my other issue about the use of the term path, because a path consists of both the local and remote endpoint and therefore there is of course a dependency. \r\n\r\nSo in summary I'm not sure how useful I find this whole section as currently written...",
+      "body": "In section 4.1.4 in the impl draft, we have:\r\n\r\n\"The order of operations for branching, where lower numbers are acted upon first, should be:\r\n\r\n1. Alternate Paths\r\n2. Protocol Options\r\n3. Derived Endpoints\"\r\n\r\nHowever, I would say there is not really a strict ordering required. The text actually indicates that selection of the protocol is rather independent while there is usually a dependency between the interface and derived endpoint. I think this is related to my other issue about the use of the term path, because a path consists of both the local and remote endpoint and therefore there is of course a dependency. \r\n\r\nSo in summary I'm not sure how useful I find this whole section as currently written...",
       "createdAt": "2020-04-07T09:31:35Z",
-      "updatedAt": "2020-04-07T09:31:35Z",
+      "updatedAt": "2020-04-07T10:10:20Z",
       "closedAt": null,
       "comments": []
     },
@@ -16650,10 +16657,176 @@
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
-      "body": "Section 4.4.1  on delayed racing:\r\n\"For example, if the first child represents an IP address with a known route, and the second child represents another IP address, the delay between starting the first and second IP addresses can be based on the expected retransmission cadence for the first child's connection (derived from historical round-trip-time). Alternatively, if the first child represents a branch on a Wi-Fi interface, and the second child represents a branch on an LTE interface, the delay should be based on the expected time in which the branch for the first interface would be able to establish a connection, based on link quality and historical round-trip-time.\"\r\n\r\nWhat the reasoning for these two recommendations? I'm actually not sure what exactly is meant. Is the first case 3xRTT (-> initial RTO) and the second 1xRTT? Why?\r\n\r\nAlso in the next paragraph:\r\n\"Generally, branches between paths and protocols should have longer delays than branches between derived endpoints.\"\r\n\r\nWhat? Why?\r\n\r\nAnd then \r\n\"The maximum delay should be considered with regards to how long a user is expected to wait for the connection to complete.\"\r\n\r\nHow do I know this?\r\n",
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Section 4.2.1  on delayed racing:\r\n\"For example, if the first child represents an IP address with a known route, and the second child represents another IP address, the delay between starting the first and second IP addresses can be based on the expected retransmission cadence for the first child's connection (derived from historical round-trip-time). Alternatively, if the first child represents a branch on a Wi-Fi interface, and the second child represents a branch on an LTE interface, the delay should be based on the expected time in which the branch for the first interface would be able to establish a connection, based on link quality and historical round-trip-time.\"\r\n\r\nWhat the reasoning for these two recommendations? I'm actually not sure what exactly is meant. Is the first case 3xRTT (-> initial RTO) and the second 1xRTT? Why?\r\n\r\nAlso in the next paragraph:\r\n\"Generally, branches between paths and protocols should have longer delays than branches between derived endpoints.\"\r\n\r\nWhat? Why?\r\n\r\nAnd then \r\n\"The maximum delay should be considered with regards to how long a user is expected to wait for the connection to complete.\"\r\n\r\nHow do I know this?\r\n",
       "createdAt": "2020-04-07T09:47:03Z",
-      "updatedAt": "2020-04-07T09:47:03Z",
+      "updatedAt": "2020-04-07T15:28:35Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 538,
+      "id": "MDU6SXNzdWU1OTU3NDY3MzQ=",
+      "title": "Interface for app-driven racing of \"unconnected\" protocols?",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/538",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Impl draft Section 4.5: Handling racing with \"unconnected\" protocols\r\n\"In the case that the application signals that the initial Protocol Stack is failing for some reason and that another option should be attempted, the Connection can be updated to point to the next candidate Protocol Stack. This can be viewed as an application-driven form of Protocol Stack racing.\"\r\nHow does the application indicate that? I don't think this is covered by the API draft?\r\n\r\nAlso I would recommend to move this section as a subsection within 4.5. (Completing Establishment) or at least switch the order with the previous section (Establishing multiplexed connections) to get a better reading flow.",
+      "createdAt": "2020-04-07T10:01:51Z",
+      "updatedAt": "2020-04-07T10:08:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 539,
+      "id": "MDU6SXNzdWU1OTU3NTA4Nzk=",
+      "title": "Listeners and ports",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/539",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API",
+        "Implementation"
+      ],
+      "body": "Impl draft section 4.6 (Implementing listeners):\r\n\"If no Local Endpoint is specified, the implementation should either use an ephemeral port or generate an error.\"\r\nDo we need an interface for the application to indicate that an ephemeral port should be used?",
+      "createdAt": "2020-04-07T10:08:34Z",
+      "updatedAt": "2020-04-07T10:08:34Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 540,
+      "id": "MDU6SXNzdWU1OTU3NjA3NDg=",
+      "title": "Message Properties in API and Implementation draft",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/540",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API",
+        "Implementation"
+      ],
+      "body": "It might be worth to better align the sections on Message Properties in the API and Implementation draft. Note that e.g. \"Final\" has more implementation details in the API draft than in the implementation draft.",
+      "createdAt": "2020-04-07T10:24:37Z",
+      "updatedAt": "2020-04-07T10:24:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 542,
+      "id": "MDU6SXNzdWU1OTU3NjI2NzQ=",
+      "title": "Batching Sends",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/542",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "In the implementation draft section 5.1.3 says that there should be an interface for the application to indicate batch sending. Section 7.7 specifies such an interface. Should the section in the implementation draft be updated or removed?",
+      "createdAt": "2020-04-07T10:27:48Z",
+      "updatedAt": "2020-04-07T10:27:48Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 543,
+      "id": "MDU6SXNzdWU1OTU3Njk3OTU=",
+      "title": "minIncompleteLength when receiving data on streams",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/543",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Impl draft section 5.2 Receiving Messages:\r\n\"if, on the other hand, the top-level protocol only supports a byte-stream and no deframers were supported, the application must specify the minimum number of bytes of Message content it wants to receive (which may be just a single byte) to control the flow of received data.\"\r\nThis text says the application MUST specify minIncompleteLength, however, the API draft says that this values is optional. This should be further clarified and more guidance given in case the value is not set.",
+      "createdAt": "2020-04-07T10:39:52Z",
+      "updatedAt": "2020-04-07T10:39:52Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 545,
+      "id": "MDU6SXNzdWU1OTU5NTM1NzY=",
+      "title": "More guidance needed on Handling Path Changes",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/545",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Section 7.2 on Handling Path Changes in the implementation draft needs to be better aligned to the interface we are currently still discussing for multipath protocols. Currently it reads like an taps implementation can freely decide which paths to use when. That's probable not the case but in any case needs also more specific guidance. However, we probably need to leave this issue as a reminder for later when we have decided on the final interface for MP protocols. \r\n\r\nI would eventually like to separate sections for handover (two parallel paths), migration (move from one to the other but keep same protocol instance) and fallback (move form one protocol instance to another).\r\n\r\n",
+      "createdAt": "2020-04-07T15:25:38Z",
+      "updatedAt": "2020-04-07T15:27:33Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 546,
+      "id": "MDU6SXNzdWU1OTU5NTk1MzA=",
+      "title": "flushing cache state",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/546",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Section 9.1 of the implementation draft says:\r\n\"Applications must have a way to flush protocol cache state if desired. This may be necessary, for example, if application-layer identifiers rotate and clients wish to avoid linkability via trackable TLS tickets or TFO cookies.\"\r\n\r\nHowever, my understanding is that protocol cache state is not application specific. I don't think a single application should be able to flush protocol specific state that set up based on an interaction with another application. If an application wants to avoid linkability due to TLS or TFO cookies, it should be enough to indicate in the selection properties that use of these feature is not prohibited, no?",
+      "createdAt": "2020-04-07T15:33:49Z",
+      "updatedAt": "2020-04-07T15:33:49Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 548,
+      "id": "MDU6SXNzdWU1OTU5NjYxOTc=",
+      "title": "Certificates and other security parameters",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/548",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Can we/do we need to add more guidance in the implementation draft on handling of certificates or other security related parameters?",
+      "createdAt": "2020-04-07T15:43:10Z",
+      "updatedAt": "2020-04-07T15:43:10Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 549,
+      "id": "MDU6SXNzdWU1OTU5NzYwMTI=",
+      "title": "What's PRIMITIVENAME?",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/549",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "Section 10 of impl draft:\r\n\"Below, primitives in the style of \"CATEGORY.[SUBCATEGORY].PRIMITIVENAME.PROTOCOL\" (e.g., \"CONNECT.SCTP\") refer to the primitives with the same name in section 4 of [RFC8303].\"\r\n\r\nI know it's specified like this in RFC8303 but PRIMITIVENAME does not seem to be explained or used. Maybe I didn't look careful enough but to be honest I also didn't find the use of this nomenclature from RFC8303 very helpful...",
+      "createdAt": "2020-04-07T15:56:49Z",
+      "updatedAt": "2020-04-07T15:56:57Z",
       "closedAt": null,
       "comments": []
     }
@@ -45517,6 +45690,85 @@
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 541,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAwMTc4MjU3",
+      "title": "Added a selection property for a special communication pattern",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/541",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": ".. that gets in the way of using streams when cloning.\r\nCloses #441.",
+      "createdAt": "2020-04-07T10:25:31Z",
+      "updatedAt": "2020-04-07T10:32:39Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 544,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAwMjMwODUz",
+      "title": "Editorial edits on fast open",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/544",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-04-07T12:16:42Z",
+      "updatedAt": "2020-04-07T12:23:55Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I would further recommend to move this section into 4 somewhere as this section is more about connection establishment than sending messages",
+          "createdAt": "2020-04-07T12:23:54Z",
+          "updatedAt": "2020-04-07T12:23:54Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 547,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAwMzQ3ODE0",
+      "title": "Add reference to draft-ietf-tcpm-2140bis",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/547",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-04-07T15:41:42Z",
+      "updatedAt": "2020-04-07T15:47:47Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzg5MjUwODEy",
+          "commit": {
+            "abbreviatedOid": "e9612d4"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "I like this of course!  :-)",
+          "createdAt": "2020-04-07T15:47:47Z",
+          "updatedAt": "2020-04-07T15:47:47Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
