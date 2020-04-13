@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-08T23:04:29.430110+00:00",
+  "timestamp": "2020-04-13T17:49:06.499017+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -16853,7 +16853,7 @@
       "id": "MDU6SXNzdWU1OTU5NzYwMTI=",
       "title": "What's PRIMITIVENAME?",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/549",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -16862,8 +16862,8 @@
       ],
       "body": "Section 10 of impl draft:\r\n\"Below, primitives in the style of \"CATEGORY.[SUBCATEGORY].PRIMITIVENAME.PROTOCOL\" (e.g., \"CONNECT.SCTP\") refer to the primitives with the same name in section 4 of [RFC8303].\"\r\n\r\nI know it's specified like this in RFC8303 but PRIMITIVENAME does not seem to be explained or used. Maybe I didn't look careful enough but to be honest I also didn't find the use of this nomenclature from RFC8303 very helpful...",
       "createdAt": "2020-04-07T15:56:49Z",
-      "updatedAt": "2020-04-08T06:10:40Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-08T23:04:52Z",
+      "closedAt": "2020-04-08T23:04:52Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -45820,7 +45820,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-04-07T12:16:42Z",
-      "updatedAt": "2020-04-07T12:23:55Z",
+      "updatedAt": "2020-04-13T17:48:30Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45833,7 +45833,34 @@
           "updatedAt": "2020-04-07T12:23:54Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyMzA5OTg1",
+          "commit": {
+            "abbreviatedOid": "adefa45"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-13T17:46:43Z",
+          "updatedAt": "2020-04-13T17:48:15Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nIf the application has 0-RTT data to send in any protocol handshakes, it needs to provide this data before any handshake is initiated. When racing, this means that the data should be provided before the process of connection establishment has begun. If the application wants to send 0-RTT data, it indicates this to the implementation by setting the Idempotent flag in the message context to true and providing initial data to send at the connection initiation. In general, 0-RTT data may be replayed (for example, if a TCP SYN contains data, and the SYN is retransmitted, the data will be retransmitted as well but may be considered as a new connection instead of a retransmission). Also, when racing connections, different leaf nodes may send the same data independently. If data is truly idempotent, this should be permissible.\r\n```",
+              "createdAt": "2020-04-13T17:46:44Z",
+              "updatedAt": "2020-04-13T17:48:30Z"
+            },
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\n0-RTT handshakes often rely on previous state, such as TCP Fast Open cookies, previously established TLS tickets, or out-of-band distributed pre-shared keys (PSKs). Implementations should be aware of security concerns around using these tokens across multiple addresses or paths when racing. In the case of TLS, any given ticket or PSK should only be used on one leaf node, since servers will likely reject duplicate tickets in order to prevent replays (see section-8.1 {{?RFC8446}}). If implementations have multiple tickets available from a previous connection, each leaf node attempt can use a different ticket. In effect, each leaf node will send the same early application data, yet encoded (encrypted) differently on the wire.\r\n```",
+              "createdAt": "2020-04-13T17:48:11Z",
+              "updatedAt": "2020-04-13T17:48:30Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 547,
@@ -45847,7 +45874,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-04-07T15:41:42Z",
-      "updatedAt": "2020-04-07T15:47:47Z",
+      "updatedAt": "2020-04-13T17:44:34Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45865,6 +45892,26 @@
           "createdAt": "2020-04-07T15:47:47Z",
           "updatedAt": "2020-04-07T15:47:47Z",
           "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyMzA4NTA3",
+          "commit": {
+            "abbreviatedOid": "e9612d4"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2020-04-13T17:44:29Z",
+          "updatedAt": "2020-04-13T17:44:34Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "This says it is \"one example\"; what's it an example of? The text above doesn't discuss sharing the cached information with peers. If anything, this is a new suggestion that could start \"In addition, cached information may be used to share information with peers...\"",
+              "createdAt": "2020-04-13T17:44:29Z",
+              "updatedAt": "2020-04-13T17:44:34Z"
+            }
+          ]
         }
       ]
     },
@@ -45873,19 +45920,33 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDAwNjQ2NDUx",
       "title": "Text around \"PRIMITIVENAME\" in implementation draft (issue #549)",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/550",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #549.",
       "createdAt": "2020-04-08T06:03:26Z",
-      "updatedAt": "2020-04-08T06:03:26Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-08T23:04:52Z",
+      "closedAt": "2020-04-08T23:04:52Z",
+      "mergedAt": "2020-04-08T23:04:52Z",
+      "mergedBy": "tfpauly",
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkwMzg5MzY3",
+          "commit": {
+            "abbreviatedOid": "be7013a"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-08T23:04:42Z",
+          "updatedAt": "2020-04-08T23:04:42Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 554,
@@ -45899,7 +45960,7 @@
       "labels": [],
       "body": "Mainly adding references to arch and API docs...",
       "createdAt": "2020-04-08T12:47:17Z",
-      "updatedAt": "2020-04-08T23:03:55Z",
+      "updatedAt": "2020-04-09T07:18:20Z",
       "closedAt": "2020-04-08T23:03:55Z",
       "mergedAt": "2020-04-08T23:03:55Z",
       "mergedBy": "tfpauly",
@@ -45917,6 +45978,26 @@
           "createdAt": "2020-04-08T23:03:49Z",
           "updatedAt": "2020-04-08T23:03:49Z",
           "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkwNTQ1MjYx",
+          "commit": {
+            "abbreviatedOid": "3ea1661"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-09T07:18:20Z",
+          "updatedAt": "2020-04-09T07:18:20Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "/This document provides/ after describing something,  is often trouble to work which /this/ is. Is it the former or the ID itself? - I think it's the former, can we replace by \", which provides\" or something?",
+              "createdAt": "2020-04-09T07:18:20Z",
+              "updatedAt": "2020-04-09T07:18:20Z"
+            }
+          ]
         }
       ]
     }
