@@ -1081,8 +1081,8 @@ Internet-Draft             TAPS Implementation                April 2020
 
    When an implementation is asked to Listen, it registers with the
    system to wait for incoming traffic to the Local Endpoint.  If no
-   Local Endpoint is specified, the implementation should either use an
-   ephemeral port or generate an error.
+   Local Endpoint is specified, the implementation should use an
+   ephemeral port.
 
    If the Selection Properties do not require a single network interface
    or path, but allow the use of multiple paths, the Listener object
