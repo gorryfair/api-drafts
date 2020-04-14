@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-13T17:49:06.499017+00:00",
+  "timestamp": "2020-04-14T10:20:09.637788+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -45067,7 +45067,7 @@
       ],
       "body": "* allow to control active/passive opertaion\r\n* clairify functionality\r\n* allow to control exposure of alternative addresses",
       "createdAt": "2020-03-03T14:06:37Z",
-      "updatedAt": "2020-04-06T10:27:34Z",
+      "updatedAt": "2020-04-14T10:19:34Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45118,13 +45118,13 @@
               "originalPosition": 25,
               "body": "In #437, @tfpauly writes, as a conclusion from the interim discussion: \"Exposing alternate addresses to the peer and actively migrating is likely a separate property that we should specify.\"  I interpret this as meaning that we don't want \"Handover\" here. If we do want to keep it, I agree with @gorryfair who, in #437, suggests to call this \"Failover\" instead.",
               "createdAt": "2020-03-04T09:43:43Z",
-              "updatedAt": "2020-03-04T09:51:26Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             },
             {
               "originalPosition": 32,
               "body": "I agree with @gorryfair and @abrunstrom who call this \"fuzzy\" in #437 (this applies to both \"Interactive\" and \"Passive-Interactive\". Do we need this now, given that we don't seem to have any RFC explaining how to best implement this?  I think it's cool functionality, but I question whether this should be inside a Transport System - would an application be able to trust this to implement just the right trade-off for it, between e.g. capacity usage and delay minimization?\r\n\r\nSide note: if we do keep it, I think the text of this update is better.",
               "createdAt": "2020-03-04T09:49:19Z",
-              "updatedAt": "2020-03-04T09:51:26Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45144,7 +45144,7 @@
               "originalPosition": 25,
               "body": "No, these are still two separate things:\r\n - Exposure of Alternative Addresses is defined as a separate property below\r\n - You don't need to expose an alternative addresses prior initiating handover.\r\n - Servers will most likely never advertise alternative addresses but still want to support the client in migrating.\r\n\r\nMaybe make this more explicit that the Multipath property really defines path management behaviour while the exposure property defines advertisement. ",
               "createdAt": "2020-03-04T12:58:50Z",
-              "updatedAt": "2020-03-04T12:58:50Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45164,7 +45164,7 @@
               "originalPosition": 32,
               "body": "This is a slightly extended version of Apple's implementation (apple makes not distinction between passive and active) and can be easily implemented, e.g., for MPTCP by choosing the right path manager. It is a matter of choosing \"Just use the lowest RTT path\" vs. \"use all paths\"",
               "createdAt": "2020-03-04T13:04:39Z",
-              "updatedAt": "2020-03-04T13:17:35Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45184,7 +45184,7 @@
               "originalPosition": 32,
               "body": "So if you have a long-RTT path with potentially a lot of extra capacity as well as a short-RTT path, this is always going to pick the short-RTT one?  Even if the capacity on the short-RTT one is quite tiny and the RTT difference isn't very large? Or else, how do you choose these thresholds?  => yes there CAN be a simple implementation, but there are also trade-offs in the design.",
               "createdAt": "2020-03-04T13:36:42Z",
-              "updatedAt": "2020-03-04T13:36:43Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45204,7 +45204,7 @@
               "originalPosition": 25,
               "body": "I saw the Exposure of Alternative Addresses below, and I agree that this is (or can be) separate from \"actively migrating\". My understanding of the sentence was that both of these things should be a separate property (or are somehow combined into a single separate property).",
               "createdAt": "2020-03-04T13:40:53Z",
-              "updatedAt": "2020-03-04T13:40:53Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45224,7 +45224,7 @@
               "originalPosition": 32,
               "body": "I assume this is a weird corner case, but yes there are trade-offs the implementation must make. Do we need text on that?",
               "createdAt": "2020-03-04T15:49:12Z",
-              "updatedAt": "2020-03-04T15:49:12Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45244,7 +45244,7 @@
               "originalPosition": 25,
               "body": "My understanding was that exposure of addresses (as done by MPTCP) should defiantly be a separate option and active/passive is missing somehow. Yes, one can make active/passive a third option (which would, for the MPTCP case, decide whether to actively open additional sub-flows).\r\nI have no strong opinions whether to put this in two options or three options, but if you choose three, we would go away from the model in NWConnection and end up with:\r\n\r\n - **multipath**: active/passive/disabled\r\n - **multipath-strategy**: failover/interactive/aggregate bandwidth (no disabled, as this would be ambiguous)\r\n - **advertises-altaddr**: true/false\r\n\r\nWould that be better?",
               "createdAt": "2020-03-04T15:55:33Z",
-              "updatedAt": "2020-03-04T15:55:33Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45264,7 +45264,7 @@
               "originalPosition": 32,
               "body": "I don't think it's a weird corner case; I just don't think that many applications would want to say \"give me the lower latency path, at all cost, no matter how miniscule the difference, no matter how much capacity I lose\". I'm not proposing to address this with some discussion in text - I'm proposing not to delegate the algorithm that chooses paths on this basis to the transport system, but leaving it inside the application instead.\r\n\r\nThis said, I don't have a very strong opinion on this matter - I'd like to hear others' views.",
               "createdAt": "2020-03-04T16:38:49Z",
-              "updatedAt": "2020-03-04T16:40:37Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45284,7 +45284,7 @@
               "originalPosition": 25,
               "body": "@tfpauly Do you have a preference?",
               "createdAt": "2020-03-06T09:44:55Z",
-              "updatedAt": "2020-03-06T09:44:55Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45304,19 +45304,19 @@
               "originalPosition": 25,
               "body": "As long as we do not go to a per interface model (I agree with @philsbln to leave this for later), perhaps we can merge the multipath and advertise-altaddr properties above? Not sure it makes sense to pick active and not advertise any addresses? But for passive this is an important choice so would need to split that in two. Keeping the strategy separate makes sense I think.",
               "createdAt": "2020-03-09T13:10:09Z",
-              "updatedAt": "2020-03-09T15:46:24Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             },
             {
               "originalPosition": 42,
               "body": "Should this not be other than Disabled. Passive still requires a protocol with multipath support I guess. And should perhaps also say that Disabled is a requirement?",
               "createdAt": "2020-03-09T15:44:01Z",
-              "updatedAt": "2020-03-09T15:46:24Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             },
             {
               "originalPosition": 32,
               "body": "Leaving it to the application may seem attractive, but is not really feasible in practise as it quickly gets very complicated. For instance, if you ask for a packet to be sent on one path and this packet is lost, are you allowed to retransmit it on another path for reliability? What if the path is lost before you manged to send the packet at all?\r\nI think the updated text is an improvement.",
               "createdAt": "2020-03-09T15:44:14Z",
-              "updatedAt": "2020-03-09T15:46:24Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45336,7 +45336,7 @@
               "originalPosition": 32,
               "body": "Ok, glad to hear that you like this - I don't personally have a strong opinion, and I agree that it quickly gets complicated!  (but that's also why I felt quite insecure about simply delegating this to the transport system). I would like to hear @tfpauly's opinion too, though.",
               "createdAt": "2020-03-09T16:21:24Z",
-              "updatedAt": "2020-03-09T16:21:25Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45356,7 +45356,7 @@
               "originalPosition": 25,
               "body": "It makes sense for a client to pick active, as ist allows to initiate additional subflows and, thus, implicitly expose some addresses, but not expose other addresses.\r\nI consider exposing addresses without actively establishing sub-flows rather as a corner-case for things like GPT over SCPT or to bootstrap connection migration through NAT.\r\nNote that I use MPTCP terminology here, but I think this is not limited to MPTCP. ",
               "createdAt": "2020-04-04T10:16:35Z",
-              "updatedAt": "2020-04-04T10:16:36Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45376,7 +45376,7 @@
               "originalPosition": 42,
               "body": "Ack; I'll fix that",
               "createdAt": "2020-04-04T10:17:48Z",
-              "updatedAt": "2020-04-04T10:17:48Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45396,7 +45396,7 @@
               "originalPosition": 25,
               "body": "You can also be active and only establish connections if a new address is advertised by the peer.",
               "createdAt": "2020-04-06T10:24:27Z",
-              "updatedAt": "2020-04-06T10:24:28Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         },
@@ -45416,7 +45416,7 @@
               "originalPosition": 32,
               "body": "I think having \"passive\" here mixes up two things, one is the question of who will establish paths and the other one is how to use paths. These are separate points and should not be mixed together.",
               "createdAt": "2020-04-06T10:27:34Z",
-              "updatedAt": "2020-04-06T10:27:34Z"
+              "updatedAt": "2020-04-14T10:19:34Z"
             }
           ]
         }
@@ -45820,7 +45820,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-04-07T12:16:42Z",
-      "updatedAt": "2020-04-13T17:48:30Z",
+      "updatedAt": "2020-04-14T08:29:23Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45859,6 +45859,19 @@
               "updatedAt": "2020-04-13T17:48:30Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyNzExMDYz",
+          "commit": {
+            "abbreviatedOid": "f95cf32"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2020-04-14T08:29:23Z",
+          "updatedAt": "2020-04-14T08:29:23Z",
+          "comments": []
         }
       ]
     },
@@ -45874,7 +45887,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-04-07T15:41:42Z",
-      "updatedAt": "2020-04-13T17:44:34Z",
+      "updatedAt": "2020-04-14T08:15:24Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45910,6 +45923,26 @@
               "body": "This says it is \"one example\"; what's it an example of? The text above doesn't discuss sharing the cached information with peers. If anything, this is a new suggestion that could start \"In addition, cached information may be used to share information with peers...\"",
               "createdAt": "2020-04-13T17:44:29Z",
               "updatedAt": "2020-04-13T17:44:34Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyNzAwNTM4",
+          "commit": {
+            "abbreviatedOid": "e9612d4"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-14T08:15:23Z",
+          "updatedAt": "2020-04-14T08:15:24Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "@tfpauly, I don't understand what you say about \"peers\" here. Obviously, everything here is about caching things locally, but per peer, right?\r\n\r\nRegarding the reference, I agree, \"As one example,\" should simply be removed.",
+              "createdAt": "2020-04-14T08:15:24Z",
+              "updatedAt": "2020-04-14T08:15:24Z"
             }
           ]
         }
