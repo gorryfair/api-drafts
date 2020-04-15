@@ -2060,7 +2060,7 @@ Internet-Draft               TAPS Interface                   April 2020
    example, if "Reliable Data Transfer (Connection)" is set to "Require"
    and a protocol with configurable per-Message reliability is used,
    setting "Reliable Data Transfer (Message)" to "false" for a
-   particular Message will ensure that this Message is unreliably
+   particular Message will cause this Message to be unreliably
    delivered.  If the underlying protocol can not support this per-
    Message behavior, this Message Property choice will yield an error.
    Note that changing the Reliable Data Transfer property on Messages is
