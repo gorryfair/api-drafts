@@ -2468,6 +2468,7 @@ The actual thresholds to declare a path unreliable are implementation specific.<
 </dl>
 <p id="section-5.2.13-4">Enumeration values other than "Disabled" are interpreted as a preference for choosing protocols that can make use of multiple paths. 
 The "Disabled" value implies a requirement not to use multiple paths in parallel but does not prevent choosing a protocol that is capable of using multiple paths.<a href="#section-5.2.13-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.13-5">Setting this property to "Handover", "Interactive" or "Aggregate" may have privacy implications: It enables the transport to establish connectivity using alternate paths that may make users linkable across multiple paths, even if the Exposure of Alternative Addresses property (see <a href="#altaddr" class="xref">Section 5.2.14</a> below) is set to false.<a href="#section-5.2.13-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="altaddr">
@@ -2490,8 +2491,9 @@ The "Disabled" value implies a requirement not to use multiple paths in parallel
 </dd>
 </dl>
 <p id="section-5.2.14-2">This property specifies whether alternative addresses, e.g., of other interfaces, should be advertised to the
-peer endpoint by the protocol stack to enable using multiple paths.
-Note that this may have privacy implications because it may make users linkable across multiple paths.<a href="#section-5.2.14-2" class="pilcrow">¶</a></p>
+peer endpoint by the protocol stack. Advertising these addresses enables the peer-endpoint to establish additional connectivity, e.g., for connection migration or using multiple paths.<a href="#section-5.2.14-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.14-3">Note that this may have privacy implications because it may make users linkable across multiple paths.
+Also, note that setting this to false does not prevent the local transport system from <em>establishing</em> connectivity using alternate paths (see <a href="#parallel-multipath" class="xref">Section 5.2.13</a> above); it only prevents <em>procative advertisement</em> of addresses.<a href="#section-5.2.14-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="direction-of-communication">
