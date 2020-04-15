@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-14T10:20:09.637788+00:00",
+  "timestamp": "2020-04-15T06:20:28.959175+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -15123,7 +15123,7 @@
       "id": "MDU6SXNzdWU1NTEzMDk5NDI=",
       "title": "Right design for Partial Send",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/448",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -15135,8 +15135,8 @@
       ],
       "body": "The section on partial send says:\r\n\r\n\"All data sent with the same MessageContext object will be treated as\r\n   belonging to the same Message, and will constitute an in-order series\r\n   until the endOfMessage is marked.  Once the end of the Message is\r\n   marked, the MessageContext object may be re-used as a new Message\r\n   with identical parameters.\"\r\n\r\nCan we reconsider for a second if that is really the way we want to design this? This is really implicit and therefore an easy source for errors. I guess we could alternatively use an explicit message identifier...? Or the send action always return an identifier and for subsequent sends we input this identifier again? Or someone has a smarter idea?",
       "createdAt": "2020-01-17T09:45:29Z",
-      "updatedAt": "2020-02-21T17:47:30Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-14T11:58:31Z",
+      "closedAt": "2020-04-14T11:58:31Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -16048,7 +16048,7 @@
       "id": "MDU6SXNzdWU1NTQzMDUzMjk=",
       "title": "Appendix A.1. / Adding preference properties",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/486",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "theagilepadawan",
       "authorAssociation": "NONE",
       "assignees": [],
@@ -16057,8 +16057,8 @@
       ],
       "body": "A.1. states: \r\n\r\n*\"As Selection Properties of type Preference will be added to a TransportProperties object quite frequently, implementations should provide special actions for adding each preference level i.e, TransportProperties.Add(some_property, avoid) is equivalent to TransportProperties.Avoid(some_property)\"*\r\n\r\nAs a TransportProperties object constitutes of Selection, Connection and Message Properties objects, I think it's more natural to make the action of adding a preference part of the API for Selection Properties: \r\n```TransportProperties.SelectionProperties.Avoid(some_property)```",
       "createdAt": "2020-01-23T17:40:08Z",
-      "updatedAt": "2020-02-25T13:55:54Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-14T17:52:30Z",
+      "closedAt": "2020-04-14T17:52:30Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -16066,6 +16066,13 @@
           "body": "It seems that, at least for now, only Selection Properties are of type \"Preference\". So indeed, this could streamline things a bit.",
           "createdAt": "2020-02-25T13:55:54Z",
           "updatedAt": "2020-02-25T13:55:54Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "On second thought, this strikes me as an unnecessary detail. I don't think we have \"TransportProperties.SelectionProperties\", \"TransportProperties.MessageProperties\" etc. defined - we just have the categories represented by the document structure and headings. Of course, we could now go all the way and specify a namespace hierarchy as you describe here, but I don't think this is worth it.\r\n\r\nThat said, I think what you say does make more sense for implementations; but implementing it as you describe should be okay, as the code examples in the draft are just that - examples.",
+          "createdAt": "2020-04-14T13:21:15Z",
+          "updatedAt": "2020-04-14T13:21:15Z"
         }
       ]
     },
@@ -16189,11 +16196,13 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [
-        "API"
+        "API",
+        "discuss",
+        "help wanted"
       ],
       "body": "Apple does this: https://developer.apple.com/documentation/network/nwconnection/2998572-receive\r\n\r\n...and it may be more convenient than what we currently have (or do we have it unspecified?  **My** interpretation of our text would have been to use only one receive handler associated to the Connection). E.g., if an application expects 3 different types of messages to be received in sequence, it can hand over three different receive handlers in Apple's case, and that seems useful.\r\n\r\nApple also has a \"completion\" handler per sent event, handed over as a parameter to \"send\". Is this necessary? Who needs 3 different \"Sent\" handlers for 3 different messages - shouldn't the \"sent\" handler rather be a singular per-Connection thing?",
       "createdAt": "2020-03-02T09:52:17Z",
-      "updatedAt": "2020-03-02T09:52:17Z",
+      "updatedAt": "2020-04-14T10:43:18Z",
       "closedAt": null,
       "comments": []
     },
@@ -16699,7 +16708,7 @@
       ],
       "body": "Impl draft section 4.6 (Implementing listeners):\r\n\"If no Local Endpoint is specified, the implementation should either use an ephemeral port or generate an error.\"\r\nDo we need an interface for the application to indicate that an ephemeral port should be used?",
       "createdAt": "2020-04-07T10:08:34Z",
-      "updatedAt": "2020-04-08T16:07:22Z",
+      "updatedAt": "2020-04-14T12:20:16Z",
       "closedAt": null,
       "comments": [
         {
@@ -16736,6 +16745,13 @@
           "body": "That too.",
           "createdAt": "2020-04-08T16:07:22Z",
           "updatedAt": "2020-04-08T16:07:22Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@mirjak requested that I adapt the \"error\" text in the implementation draft too. In doing so, I noticed:\r\n\r\n- I don't understand @gorryfair's comment above, about choosing the specify the port. I think this kind of error was possible with sockets somehow, but this text talks about not specifying a Local Endpoint. Technically, I think not specifying a Local Endpoint yet specifying a port is not possible.\r\n\r\n- Regarding my own comment, any call may fail for reasons such as the system being out of resources; I think mentioning this in the text here doesn't add any value though.\r\n\r\nAs a result, I'll remove the part about the error from the text in my update to PR #556.",
+          "createdAt": "2020-04-14T12:20:15Z",
+          "updatedAt": "2020-04-14T12:20:15Z"
         }
       ]
     },
@@ -45067,7 +45083,7 @@
       ],
       "body": "* allow to control active/passive opertaion\r\n* clairify functionality\r\n* allow to control exposure of alternative addresses",
       "createdAt": "2020-03-03T14:06:37Z",
-      "updatedAt": "2020-04-14T10:19:34Z",
+      "updatedAt": "2020-04-14T11:56:37Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45417,6 +45433,44 @@
               "body": "I think having \"passive\" here mixes up two things, one is the question of who will establish paths and the other one is how to use paths. These are separate points and should not be mixed together.",
               "createdAt": "2020-04-06T10:27:34Z",
               "updatedAt": "2020-04-14T10:19:34Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyODUwMTQw",
+          "commit": {
+            "abbreviatedOid": "b38be66"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM modulo a few nits that I commented on",
+          "createdAt": "2020-04-14T11:48:22Z",
+          "updatedAt": "2020-04-14T11:56:37Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "I think that \"principally\" here is a German-ism ... I guess you mean \"in principle\". However, even this doesn't really add anything useful to the statement, IMO. Can we just remove the word \"principally\"?",
+              "createdAt": "2020-04-14T11:48:22Z",
+              "updatedAt": "2020-04-14T11:56:18Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "s/my depend/may depend\r\nand, please: s/bandwidth provided/capacity provided\r\n",
+              "createdAt": "2020-04-14T11:50:48Z",
+              "updatedAt": "2020-04-14T11:56:18Z"
+            },
+            {
+              "originalPosition": 39,
+              "body": "s/only if using/only using",
+              "createdAt": "2020-04-14T11:54:38Z",
+              "updatedAt": "2020-04-14T11:56:18Z"
+            },
+            {
+              "originalPosition": 56,
+              "body": "s/advertises/advertised",
+              "createdAt": "2020-04-14T11:55:56Z",
+              "updatedAt": "2020-04-14T11:56:18Z"
             }
           ]
         }
@@ -46029,6 +46083,172 @@
               "body": "/This document provides/ after describing something,  is often trouble to work which /this/ is. Is it the former or the ID itself? - I think it's the former, can we replace by \", which provides\" or something?",
               "createdAt": "2020-04-09T07:18:20Z",
               "updatedAt": "2020-04-09T07:18:20Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 555,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAzMTExMzUz",
+      "title": "Partial send: remove sentence about re-using the same object",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/555",
+      "state": "MERGED",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "... as suggested by @tfpauly.\r\nCloses #448.",
+      "createdAt": "2020-04-14T10:51:53Z",
+      "updatedAt": "2020-04-14T11:58:36Z",
+      "closedAt": "2020-04-14T11:58:31Z",
+      "mergedAt": "2020-04-14T11:58:31Z",
+      "mergedBy": "mwelzl",
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyODQ4NDU1",
+          "commit": {
+            "abbreviatedOid": "e88b4d7"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-14T11:45:43Z",
+          "updatedAt": "2020-04-14T11:45:43Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 556,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAzMTE1MzI2",
+      "title": "API: state \"Ephemeral port used when no Local Endpoint specified\"",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/556",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #539.",
+      "createdAt": "2020-04-14T11:01:06Z",
+      "updatedAt": "2020-04-14T12:22:27Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Done.",
+          "createdAt": "2020-04-14T12:22:27Z",
+          "updatedAt": "2020-04-14T12:22:27Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyODUwMTUw",
+          "commit": {
+            "abbreviatedOid": "32746ec"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "This change is fine. You also need to adapt the implementation doc to remove the \"or\" part: \"either use an ephemeral port or generate an error.\"",
+          "createdAt": "2020-04-14T11:48:23Z",
+          "updatedAt": "2020-04-14T11:48:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 557,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAzMTQ3MDU5",
+      "title": "Define a new type to use when selection properties are queried; closes #528.",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/557",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I chose boolean, because, when querying, it only matters whether a Selection Property was chosen or not (I believe).",
+      "createdAt": "2020-04-14T12:13:11Z",
+      "updatedAt": "2020-04-14T12:13:12Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 558,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAzMzMzNDIz",
+      "title": "Clarifications about per-connection vs per-message defaults",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/558",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #520. I inserted the text that I quoted in this issue, with a minor tweak.",
+      "createdAt": "2020-04-14T18:02:22Z",
+      "updatedAt": "2020-04-15T06:19:42Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkzMjEwMjM1",
+          "commit": {
+            "abbreviatedOid": "b639d90"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-14T18:59:16Z",
+          "updatedAt": "2020-04-14T18:59:16Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkzMzE3ODI2",
+          "commit": {
+            "abbreviatedOid": "b639d90"
+          },
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "The suggested text is not fully consistent with the specification of the Reliable Data Transfer message property.",
+          "createdAt": "2020-04-14T21:43:52Z",
+          "updatedAt": "2020-04-14T21:45:21Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Reliable Data Transfer (Message) is a Boolean so the 'Prefer' does not make sense. Also in the description of the property is says \r\n\r\n>  Changing the Reliable Data Transfer property on Messages is only possible for Connections that were established with the Selection Property Configure Per-Message Reliability enabled. When this is not the case, changing it will generate an error.\r\n\r\nSo maybe the text about the error should also be aligned.",
+              "createdAt": "2020-04-14T21:43:53Z",
+              "updatedAt": "2020-04-15T06:19:42Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkzNDgzMTQ4",
+          "commit": {
+            "abbreviatedOid": "b639d90"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-15T06:19:05Z",
+          "updatedAt": "2020-04-15T06:19:05Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Good catch, thanks!  Fixing the \"type should be Boolean\" problem, and regarding the error, I resorted to repeating the statement that we already have at the end of this paragraph (\"Note that...\").",
+              "createdAt": "2020-04-15T06:19:05Z",
+              "updatedAt": "2020-04-15T06:19:42Z"
             }
           ]
         }
