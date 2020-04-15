@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-15T06:20:28.959175+00:00",
+  "timestamp": "2020-04-15T18:45:17.008883+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -13259,7 +13259,7 @@
       ],
       "body": "",
       "createdAt": "2019-11-19T08:57:05Z",
-      "updatedAt": "2019-11-20T06:59:39Z",
+      "updatedAt": "2020-04-15T13:09:22Z",
       "closedAt": null,
       "comments": [
         {
@@ -13282,6 +13282,20 @@
           "body": "I heard. That sounds like we should avoid toon much text on this topic in these IDs.",
           "createdAt": "2019-11-20T06:59:39Z",
           "updatedAt": "2019-11-20T06:59:39Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree not to add too much shaky stuff to our drafts.\r\nSo... should we or should we not?",
+          "createdAt": "2020-04-15T12:07:29Z",
+          "updatedAt": "2020-04-15T12:07:29Z"
+        },
+        {
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Maybe tag it as future work and close it?",
+          "createdAt": "2020-04-15T13:09:22Z",
+          "updatedAt": "2020-04-15T13:09:22Z"
         }
       ]
     },
@@ -16214,13 +16228,15 @@
       "state": "OPEN",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
+      "assignees": [
+        "mwelzl"
+      ],
       "labels": [
         "API"
       ],
       "body": "On a PreConnection, an application uses EITHER Initiate OR Listen OR Rendezvous. Therefore, it seems unnecessary to distinguish between three types of errors. Shouldn't we have a general per-PreConnection \"UnfulfilledError\" instead of the InitiateError + ListenError + RendezvousError, just to shorten things a bit?\r\n\r\nAn application needs more details (reasons), but it gets them as a parameter anyway when the new \"UnfulfilledError\" would occur.",
       "createdAt": "2020-03-02T09:57:23Z",
-      "updatedAt": "2020-03-02T09:57:23Z",
+      "updatedAt": "2020-04-15T11:48:51Z",
       "closedAt": null,
       "comments": []
     },
@@ -16392,9 +16408,24 @@
       ],
       "body": "List discussion:\r\n\r\n**Kyle**:\r\n>  If we're not currently asking IANA to create a registry of property names or namespaces, should we provide a recommendation that such symbols not listed explcitly in this document be prefixed with some experimental identifier?\r\n\r\n**@philsbn**:\r\n> The IANA registry question was explicitly postponed, be maybe we should re-iterate it now.\r\n> The idea of having an \u201ex\u201c namespace was rejected in fear we end up with quasi-standard properties that have an x prefix then. \r\n> \r\n\r\n**Kyle**:\r\n> Which is worse? A complete free-for-all, or a recommendation to have the free-for-all confined to an X- namespace? Do properties starting with X- just offend engineering sensibilities?\r\n> \r\n> One \"right\" alternative is a documentation-required registry, but does that raise the bar too high? How about a TAPS wiki as a compromise? The important outcome is that properties be well-defined and not conflict with each other. Since these properties have entirely local effects (e.g., they don't get encoded as options and transmitted to the peer), we probably don't need the level of precision motivating option registries, for instance. Is there precedent at the IETF for a registry mechanism less formal that what IANA provides?\r\n> ",
       "createdAt": "2020-04-02T14:07:31Z",
-      "updatedAt": "2020-04-02T14:07:53Z",
+      "updatedAt": "2020-04-15T14:39:34Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "Anyone have any thoughts on this one?\n\n\nOn Thu, Apr 2, 2020 at 10:07 AM mwelzl <notifications@github.com> wrote:\n\n> List discussion:\n>\n> *Kyle*:\n>\n> If we're not currently asking IANA to create a registry of property names\n> or namespaces, should we provide a recommendation that such symbols not\n> listed explcitly in this document be prefixed with some experimental\n> identifier?\n>\n> *@philsbn*:\n>\n> The IANA registry question was explicitly postponed, be maybe we should\n> re-iterate it now.\n> The idea of having an \u201ex\u201c namespace was rejected in fear we end up with\n> quasi-standard properties that have an x prefix then.\n>\n> *Kyle*:\n>\n> Which is worse? A complete free-for-all, or a recommendation to have the\n> free-for-all confined to an X- namespace? Do properties starting with X-\n> just offend engineering sensibilities?\n>\n> One \"right\" alternative is a documentation-required registry, but does\n> that raise the bar too high? How about a TAPS wiki as a compromise? The\n> important outcome is that properties be well-defined and not conflict with\n> each other. Since these properties have entirely local effects (e.g., they\n> don't get encoded as options and transmitted to the peer), we probably\n> don't need the level of precision motivating option registries, for\n> instance. Is there precedent at the IETF for a registry mechanism less\n> formal that what IANA provides?\n>\n> \u2014\n> You are receiving this because you are subscribed to this thread.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/ietf-tapswg/api-drafts/issues/521>, or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AAYF7R6EZUMERZHOMAGBRCTRKSL3JANCNFSM4L2PKNQQ>\n> .\n>\n",
+          "createdAt": "2020-04-15T14:31:48Z",
+          "updatedAt": "2020-04-15T14:31:48Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "I see three straw man proposals:\r\n(1) Create a registry of property names or namespaces, AND explIcitly define a range for IANA assignment and a policy...\r\n(2) Recommend a prefix format in the document...\r\n(3) Do nothing and see what happens....\r\n... I think all three are possible ways forward. If TAPS succeeds in having high impact, I suspect we'd like to have done (1).\r\n",
+          "createdAt": "2020-04-15T14:39:34Z",
+          "updatedAt": "2020-04-15T14:39:34Z"
+        }
+      ]
     },
     {
       "number": 522,
@@ -16411,7 +16442,7 @@
       ],
       "body": "_From Kyle:_\r\nidempotency != replay-safe. DELETE is idempotent, but not safe for replay because someone might have done a PUT or POST in the meantime.\r\n\r\nWhat I mean is maybe best illustrated by 0RTT in TLS or QUIC. If a user sends a 0RTT DELETE /object, followed by a PUT /object, then within the replay window and without any replay prevention at the application layer, an attacker could replay the 0RTT DELETE /object and cause the object to be deleted again. DELETE is idempotent but it's not safe to replay.",
       "createdAt": "2020-04-02T14:23:23Z",
-      "updatedAt": "2020-04-03T10:23:45Z",
+      "updatedAt": "2020-04-15T14:30:31Z",
       "closedAt": null,
       "comments": [
         {
@@ -16455,6 +16486,13 @@
           "body": "Can we cite that section of RFC 7231 for idempotency, perhaps even quote the meaning that @gorryfair has copied here, and be done with this?",
           "createdAt": "2020-04-03T10:23:45Z",
           "updatedAt": "2020-04-03T10:23:45Z"
+        },
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "I think I'm not being clear about my objection here. I know what idempotent means, and agree that RFC 7231 captures it. (\"A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request.\")\r\n\r\nThe issue is with an idempotent request that is repeated *with a different request in between.* DELETE, for instance, will do the same thing if multiple identical requests are performed, but if a PUT or POST occurs in between, the second DELETE will remove a different object than the one from the first DELETE.\r\n\r\nLet's say the user does this:\r\n\r\nPUT /object (with content 1)\r\nDELETE /object\r\nPUT /object (with content 2)\r\n\r\nThe state of /object after this sequence is that it exists with content 2.\r\n\r\nIdempotency admits the following:\r\n\r\nPUT /object (with content 1)\r\nDELETE /object\r\nPUT /object (with content 2)\r\nREPLAY: DELETE /object\r\n\r\nThe state of /object after this sequence is that it does not exist. Similarly:\r\n\r\nPUT /object (with content 1)\r\nPUT /object (with content 2)\r\nREPLAY: PUT /object (with content 1)\r\n\r\nThe state of /object after this sequence is that it exists with content 1.\r\n\r\nReplay safety would mean that the state after a sequence including a replayed request is identical to the state without the replayed request.",
+          "createdAt": "2020-04-15T14:30:31Z",
+          "updatedAt": "2020-04-15T14:30:31Z"
         }
       ]
     },
@@ -16472,16 +16510,24 @@
       ],
       "body": "_from Kyle_:\r\n> These type symbols really deserve an actual registry, or at least the start of one. Otherwise, we are likely to end up with a mess.\r\n\r\n**Philipp Tiesel**:\r\n> There is already one, but that one was not useful for our matters. \r\n",
       "createdAt": "2020-04-02T14:31:37Z",
-      "updatedAt": "2020-04-02T14:31:37Z",
+      "updatedAt": "2020-04-15T14:23:21Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "I'm not sure what Philipp's response means. Where is this registry, and why was it not useful?",
+          "createdAt": "2020-04-15T14:23:20Z",
+          "updatedAt": "2020-04-15T14:23:20Z"
+        }
+      ]
     },
     {
       "number": 524,
       "id": "MDU6SXNzdWU1OTI2ODQ2MzI=",
       "title": "What constitutes trust verification prior to the handshake?",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/524",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -16490,8 +16536,8 @@
       ],
       "body": "Kyle Rose asked this question in his review, referring to section 5.3.2.",
       "createdAt": "2020-04-02T14:39:47Z",
-      "updatedAt": "2020-04-03T14:20:29Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-15T18:44:34Z",
+      "closedAt": "2020-04-15T18:44:34Z",
       "comments": [
         {
           "author": "mirjak",
@@ -16499,6 +16545,13 @@
           "body": "Session resumption...?",
           "createdAt": "2020-04-03T14:20:29Z",
           "updatedAt": "2020-04-03T14:20:29Z"
+        },
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "I think I was quibbling with the word \"proceed\". Not sure why I didn't just say that in the review.\r\n\r\n> Trust verification callback: Invoked when a Remote Endpoint's trust must be validated before the handshake protocol can proceed.\r\n\r\nCredentials are typically exchanged as part of the handshake, which means the handshake has already begun, so I think it will read better if you change \"proceed\" to \"continue\".",
+          "createdAt": "2020-04-15T12:44:22Z",
+          "updatedAt": "2020-04-15T12:44:22Z"
         }
       ]
     },
@@ -16516,7 +16569,7 @@
       ],
       "body": "from Kyle Rose's review:\r\n\r\n> 7.3.3. SendError\r\n> \r\n> Is there a reason why a single messageContext object is used for both sends and receives? I probably missed the original discussion about this, but I'd like to understand the reasoning.\r\n> \r\n> (Maybe I should have said \"class\" instead of \"object\".) For example, the \"lifetime\" property makes sense as metadata for sends, but is completely irrelevant to the receiver. The same is true of several other message properties. It might make sense for an implementation to use a single type to represent metadata both for sends and receives, but is that also true for an abstract API?\r\n> ",
       "createdAt": "2020-04-02T14:43:26Z",
-      "updatedAt": "2020-04-03T14:18:31Z",
+      "updatedAt": "2020-04-15T11:28:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -16532,6 +16585,13 @@
           "body": "I you have a request/response protocol this actually gives you additional information by connecting these two messages together. ",
           "createdAt": "2020-04-03T14:18:31Z",
           "updatedAt": "2020-04-03T14:18:31Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also true. Maybe best to leave it as it is, then, and close this issue?",
+          "createdAt": "2020-04-15T11:28:34Z",
+          "updatedAt": "2020-04-15T11:28:34Z"
         }
       ]
     },
@@ -16549,9 +16609,17 @@
       ],
       "body": "Kyle wrote:\r\n> It seems like an abstract API would be helpful for the reference to the Message to which a Sent event applies: this seems like something many, many applications would need to do. With callbacks, the application can always curry in a reference to the original message (that's what my event system from ~2001 did), so maybe that should be the recommendation and the message reference removed...? I don't have a strong feeling here other than that if something is included then its use should be more well-defined.",
       "createdAt": "2020-04-02T14:46:54Z",
-      "updatedAt": "2020-04-02T14:46:54Z",
+      "updatedAt": "2020-04-15T14:21:52Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "Upon re-reading this, I think I'm okay with what's there.",
+          "createdAt": "2020-04-15T14:21:52Z",
+          "updatedAt": "2020-04-15T14:21:52Z"
+        }
+      ]
     },
     {
       "number": 528,
@@ -16587,7 +16655,7 @@
       ],
       "body": "Implementation draft sec 3:\r\n\"In the remainder of this document, we only refer to Selection Properties because they are the more typical case and have to be handled by all implementations.\r\n\r\nThe implementation stores these objects and properties as part of the Preconnection object for use during connection establishment.\"\r\n\r\nI don't understand these two sentences. In the API doc it seems we use the term Transport Properties for both selection and configuration properties. Why do we only talk about selection properties in this doc?\r\n\r\nAlso in the next sentence what's meant by \"objects and properties\"? I guess the object(s) that hold the properties? But then this is saying twice the same and we should only use one term to avoid confusion.",
       "createdAt": "2020-04-06T16:26:38Z",
-      "updatedAt": "2020-04-06T16:36:01Z",
+      "updatedAt": "2020-04-15T11:26:29Z",
       "closedAt": null,
       "comments": [
         {
@@ -16596,6 +16664,13 @@
           "body": "Also in the next section 3.1:\r\n\"Once an application specifies its Transport Parameters\"\r\n\r\nI guess that should be Transport Properties instead?\r\n\r\nMaybe it would also be good to say here \"Once an application specifies its Transport Properties and Preference (required, prefer, ignore, avoid, prohibit - see section 5.2. of [draft-taps-arch])\".",
           "createdAt": "2020-04-06T16:30:27Z",
           "updatedAt": "2020-04-06T16:36:01Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree; I suspect that this is ancient leftover text that should be cleaned up.",
+          "createdAt": "2020-04-15T11:26:28Z",
+          "updatedAt": "2020-04-15T11:26:28Z"
         }
       ]
     },
@@ -16671,9 +16746,17 @@
       ],
       "body": "Section 4.2.1  on delayed racing:\r\n\"For example, if the first child represents an IP address with a known route, and the second child represents another IP address, the delay between starting the first and second IP addresses can be based on the expected retransmission cadence for the first child's connection (derived from historical round-trip-time). Alternatively, if the first child represents a branch on a Wi-Fi interface, and the second child represents a branch on an LTE interface, the delay should be based on the expected time in which the branch for the first interface would be able to establish a connection, based on link quality and historical round-trip-time.\"\r\n\r\nWhat the reasoning for these two recommendations? I'm actually not sure what exactly is meant. Is the first case 3xRTT (-> initial RTO) and the second 1xRTT? Why?\r\n\r\nAlso in the next paragraph:\r\n\"Generally, branches between paths and protocols should have longer delays than branches between derived endpoints.\"\r\n\r\nWhat? Why?\r\n\r\nAnd then \r\n\"The maximum delay should be considered with regards to how long a user is expected to wait for the connection to complete.\"\r\n\r\nHow do I know this?\r\n",
       "createdAt": "2020-04-07T09:47:03Z",
-      "updatedAt": "2020-04-07T15:28:35Z",
+      "updatedAt": "2020-04-15T11:18:44Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also, maybe it's just me, but I can't parse \"retransmission cadence\", and the phrase with \"historical round-trip time\" is 1) confusing (I don't get what it means, but maybe that's due to me misunderstanding \"cadence\"?), and 2) seems to be missing an article.",
+          "createdAt": "2020-04-15T11:18:44Z",
+          "updatedAt": "2020-04-15T11:18:44Z"
+        }
+      ]
     },
     {
       "number": 538,
@@ -16763,14 +16846,16 @@
       "state": "OPEN",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
+      "assignees": [
+        "mwelzl"
+      ],
       "labels": [
         "API",
         "Implementation"
       ],
       "body": "It might be worth to better align the sections on Message Properties in the API and Implementation draft. Note that e.g. \"Final\" has more implementation details in the API draft than in the implementation draft.",
       "createdAt": "2020-04-07T10:24:37Z",
-      "updatedAt": "2020-04-07T10:24:37Z",
+      "updatedAt": "2020-04-15T11:14:11Z",
       "closedAt": null,
       "comments": []
     },
@@ -16788,9 +16873,24 @@
       ],
       "body": "In the implementation draft section 5.1.3 says that there should be an interface for the application to indicate batch sending. Section 7.7 specifies such an interface. Should the section in the implementation draft be updated or removed?",
       "createdAt": "2020-04-07T10:27:48Z",
-      "updatedAt": "2020-04-07T10:27:48Z",
+      "updatedAt": "2020-04-15T12:47:55Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think it should be removed. Mainly, it points out that batching reduces overhead, which is also stated in the API draft in section 7.7.",
+          "createdAt": "2020-04-15T11:12:07Z",
+          "updatedAt": "2020-04-15T11:12:07Z"
+        },
+        {
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Perhaps it is still important for the implementation to know that it needs to support batching sends though? I would suggest adjusting the text so it reads from the implementations perspective. Something like \r\n\r\n> Since sending a Message may involve a context switch between the application and the transport system, sending patterns that involve multiple small Messages can incur high overhead if each needs to be enqueued separately. To avoid this, the application can indicate a batch of Send actions through the API. When this is used, the implementation should hold off on processing Messages until the batch is complete. ",
+          "createdAt": "2020-04-15T12:47:55Z",
+          "updatedAt": "2020-04-15T12:47:55Z"
+        }
+      ]
     },
     {
       "number": 543,
@@ -16806,9 +16906,17 @@
       ],
       "body": "Impl draft section 5.2 Receiving Messages:\r\n\"if, on the other hand, the top-level protocol only supports a byte-stream and no deframers were supported, the application must specify the minimum number of bytes of Message content it wants to receive (which may be just a single byte) to control the flow of received data.\"\r\nThis text says the application MUST specify minIncompleteLength, however, the API draft says that this values is optional. This should be further clarified and more guidance given in case the value is not set.",
       "createdAt": "2020-04-07T10:39:52Z",
-      "updatedAt": "2020-04-07T10:39:52Z",
+      "updatedAt": "2020-04-15T11:03:17Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Having looked at this and the API carefully, my suggestion would be to turn the semicolon preceding this statement into a full stop and remove all of this \"if, on the other hand, ....\" text in the implementation draft.",
+          "createdAt": "2020-04-15T11:03:17Z",
+          "updatedAt": "2020-04-15T11:03:17Z"
+        }
+      ]
     },
     {
       "number": 545,
@@ -45083,7 +45191,7 @@
       ],
       "body": "* allow to control active/passive opertaion\r\n* clairify functionality\r\n* allow to control exposure of alternative addresses",
       "createdAt": "2020-03-03T14:06:37Z",
-      "updatedAt": "2020-04-14T11:56:37Z",
+      "updatedAt": "2020-04-15T14:33:48Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45115,6 +45223,13 @@
           "body": "Discussion seems ongoing enough that we shouldn't merge for the 107 draft deadline. Keeping this one open.",
           "createdAt": "2020-03-09T12:47:32Z",
           "updatedAt": "2020-03-09T12:47:32Z"
+        },
+        {
+          "author": "philsbln",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@abrunstrom I clarified the relationship between the two multi-path properties. Please review whether this works for you now, as I don't think merging them would make things clearer.\r\n\r\nWith regards to the per-interface choice, I would prefer to use Interface Instance or Type and add a few notes how these effect multi-path in a separate PR",
+          "createdAt": "2020-04-15T14:33:48Z",
+          "updatedAt": "2020-04-15T14:33:48Z"
         }
       ],
       "reviews": [
@@ -45134,13 +45249,13 @@
               "originalPosition": 25,
               "body": "In #437, @tfpauly writes, as a conclusion from the interim discussion: \"Exposing alternate addresses to the peer and actively migrating is likely a separate property that we should specify.\"  I interpret this as meaning that we don't want \"Handover\" here. If we do want to keep it, I agree with @gorryfair who, in #437, suggests to call this \"Failover\" instead.",
               "createdAt": "2020-03-04T09:43:43Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             },
             {
               "originalPosition": 32,
               "body": "I agree with @gorryfair and @abrunstrom who call this \"fuzzy\" in #437 (this applies to both \"Interactive\" and \"Passive-Interactive\". Do we need this now, given that we don't seem to have any RFC explaining how to best implement this?  I think it's cool functionality, but I question whether this should be inside a Transport System - would an application be able to trust this to implement just the right trade-off for it, between e.g. capacity usage and delay minimization?\r\n\r\nSide note: if we do keep it, I think the text of this update is better.",
               "createdAt": "2020-03-04T09:49:19Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45160,7 +45275,7 @@
               "originalPosition": 25,
               "body": "No, these are still two separate things:\r\n - Exposure of Alternative Addresses is defined as a separate property below\r\n - You don't need to expose an alternative addresses prior initiating handover.\r\n - Servers will most likely never advertise alternative addresses but still want to support the client in migrating.\r\n\r\nMaybe make this more explicit that the Multipath property really defines path management behaviour while the exposure property defines advertisement. ",
               "createdAt": "2020-03-04T12:58:50Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45180,7 +45295,7 @@
               "originalPosition": 32,
               "body": "This is a slightly extended version of Apple's implementation (apple makes not distinction between passive and active) and can be easily implemented, e.g., for MPTCP by choosing the right path manager. It is a matter of choosing \"Just use the lowest RTT path\" vs. \"use all paths\"",
               "createdAt": "2020-03-04T13:04:39Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45200,7 +45315,7 @@
               "originalPosition": 32,
               "body": "So if you have a long-RTT path with potentially a lot of extra capacity as well as a short-RTT path, this is always going to pick the short-RTT one?  Even if the capacity on the short-RTT one is quite tiny and the RTT difference isn't very large? Or else, how do you choose these thresholds?  => yes there CAN be a simple implementation, but there are also trade-offs in the design.",
               "createdAt": "2020-03-04T13:36:42Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45220,7 +45335,7 @@
               "originalPosition": 25,
               "body": "I saw the Exposure of Alternative Addresses below, and I agree that this is (or can be) separate from \"actively migrating\". My understanding of the sentence was that both of these things should be a separate property (or are somehow combined into a single separate property).",
               "createdAt": "2020-03-04T13:40:53Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45240,7 +45355,7 @@
               "originalPosition": 32,
               "body": "I assume this is a weird corner case, but yes there are trade-offs the implementation must make. Do we need text on that?",
               "createdAt": "2020-03-04T15:49:12Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45260,7 +45375,7 @@
               "originalPosition": 25,
               "body": "My understanding was that exposure of addresses (as done by MPTCP) should defiantly be a separate option and active/passive is missing somehow. Yes, one can make active/passive a third option (which would, for the MPTCP case, decide whether to actively open additional sub-flows).\r\nI have no strong opinions whether to put this in two options or three options, but if you choose three, we would go away from the model in NWConnection and end up with:\r\n\r\n - **multipath**: active/passive/disabled\r\n - **multipath-strategy**: failover/interactive/aggregate bandwidth (no disabled, as this would be ambiguous)\r\n - **advertises-altaddr**: true/false\r\n\r\nWould that be better?",
               "createdAt": "2020-03-04T15:55:33Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45280,7 +45395,7 @@
               "originalPosition": 32,
               "body": "I don't think it's a weird corner case; I just don't think that many applications would want to say \"give me the lower latency path, at all cost, no matter how miniscule the difference, no matter how much capacity I lose\". I'm not proposing to address this with some discussion in text - I'm proposing not to delegate the algorithm that chooses paths on this basis to the transport system, but leaving it inside the application instead.\r\n\r\nThis said, I don't have a very strong opinion on this matter - I'd like to hear others' views.",
               "createdAt": "2020-03-04T16:38:49Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45300,7 +45415,7 @@
               "originalPosition": 25,
               "body": "@tfpauly Do you have a preference?",
               "createdAt": "2020-03-06T09:44:55Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45320,19 +45435,19 @@
               "originalPosition": 25,
               "body": "As long as we do not go to a per interface model (I agree with @philsbln to leave this for later), perhaps we can merge the multipath and advertise-altaddr properties above? Not sure it makes sense to pick active and not advertise any addresses? But for passive this is an important choice so would need to split that in two. Keeping the strategy separate makes sense I think.",
               "createdAt": "2020-03-09T13:10:09Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             },
             {
               "originalPosition": 42,
               "body": "Should this not be other than Disabled. Passive still requires a protocol with multipath support I guess. And should perhaps also say that Disabled is a requirement?",
               "createdAt": "2020-03-09T15:44:01Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             },
             {
               "originalPosition": 32,
               "body": "Leaving it to the application may seem attractive, but is not really feasible in practise as it quickly gets very complicated. For instance, if you ask for a packet to be sent on one path and this packet is lost, are you allowed to retransmit it on another path for reliability? What if the path is lost before you manged to send the packet at all?\r\nI think the updated text is an improvement.",
               "createdAt": "2020-03-09T15:44:14Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45352,7 +45467,7 @@
               "originalPosition": 32,
               "body": "Ok, glad to hear that you like this - I don't personally have a strong opinion, and I agree that it quickly gets complicated!  (but that's also why I felt quite insecure about simply delegating this to the transport system). I would like to hear @tfpauly's opinion too, though.",
               "createdAt": "2020-03-09T16:21:24Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45372,7 +45487,7 @@
               "originalPosition": 25,
               "body": "It makes sense for a client to pick active, as ist allows to initiate additional subflows and, thus, implicitly expose some addresses, but not expose other addresses.\r\nI consider exposing addresses without actively establishing sub-flows rather as a corner-case for things like GPT over SCPT or to bootstrap connection migration through NAT.\r\nNote that I use MPTCP terminology here, but I think this is not limited to MPTCP. ",
               "createdAt": "2020-04-04T10:16:35Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45392,7 +45507,7 @@
               "originalPosition": 42,
               "body": "Ack; I'll fix that",
               "createdAt": "2020-04-04T10:17:48Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45412,7 +45527,7 @@
               "originalPosition": 25,
               "body": "You can also be active and only establish connections if a new address is advertised by the peer.",
               "createdAt": "2020-04-06T10:24:27Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45432,7 +45547,7 @@
               "originalPosition": 32,
               "body": "I think having \"passive\" here mixes up two things, one is the question of who will establish paths and the other one is how to use paths. These are separate points and should not be mixed together.",
               "createdAt": "2020-04-06T10:27:34Z",
-              "updatedAt": "2020-04-14T10:19:34Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         },
@@ -45452,25 +45567,25 @@
               "originalPosition": 42,
               "body": "I think that \"principally\" here is a German-ism ... I guess you mean \"in principle\". However, even this doesn't really add anything useful to the statement, IMO. Can we just remove the word \"principally\"?",
               "createdAt": "2020-04-14T11:48:22Z",
-              "updatedAt": "2020-04-14T11:56:18Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             },
             {
               "originalPosition": 29,
               "body": "s/my depend/may depend\r\nand, please: s/bandwidth provided/capacity provided\r\n",
               "createdAt": "2020-04-14T11:50:48Z",
-              "updatedAt": "2020-04-14T11:56:18Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             },
             {
               "originalPosition": 39,
               "body": "s/only if using/only using",
               "createdAt": "2020-04-14T11:54:38Z",
-              "updatedAt": "2020-04-14T11:56:18Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             },
             {
               "originalPosition": 56,
               "body": "s/advertises/advertised",
               "createdAt": "2020-04-14T11:55:56Z",
-              "updatedAt": "2020-04-14T11:56:18Z"
+              "updatedAt": "2020-04-15T12:19:05Z"
             }
           ]
         }
@@ -46165,16 +46280,16 @@
     {
       "number": 557,
       "id": "MDExOlB1bGxSZXF1ZXN0NDAzMTQ3MDU5",
-      "title": "Define a new type to use when selection properties are queried; closes #528.",
+      "title": "Define a new type to use when selection properties are queried",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/557",
       "state": "OPEN",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "I chose boolean, because, when querying, it only matters whether a Selection Property was chosen or not (I believe).",
+      "body": "Closes #528.\r\nI chose boolean, because, when querying, it only matters whether a Selection Property was chosen or not (I believe).",
       "createdAt": "2020-04-14T12:13:11Z",
-      "updatedAt": "2020-04-14T12:13:12Z",
+      "updatedAt": "2020-04-15T11:22:12Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46193,7 +46308,7 @@
       "labels": [],
       "body": "Closes #520. I inserted the text that I quoted in this issue, with a minor tweak.",
       "createdAt": "2020-04-14T18:02:22Z",
-      "updatedAt": "2020-04-15T06:19:42Z",
+      "updatedAt": "2020-04-15T12:39:56Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46246,13 +46361,52 @@
           "comments": [
             {
               "originalPosition": 5,
-              "body": "Good catch, thanks!  Fixing the \"type should be Boolean\" problem, and regarding the error, I resorted to repeating the statement that we already have at the end of this paragraph (\"Note that...\").",
+              "body": "Good catch, thanks!  I fixed the \"type should be Boolean\" problem, and regarding the error, I resorted to repeating the statement that we already have at the end of this paragraph (\"Note that...\").",
               "createdAt": "2020-04-15T06:19:05Z",
-              "updatedAt": "2020-04-15T06:19:42Z"
+              "updatedAt": "2020-04-15T06:21:32Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkzNzMzMjM4",
+          "commit": {
+            "abbreviatedOid": "bea5b80"
+          },
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-15T12:39:56Z",
+          "updatedAt": "2020-04-15T12:39:56Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Thanks! Reading it again I am wondering if is is not better to swap the example though? Setting the connection property to required and the per message property to false? I think it will read better.",
+              "createdAt": "2020-04-15T12:39:56Z",
+              "updatedAt": "2020-04-15T12:39:56Z"
             }
           ]
         }
       ]
+    },
+    {
+      "number": 559,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDAzNzA5MjQx",
+      "title": "Referencing RFC 7231 and quoting its idempotency definition",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/559",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #522.",
+      "createdAt": "2020-04-15T11:43:43Z",
+      "updatedAt": "2020-04-15T11:43:59Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
