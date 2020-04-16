@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-16T08:53:43.712358+00:00",
+  "timestamp": "2020-04-16T17:35:40.161281+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -16410,7 +16410,7 @@
       ],
       "body": "List discussion:\r\n\r\n**Kyle**:\r\n>  If we're not currently asking IANA to create a registry of property names or namespaces, should we provide a recommendation that such symbols not listed explcitly in this document be prefixed with some experimental identifier?\r\n\r\n**@philsbn**:\r\n> The IANA registry question was explicitly postponed, be maybe we should re-iterate it now.\r\n> The idea of having an \u201ex\u201c namespace was rejected in fear we end up with quasi-standard properties that have an x prefix then. \r\n> \r\n\r\n**Kyle**:\r\n> Which is worse? A complete free-for-all, or a recommendation to have the free-for-all confined to an X- namespace? Do properties starting with X- just offend engineering sensibilities?\r\n> \r\n> One \"right\" alternative is a documentation-required registry, but does that raise the bar too high? How about a TAPS wiki as a compromise? The important outcome is that properties be well-defined and not conflict with each other. Since these properties have entirely local effects (e.g., they don't get encoded as options and transmitted to the peer), we probably don't need the level of precision motivating option registries, for instance. Is there precedent at the IETF for a registry mechanism less formal that what IANA provides?\r\n> ",
       "createdAt": "2020-04-02T14:07:31Z",
-      "updatedAt": "2020-04-15T21:25:55Z",
+      "updatedAt": "2020-04-16T14:08:53Z",
       "closedAt": null,
       "comments": [
         {
@@ -16433,6 +16433,27 @@
           "body": "This was my thought, as well. If we go with 1, however, we need to either have a low bar (spec required?) to support experimentation. If not, the easy path for implementors will be to invent their own names without documenting them anywhere, which is likely to produce the kinds of problems that the free-for-all in HTTP headers ended up with.\r\n\r\nOne potential idea is to declare a small set of experimental property names that will inevitably overlap between different implementations: this would enable easy experimentation but require implementors to move to a permanent, unique property name in order to proceed to interop. Thoughts? Maybe this one should be moved to the list.",
           "createdAt": "2020-04-15T21:25:55Z",
           "updatedAt": "2020-04-15T21:25:55Z"
+        },
+        {
+          "author": "philsbln",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I am much in favour of @gorryfair's first proposal, as we already have namespaces and a default namespace.\r\n\r\n- For the namespace, I would prefer something with a low threshold as \"specification required\" and explicitly encouraging experiments within vendor namespaces\r\n- For the default namespace, I would prefer RFC required.\r\n\r\nIf there are enough +1 for this, I can make a PR",
+          "createdAt": "2020-04-16T11:47:00Z",
+          "updatedAt": "2020-04-16T11:47:11Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I thought the point was that there is really no requirement for all TAPS implementations to use the same name space. Yes, it easier for applications using different TAPS systems when those have at least a similar names. But it's really just a local decision and restricting this more than needed can also be seen as negative when people want to adapt TAPS but don't want to change their existing naming scheme.",
+          "createdAt": "2020-04-16T13:35:37Z",
+          "updatedAt": "2020-04-16T13:35:37Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "... If we choose no registry - then we deny the possible possible outcome of a vision of some common set of params allowing apps to be common between systems.\r\n ... If we have a registry of names, the world can still diverge because nobody uses the registry and people use their existing naming scheme, or people fill the registry with flavours.\r\nOne choice forces a result one way, the other permits both ways. If I think of the choice this way, I like possibility of common names. Although that sounds like an architectural dream at this moment, I'd argue it to be the right thing to do.",
+          "createdAt": "2020-04-16T14:08:52Z",
+          "updatedAt": "2020-04-16T14:08:52Z"
         }
       ]
     },
@@ -16451,7 +16472,7 @@
       ],
       "body": "_From Kyle:_\r\nidempotency != replay-safe. DELETE is idempotent, but not safe for replay because someone might have done a PUT or POST in the meantime.\r\n\r\nWhat I mean is maybe best illustrated by 0RTT in TLS or QUIC. If a user sends a 0RTT DELETE /object, followed by a PUT /object, then within the replay window and without any replay prevention at the application layer, an attacker could replay the 0RTT DELETE /object and cause the object to be deleted again. DELETE is idempotent but it's not safe to replay.",
       "createdAt": "2020-04-02T14:23:23Z",
-      "updatedAt": "2020-04-16T08:35:24Z",
+      "updatedAt": "2020-04-16T09:01:22Z",
       "closedAt": null,
       "comments": [
         {
@@ -16509,6 +16530,13 @@
           "body": "Then this is what I thought you meant in the first place!  Then I agree about \"safely replayable\" and will make a PR that explains what this is, and replaces idempotent with \"safely replayable\" everywhere.",
           "createdAt": "2020-04-16T07:50:06Z",
           "updatedAt": "2020-04-16T08:35:24Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "This seems to me to be a layering-perspective. I think we know how to fix this by using uniquely identifiable transactions e.g. delete \"last\" is never idempotent; whereas delete \"123462\" is because executing it twice has no effect; however ordering still has effect - because if \"123462\" doesn't exist when asked to delete this has no effect. As for me, I think we don't teach how to use datagrams/messages here.\r\n\r\nSo I don't mind what words are used - or where this refers to the transport service offered or the use of the transport service. A proposed change is likely good for me.",
+          "createdAt": "2020-04-16T09:01:22Z",
+          "updatedAt": "2020-04-16T09:01:22Z"
         }
       ]
     },
@@ -16797,7 +16825,7 @@
       "id": "MDU6SXNzdWU1OTU3NTA4Nzk=",
       "title": "Listeners and ports",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/539",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -16807,8 +16835,8 @@
       ],
       "body": "Impl draft section 4.6 (Implementing listeners):\r\n\"If no Local Endpoint is specified, the implementation should either use an ephemeral port or generate an error.\"\r\nDo we need an interface for the application to indicate that an ephemeral port should be used?",
       "createdAt": "2020-04-07T10:08:34Z",
-      "updatedAt": "2020-04-14T12:20:16Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-16T10:42:21Z",
+      "closedAt": "2020-04-16T10:42:21Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -16922,7 +16950,7 @@
       ],
       "body": "Impl draft section 5.2 Receiving Messages:\r\n\"if, on the other hand, the top-level protocol only supports a byte-stream and no deframers were supported, the application must specify the minimum number of bytes of Message content it wants to receive (which may be just a single byte) to control the flow of received data.\"\r\nThis text says the application MUST specify minIncompleteLength, however, the API draft says that this values is optional. This should be further clarified and more guidance given in case the value is not set.",
       "createdAt": "2020-04-07T10:39:52Z",
-      "updatedAt": "2020-04-15T11:03:17Z",
+      "updatedAt": "2020-04-16T13:48:49Z",
       "closedAt": null,
       "comments": [
         {
@@ -16931,6 +16959,13 @@
           "body": "Having looked at this and the API carefully, my suggestion would be to turn the semicolon preceding this statement into a full stop and remove all of this \"if, on the other hand, ....\" text in the implementation draft.",
           "createdAt": "2020-04-15T11:03:17Z",
           "updatedAt": "2020-04-15T11:03:17Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "WFM.",
+          "createdAt": "2020-04-16T13:48:49Z",
+          "updatedAt": "2020-04-16T13:48:49Z"
         }
       ]
     },
@@ -17067,6 +17102,37 @@
       "updatedAt": "2020-04-08T12:37:14Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 563,
+      "id": "MDU6SXNzdWU2MDEyMzI5OTI=",
+      "title": "Add signal that inbound data was 0-RTT",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/563",
+      "state": "OPEN",
+      "author": "tfpauly",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In section 5.3, there's a discussion of how to send data early to use a 0-RTT capability. Should there also be description of a signal that data arrived using 0-RTT? Section 8 of RFC 8446 suggests making this state clear so that applications can guard against replay attacks, etc.",
+      "createdAt": "2020-04-16T16:36:14Z",
+      "updatedAt": "2020-04-16T17:26:50Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yes, that could be useful and I guess it would be easy enough to set a flag in the message-context of the received message. I guess we could even re-use the idempotent flag; or maybe a new one is more clear...",
+          "createdAt": "2020-04-16T17:02:44Z",
+          "updatedAt": "2020-04-16T17:02:44Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Isn't this exactly the API's \"Early Data\" Receive Message Property, in Section 8.3.2?\r\nSee: https://ietf-tapswg.github.io/api-drafts/draft-ietf-taps-interface.html#name-early-data\r\n",
+          "createdAt": "2020-04-16T17:26:50Z",
+          "updatedAt": "2020-04-16T17:26:50Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -43479,7 +43545,7 @@
       ],
       "body": "",
       "createdAt": "2020-01-24T16:29:08Z",
-      "updatedAt": "2020-02-21T17:46:45Z",
+      "updatedAt": "2020-04-16T09:11:57Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -43524,6 +43590,26 @@
               "body": "```suggestion\r\n- Singular Transmission: When set, this property limits the message size to the Maximum Message Size Before Fragmentation or Segmentation (see Section 10.1.7 of {{I-D.ietf-taps-interface}}).  Messages larger than this size generate an error.  Setting this avoids transport-layer segmentation or network-layer fragmentation. When used with transports running over IP version 4 the Don't Fragment bit will be set to avoid on-path IP fragmentation ({{!RFC8304}}).  \r\n```",
               "createdAt": "2020-01-27T15:49:18Z",
               "updatedAt": "2020-01-27T15:49:51Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NDQzMTY1",
+          "commit": {
+            "abbreviatedOid": "d361d6d"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-16T09:11:56Z",
+          "updatedAt": "2020-04-16T09:11:57Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "This addresses the issue.",
+              "createdAt": "2020-04-16T09:11:57Z",
+              "updatedAt": "2020-04-16T09:11:57Z"
             }
           ]
         }
@@ -45207,7 +45293,7 @@
       ],
       "body": "* allow to control active/passive opertaion\r\n* clairify functionality\r\n* allow to control exposure of alternative addresses",
       "createdAt": "2020-03-03T14:06:37Z",
-      "updatedAt": "2020-04-15T14:33:48Z",
+      "updatedAt": "2020-04-16T12:51:31Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45243,9 +45329,9 @@
         {
           "author": "philsbln",
           "authorAssociation": "CONTRIBUTOR",
-          "body": "@abrunstrom I clarified the relationship between the two multi-path properties. Please review whether this works for you now, as I don't think merging them would make things clearer.\r\n\r\nWith regards to the per-interface choice, I would prefer to use Interface Instance or Type and add a few notes how these effect multi-path in a separate PR",
+          "body": "@abrunstrom I clarified the relationship between the two multi-path properties. Please review whether this works for you now, as I don't think merging them would make things clearer.\r\n\r\nWith regards to the per-interface choice, I would prefer to use ```Interface Instance``` or ```Interface Type``` Properties and add a few notes how these effect multi-path in a separate PR",
           "createdAt": "2020-04-15T14:33:48Z",
-          "updatedAt": "2020-04-15T14:33:48Z"
+          "updatedAt": "2020-04-16T12:49:35Z"
         }
       ],
       "reviews": [
@@ -45265,13 +45351,13 @@
               "originalPosition": 25,
               "body": "In #437, @tfpauly writes, as a conclusion from the interim discussion: \"Exposing alternate addresses to the peer and actively migrating is likely a separate property that we should specify.\"  I interpret this as meaning that we don't want \"Handover\" here. If we do want to keep it, I agree with @gorryfair who, in #437, suggests to call this \"Failover\" instead.",
               "createdAt": "2020-03-04T09:43:43Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             },
             {
               "originalPosition": 32,
               "body": "I agree with @gorryfair and @abrunstrom who call this \"fuzzy\" in #437 (this applies to both \"Interactive\" and \"Passive-Interactive\". Do we need this now, given that we don't seem to have any RFC explaining how to best implement this?  I think it's cool functionality, but I question whether this should be inside a Transport System - would an application be able to trust this to implement just the right trade-off for it, between e.g. capacity usage and delay minimization?\r\n\r\nSide note: if we do keep it, I think the text of this update is better.",
               "createdAt": "2020-03-04T09:49:19Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45291,7 +45377,7 @@
               "originalPosition": 25,
               "body": "No, these are still two separate things:\r\n - Exposure of Alternative Addresses is defined as a separate property below\r\n - You don't need to expose an alternative addresses prior initiating handover.\r\n - Servers will most likely never advertise alternative addresses but still want to support the client in migrating.\r\n\r\nMaybe make this more explicit that the Multipath property really defines path management behaviour while the exposure property defines advertisement. ",
               "createdAt": "2020-03-04T12:58:50Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45311,7 +45397,7 @@
               "originalPosition": 32,
               "body": "This is a slightly extended version of Apple's implementation (apple makes not distinction between passive and active) and can be easily implemented, e.g., for MPTCP by choosing the right path manager. It is a matter of choosing \"Just use the lowest RTT path\" vs. \"use all paths\"",
               "createdAt": "2020-03-04T13:04:39Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45331,7 +45417,7 @@
               "originalPosition": 32,
               "body": "So if you have a long-RTT path with potentially a lot of extra capacity as well as a short-RTT path, this is always going to pick the short-RTT one?  Even if the capacity on the short-RTT one is quite tiny and the RTT difference isn't very large? Or else, how do you choose these thresholds?  => yes there CAN be a simple implementation, but there are also trade-offs in the design.",
               "createdAt": "2020-03-04T13:36:42Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45351,7 +45437,7 @@
               "originalPosition": 25,
               "body": "I saw the Exposure of Alternative Addresses below, and I agree that this is (or can be) separate from \"actively migrating\". My understanding of the sentence was that both of these things should be a separate property (or are somehow combined into a single separate property).",
               "createdAt": "2020-03-04T13:40:53Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45371,7 +45457,7 @@
               "originalPosition": 32,
               "body": "I assume this is a weird corner case, but yes there are trade-offs the implementation must make. Do we need text on that?",
               "createdAt": "2020-03-04T15:49:12Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45391,7 +45477,7 @@
               "originalPosition": 25,
               "body": "My understanding was that exposure of addresses (as done by MPTCP) should defiantly be a separate option and active/passive is missing somehow. Yes, one can make active/passive a third option (which would, for the MPTCP case, decide whether to actively open additional sub-flows).\r\nI have no strong opinions whether to put this in two options or three options, but if you choose three, we would go away from the model in NWConnection and end up with:\r\n\r\n - **multipath**: active/passive/disabled\r\n - **multipath-strategy**: failover/interactive/aggregate bandwidth (no disabled, as this would be ambiguous)\r\n - **advertises-altaddr**: true/false\r\n\r\nWould that be better?",
               "createdAt": "2020-03-04T15:55:33Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45411,7 +45497,7 @@
               "originalPosition": 32,
               "body": "I don't think it's a weird corner case; I just don't think that many applications would want to say \"give me the lower latency path, at all cost, no matter how miniscule the difference, no matter how much capacity I lose\". I'm not proposing to address this with some discussion in text - I'm proposing not to delegate the algorithm that chooses paths on this basis to the transport system, but leaving it inside the application instead.\r\n\r\nThis said, I don't have a very strong opinion on this matter - I'd like to hear others' views.",
               "createdAt": "2020-03-04T16:38:49Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45431,7 +45517,7 @@
               "originalPosition": 25,
               "body": "@tfpauly Do you have a preference?",
               "createdAt": "2020-03-06T09:44:55Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45451,19 +45537,19 @@
               "originalPosition": 25,
               "body": "As long as we do not go to a per interface model (I agree with @philsbln to leave this for later), perhaps we can merge the multipath and advertise-altaddr properties above? Not sure it makes sense to pick active and not advertise any addresses? But for passive this is an important choice so would need to split that in two. Keeping the strategy separate makes sense I think.",
               "createdAt": "2020-03-09T13:10:09Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             },
             {
               "originalPosition": 42,
               "body": "Should this not be other than Disabled. Passive still requires a protocol with multipath support I guess. And should perhaps also say that Disabled is a requirement?",
               "createdAt": "2020-03-09T15:44:01Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             },
             {
               "originalPosition": 32,
               "body": "Leaving it to the application may seem attractive, but is not really feasible in practise as it quickly gets very complicated. For instance, if you ask for a packet to be sent on one path and this packet is lost, are you allowed to retransmit it on another path for reliability? What if the path is lost before you manged to send the packet at all?\r\nI think the updated text is an improvement.",
               "createdAt": "2020-03-09T15:44:14Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45483,7 +45569,7 @@
               "originalPosition": 32,
               "body": "Ok, glad to hear that you like this - I don't personally have a strong opinion, and I agree that it quickly gets complicated!  (but that's also why I felt quite insecure about simply delegating this to the transport system). I would like to hear @tfpauly's opinion too, though.",
               "createdAt": "2020-03-09T16:21:24Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45503,7 +45589,7 @@
               "originalPosition": 25,
               "body": "It makes sense for a client to pick active, as ist allows to initiate additional subflows and, thus, implicitly expose some addresses, but not expose other addresses.\r\nI consider exposing addresses without actively establishing sub-flows rather as a corner-case for things like GPT over SCPT or to bootstrap connection migration through NAT.\r\nNote that I use MPTCP terminology here, but I think this is not limited to MPTCP. ",
               "createdAt": "2020-04-04T10:16:35Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45523,7 +45609,7 @@
               "originalPosition": 42,
               "body": "Ack; I'll fix that",
               "createdAt": "2020-04-04T10:17:48Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45543,7 +45629,7 @@
               "originalPosition": 25,
               "body": "You can also be active and only establish connections if a new address is advertised by the peer.",
               "createdAt": "2020-04-06T10:24:27Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45563,7 +45649,7 @@
               "originalPosition": 32,
               "body": "I think having \"passive\" here mixes up two things, one is the question of who will establish paths and the other one is how to use paths. These are separate points and should not be mixed together.",
               "createdAt": "2020-04-06T10:27:34Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         },
@@ -45583,25 +45669,25 @@
               "originalPosition": 42,
               "body": "I think that \"principally\" here is a German-ism ... I guess you mean \"in principle\". However, even this doesn't really add anything useful to the statement, IMO. Can we just remove the word \"principally\"?",
               "createdAt": "2020-04-14T11:48:22Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             },
             {
               "originalPosition": 29,
               "body": "s/my depend/may depend\r\nand, please: s/bandwidth provided/capacity provided\r\n",
               "createdAt": "2020-04-14T11:50:48Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             },
             {
               "originalPosition": 39,
               "body": "s/only if using/only using",
               "createdAt": "2020-04-14T11:54:38Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             },
             {
               "originalPosition": 56,
               "body": "s/advertises/advertised",
               "createdAt": "2020-04-14T11:55:56Z",
-              "updatedAt": "2020-04-15T12:19:05Z"
+              "updatedAt": "2020-04-16T12:51:31Z"
             }
           ]
         }
@@ -45983,15 +46069,58 @@
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "API"
+      ],
       "body": ".. that gets in the way of using streams when cloning.\r\nCloses #441.",
       "createdAt": "2020-04-07T10:25:31Z",
-      "updatedAt": "2020-04-07T10:32:39Z",
+      "updatedAt": "2020-04-16T12:27:47Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NTY4NzU3",
+          "commit": {
+            "abbreviatedOid": "77c3066"
+          },
+          "author": "philsbln",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-16T12:10:56Z",
+          "updatedAt": "2020-04-16T12:10:56Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "I get the problem for read-after-active-open, but what is the problem with passive open and immediately writing \u2013 this is fairly common in TCP based protocols and you can easily put the write in the connection ready. ",
+              "createdAt": "2020-04-16T12:10:56Z",
+              "updatedAt": "2020-04-16T12:10:56Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NTgwODk4",
+          "commit": {
+            "abbreviatedOid": "77c3066"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-16T12:27:47Z",
+          "updatedAt": "2020-04-16T12:27:47Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "It's the same thing with multi-streaming: a stream only comes into being when the first message is sent on it. So, \"passive open and immediately writing\" doesn't map onto anything with streams - there is no such thing as a stream becoming available without data arriving on it.",
+              "createdAt": "2020-04-16T12:27:47Z",
+              "updatedAt": "2020-04-16T12:27:47Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 544,
@@ -46002,10 +46131,12 @@
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "Implementation"
+      ],
       "body": "",
       "createdAt": "2020-04-07T12:16:42Z",
-      "updatedAt": "2020-04-14T08:29:23Z",
+      "updatedAt": "2020-04-16T10:43:24Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46069,10 +46200,12 @@
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "Implementation"
+      ],
       "body": "",
       "createdAt": "2020-04-07T15:41:42Z",
-      "updatedAt": "2020-04-14T08:15:24Z",
+      "updatedAt": "2020-04-16T10:42:54Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46257,17 +46390,17 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDAzMTE1MzI2",
       "title": "API: state \"Ephemeral port used when no Local Endpoint specified\"",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/556",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #539.",
       "createdAt": "2020-04-14T11:01:06Z",
-      "updatedAt": "2020-04-14T12:22:27Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-16T10:42:30Z",
+      "closedAt": "2020-04-16T10:42:21Z",
+      "mergedAt": "2020-04-16T10:42:21Z",
+      "mergedBy": "mwelzl",
       "comments": [
         {
           "author": "mwelzl",
@@ -46290,6 +46423,19 @@
           "createdAt": "2020-04-14T11:48:23Z",
           "updatedAt": "2020-04-14T11:48:23Z",
           "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NDQwMDgz",
+          "commit": {
+            "abbreviatedOid": "738fa72"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "This seems like what was agreed.",
+          "createdAt": "2020-04-16T09:08:03Z",
+          "updatedAt": "2020-04-16T09:08:03Z",
+          "comments": []
         }
       ]
     },
@@ -46302,10 +46448,12 @@
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "API"
+      ],
       "body": "Closes #528.\r\nI chose boolean, because, when querying, it only matters whether a Selection Property was chosen or not (I believe).",
       "createdAt": "2020-04-14T12:13:11Z",
-      "updatedAt": "2020-04-15T11:22:12Z",
+      "updatedAt": "2020-04-16T10:44:44Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46321,10 +46469,12 @@
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "API"
+      ],
       "body": "Closes #520. I inserted the text that I quoted in this issue, with a minor tweak.",
       "createdAt": "2020-04-14T18:02:22Z",
-      "updatedAt": "2020-04-15T18:52:27Z",
+      "updatedAt": "2020-04-16T15:50:52Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46359,7 +46509,7 @@
               "originalPosition": 5,
               "body": "Reliable Data Transfer (Message) is a Boolean so the 'Prefer' does not make sense. Also in the description of the property is says \r\n\r\n>  Changing the Reliable Data Transfer property on Messages is only possible for Connections that were established with the Selection Property Configure Per-Message Reliability enabled. When this is not the case, changing it will generate an error.\r\n\r\nSo maybe the text about the error should also be aligned.",
               "createdAt": "2020-04-14T21:43:53Z",
-              "updatedAt": "2020-04-15T18:52:27Z"
+              "updatedAt": "2020-04-16T15:49:18Z"
             }
           ]
         },
@@ -46379,7 +46529,7 @@
               "originalPosition": 5,
               "body": "Good catch, thanks!  I fixed the \"type should be Boolean\" problem, and regarding the error, I resorted to repeating the statement that we already have at the end of this paragraph (\"Note that...\").",
               "createdAt": "2020-04-15T06:19:05Z",
-              "updatedAt": "2020-04-15T18:52:27Z"
+              "updatedAt": "2020-04-16T15:49:18Z"
             }
           ]
         },
@@ -46399,7 +46549,7 @@
               "originalPosition": 5,
               "body": "Thanks! Reading it again I am wondering if is is not better to swap the example though? Setting the connection property to required and the per message property to false? I think it will read better.",
               "createdAt": "2020-04-15T12:39:56Z",
-              "updatedAt": "2020-04-15T18:52:27Z"
+              "updatedAt": "2020-04-16T15:49:18Z"
             }
           ]
         },
@@ -46419,7 +46569,67 @@
               "originalPosition": 5,
               "body": "Done - better now?",
               "createdAt": "2020-04-15T18:50:07Z",
-              "updatedAt": "2020-04-15T18:52:27Z"
+              "updatedAt": "2020-04-16T15:49:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NjAwMDQ4",
+          "commit": {
+            "abbreviatedOid": "9122b54"
+          },
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-16T12:51:58Z",
+          "updatedAt": "2020-04-16T12:51:59Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Suggested change: cause --> allow\r\nAlso I think the part about the error can actually be removed. I think the error should rather come if the Per-Message Reliability property is not set to enabled. At least this is what the description later in the text says.",
+              "createdAt": "2020-04-16T12:51:58Z",
+              "updatedAt": "2020-04-16T15:49:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NjA0MDMz",
+          "commit": {
+            "abbreviatedOid": "9122b54"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-16T12:56:56Z",
+          "updatedAt": "2020-04-16T12:56:56Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "At least for me, the last sentence would need to be more like: \r\n\"If the underlying protocol can not support a required per-Message behavior, this Message Property choice will yield an error.\" - since prefer would not yield an error.",
+              "createdAt": "2020-04-16T12:56:56Z",
+              "updatedAt": "2020-04-16T15:49:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NzcwNDUy",
+          "commit": {
+            "abbreviatedOid": "c2f5064"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-16T15:50:51Z",
+          "updatedAt": "2020-04-16T15:50:52Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "@abrunstrom done; I did remove the part about the error as you suggested, so I think that also addresses @gorryfair's suggestion in some sense (he suggested to rephrase the sentence, but I removed it now  :)  )",
+              "createdAt": "2020-04-16T15:50:51Z",
+              "updatedAt": "2020-04-16T15:50:52Z"
             }
           ]
         }
@@ -46453,10 +46663,12 @@
       "author": "tfpauly",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "Architecture"
+      ],
       "body": "Address #518",
       "createdAt": "2020-04-15T23:00:14Z",
-      "updatedAt": "2020-04-16T07:40:32Z",
+      "updatedAt": "2020-04-16T11:24:17Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46473,6 +46685,138 @@
           "body": "",
           "createdAt": "2020-04-16T07:40:32Z",
           "updatedAt": "2020-04-16T07:40:32Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NTM4NDEw",
+          "commit": {
+            "abbreviatedOid": "d12a680"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "Exactly what I expected to see!",
+          "createdAt": "2020-04-16T11:24:17Z",
+          "updatedAt": "2020-04-16T11:24:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 561,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA0MjEyOTQ5",
+      "title": "Replace \"idempotent\" with \"safely replayable\" everywhere",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/561",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API",
+        "Implementation"
+      ],
+      "body": "Closes #522.\r\nThis replaces a previous PR for the same issue, which I deleted: in this PR, I just added the definition of idempotency from RFC 7231, but this isn't good enough. We can't guarantee that these Messages would only *consecutively* arrive as duplicates, so these should be called \"safely replayable\" instead. See the discussion in #522.",
+      "createdAt": "2020-04-16T08:55:15Z",
+      "updatedAt": "2020-04-16T17:34:51Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Sorry, I don't understand the point here. Why is it important that messages arrive \"consecutively as duplicates\"? ",
+          "createdAt": "2020-04-16T13:39:55Z",
+          "updatedAt": "2020-04-16T13:39:55Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "See the discussion in #522; the issue is explained in the last message there from @squarooticus",
+          "createdAt": "2020-04-16T17:30:42Z",
+          "updatedAt": "2020-04-16T17:30:42Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NTM5MzEx",
+          "commit": {
+            "abbreviatedOid": "e907941"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "I have no objection to the new choice of term.",
+          "createdAt": "2020-04-16T11:25:43Z",
+          "updatedAt": "2020-04-16T11:25:43Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NjEwNTUy",
+          "commit": {
+            "abbreviatedOid": "e907941"
+          },
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks! Noted one nit, otherwise LGTM!",
+          "createdAt": "2020-04-16T13:04:39Z",
+          "updatedAt": "2020-04-16T13:05:23Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "TCP Fast Option should be TCP Fast Open I think.",
+              "createdAt": "2020-04-16T13:04:39Z",
+              "updatedAt": "2020-04-16T17:34:51Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 562,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA0MjcwNzkw",
+      "title": "Connection state diagram",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/562",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "API"
+      ],
+      "body": "Closes #466",
+      "createdAt": "2020-04-16T10:39:24Z",
+      "updatedAt": "2020-04-16T13:19:02Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NTY5NzI1",
+          "commit": {
+            "abbreviatedOid": "83e5beb"
+          },
+          "author": "philsbln",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Works for me",
+          "createdAt": "2020-04-16T12:12:21Z",
+          "updatedAt": "2020-04-16T12:12:21Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NjIzMTA5",
+          "commit": {
+            "abbreviatedOid": "83e5beb"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks! I guess you could add a loop for sent<> and received<> in established state but maybe that also too much.",
+          "createdAt": "2020-04-16T13:19:02Z",
+          "updatedAt": "2020-04-16T13:19:02Z",
           "comments": []
         }
       ]
