@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-15T18:45:17.008883+00:00",
+  "timestamp": "2020-04-16T08:53:43.712358+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -13250,17 +13250,18 @@
       "id": "MDU6SXNzdWU1MjQ4NjQyMjU=",
       "title": "-impl should say more about use of ALPN",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/362",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [
-        "Implementation"
+        "Implementation",
+        "future work"
       ],
       "body": "",
       "createdAt": "2019-11-19T08:57:05Z",
-      "updatedAt": "2020-04-15T13:09:22Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-15T18:53:17Z",
+      "closedAt": "2020-04-15T18:53:17Z",
       "comments": [
         {
           "author": "theri",
@@ -16308,11 +16309,12 @@
         "tfpauly"
       ],
       "labels": [
-        "Architecture"
+        "Architecture",
+        "ready for text"
       ],
       "body": "I think the word /assumes/ is not a good choice of word in the arch draft.\r\nOLD:\r\nand it assumes an implementation that can use multiple IP addresses,\r\nmultiple protocols, multiple paths, and provide multiple application streams\r\nNEW:\r\nand it can provide benefit when an implementation can use multiple IP\r\naddresses, multiple protocols, multiple paths, and provide multiple\r\napplication streams.",
       "createdAt": "2020-03-26T14:28:15Z",
-      "updatedAt": "2020-03-27T07:59:32Z",
+      "updatedAt": "2020-04-15T23:00:20Z",
       "closedAt": null,
       "comments": []
     },
@@ -16408,7 +16410,7 @@
       ],
       "body": "List discussion:\r\n\r\n**Kyle**:\r\n>  If we're not currently asking IANA to create a registry of property names or namespaces, should we provide a recommendation that such symbols not listed explcitly in this document be prefixed with some experimental identifier?\r\n\r\n**@philsbn**:\r\n> The IANA registry question was explicitly postponed, be maybe we should re-iterate it now.\r\n> The idea of having an \u201ex\u201c namespace was rejected in fear we end up with quasi-standard properties that have an x prefix then. \r\n> \r\n\r\n**Kyle**:\r\n> Which is worse? A complete free-for-all, or a recommendation to have the free-for-all confined to an X- namespace? Do properties starting with X- just offend engineering sensibilities?\r\n> \r\n> One \"right\" alternative is a documentation-required registry, but does that raise the bar too high? How about a TAPS wiki as a compromise? The important outcome is that properties be well-defined and not conflict with each other. Since these properties have entirely local effects (e.g., they don't get encoded as options and transmitted to the peer), we probably don't need the level of precision motivating option registries, for instance. Is there precedent at the IETF for a registry mechanism less formal that what IANA provides?\r\n> ",
       "createdAt": "2020-04-02T14:07:31Z",
-      "updatedAt": "2020-04-15T14:39:34Z",
+      "updatedAt": "2020-04-15T21:25:55Z",
       "closedAt": null,
       "comments": [
         {
@@ -16424,6 +16426,13 @@
           "body": "I see three straw man proposals:\r\n(1) Create a registry of property names or namespaces, AND explIcitly define a range for IANA assignment and a policy...\r\n(2) Recommend a prefix format in the document...\r\n(3) Do nothing and see what happens....\r\n... I think all three are possible ways forward. If TAPS succeeds in having high impact, I suspect we'd like to have done (1).\r\n",
           "createdAt": "2020-04-15T14:39:34Z",
           "updatedAt": "2020-04-15T14:39:34Z"
+        },
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "This was my thought, as well. If we go with 1, however, we need to either have a low bar (spec required?) to support experimentation. If not, the easy path for implementors will be to invent their own names without documenting them anywhere, which is likely to produce the kinds of problems that the free-for-all in HTTP headers ended up with.\r\n\r\nOne potential idea is to declare a small set of experimental property names that will inevitably overlap between different implementations: this would enable easy experimentation but require implementors to move to a permanent, unique property name in order to proceed to interop. Thoughts? Maybe this one should be moved to the list.",
+          "createdAt": "2020-04-15T21:25:55Z",
+          "updatedAt": "2020-04-15T21:25:55Z"
         }
       ]
     },
@@ -16442,7 +16451,7 @@
       ],
       "body": "_From Kyle:_\r\nidempotency != replay-safe. DELETE is idempotent, but not safe for replay because someone might have done a PUT or POST in the meantime.\r\n\r\nWhat I mean is maybe best illustrated by 0RTT in TLS or QUIC. If a user sends a 0RTT DELETE /object, followed by a PUT /object, then within the replay window and without any replay prevention at the application layer, an attacker could replay the 0RTT DELETE /object and cause the object to be deleted again. DELETE is idempotent but it's not safe to replay.",
       "createdAt": "2020-04-02T14:23:23Z",
-      "updatedAt": "2020-04-15T14:30:31Z",
+      "updatedAt": "2020-04-16T08:35:24Z",
       "closedAt": null,
       "comments": [
         {
@@ -16493,6 +16502,13 @@
           "body": "I think I'm not being clear about my objection here. I know what idempotent means, and agree that RFC 7231 captures it. (\"A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request.\")\r\n\r\nThe issue is with an idempotent request that is repeated *with a different request in between.* DELETE, for instance, will do the same thing if multiple identical requests are performed, but if a PUT or POST occurs in between, the second DELETE will remove a different object than the one from the first DELETE.\r\n\r\nLet's say the user does this:\r\n\r\nPUT /object (with content 1)\r\nDELETE /object\r\nPUT /object (with content 2)\r\n\r\nThe state of /object after this sequence is that it exists with content 2.\r\n\r\nIdempotency admits the following:\r\n\r\nPUT /object (with content 1)\r\nDELETE /object\r\nPUT /object (with content 2)\r\nREPLAY: DELETE /object\r\n\r\nThe state of /object after this sequence is that it does not exist. Similarly:\r\n\r\nPUT /object (with content 1)\r\nPUT /object (with content 2)\r\nREPLAY: PUT /object (with content 1)\r\n\r\nThe state of /object after this sequence is that it exists with content 1.\r\n\r\nReplay safety would mean that the state after a sequence including a replayed request is identical to the state without the replayed request.",
           "createdAt": "2020-04-15T14:30:31Z",
           "updatedAt": "2020-04-15T14:30:31Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Then this is what I thought you meant in the first place!  Then I agree about \"safely replayable\" and will make a PR that explains what this is, and replaces idempotent with \"safely replayable\" everywhere.",
+          "createdAt": "2020-04-16T07:50:06Z",
+          "updatedAt": "2020-04-16T08:35:24Z"
         }
       ]
     },
@@ -16600,7 +16616,7 @@
       "id": "MDU6SXNzdWU1OTI2ODk5MjQ=",
       "title": "7.3.1 Sent   (from Kyle Rose's review)",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/526",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -16609,8 +16625,8 @@
       ],
       "body": "Kyle wrote:\r\n> It seems like an abstract API would be helpful for the reference to the Message to which a Sent event applies: this seems like something many, many applications would need to do. With callbacks, the application can always curry in a reference to the original message (that's what my event system from ~2001 did), so maybe that should be the recommendation and the message reference removed...? I don't have a strong feeling here other than that if something is included then its use should be more well-defined.",
       "createdAt": "2020-04-02T14:46:54Z",
-      "updatedAt": "2020-04-15T14:21:52Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-15T18:45:22Z",
+      "closedAt": "2020-04-15T18:45:22Z",
       "comments": [
         {
           "author": "squarooticus",
@@ -46308,7 +46324,7 @@
       "labels": [],
       "body": "Closes #520. I inserted the text that I quoted in this issue, with a minor tweak.",
       "createdAt": "2020-04-14T18:02:22Z",
-      "updatedAt": "2020-04-15T12:39:56Z",
+      "updatedAt": "2020-04-15T18:52:27Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46343,7 +46359,7 @@
               "originalPosition": 5,
               "body": "Reliable Data Transfer (Message) is a Boolean so the 'Prefer' does not make sense. Also in the description of the property is says \r\n\r\n>  Changing the Reliable Data Transfer property on Messages is only possible for Connections that were established with the Selection Property Configure Per-Message Reliability enabled. When this is not the case, changing it will generate an error.\r\n\r\nSo maybe the text about the error should also be aligned.",
               "createdAt": "2020-04-14T21:43:53Z",
-              "updatedAt": "2020-04-15T06:19:42Z"
+              "updatedAt": "2020-04-15T18:52:27Z"
             }
           ]
         },
@@ -46363,7 +46379,7 @@
               "originalPosition": 5,
               "body": "Good catch, thanks!  I fixed the \"type should be Boolean\" problem, and regarding the error, I resorted to repeating the statement that we already have at the end of this paragraph (\"Note that...\").",
               "createdAt": "2020-04-15T06:19:05Z",
-              "updatedAt": "2020-04-15T06:21:32Z"
+              "updatedAt": "2020-04-15T18:52:27Z"
             }
           ]
         },
@@ -46383,7 +46399,27 @@
               "originalPosition": 5,
               "body": "Thanks! Reading it again I am wondering if is is not better to swap the example though? Setting the connection property to required and the per message property to false? I think it will read better.",
               "createdAt": "2020-04-15T12:39:56Z",
-              "updatedAt": "2020-04-15T12:39:56Z"
+              "updatedAt": "2020-04-15T18:52:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0MDQ0MzY4",
+          "commit": {
+            "abbreviatedOid": "a96b760"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-15T18:50:06Z",
+          "updatedAt": "2020-04-15T18:50:07Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Done - better now?",
+              "createdAt": "2020-04-15T18:50:07Z",
+              "updatedAt": "2020-04-15T18:52:27Z"
             }
           ]
         }
@@ -46394,19 +46430,52 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDAzNzA5MjQx",
       "title": "Referencing RFC 7231 and quoting its idempotency definition",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/559",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #522.",
       "createdAt": "2020-04-15T11:43:43Z",
-      "updatedAt": "2020-04-15T11:43:59Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-16T08:17:55Z",
+      "closedAt": "2020-04-16T08:17:49Z",
       "mergedAt": null,
       "mergedBy": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 560,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA0MDMwMTU3",
+      "title": "Architecture NiT: /assumes/",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/560",
+      "state": "OPEN",
+      "author": "tfpauly",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Address #518",
+      "createdAt": "2020-04-15T23:00:14Z",
+      "updatedAt": "2020-04-16T07:40:32Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0MzczMjQz",
+          "commit": {
+            "abbreviatedOid": "d12a680"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-04-16T07:40:32Z",
+          "updatedAt": "2020-04-16T07:40:32Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
