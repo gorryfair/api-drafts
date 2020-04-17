@@ -1671,7 +1671,7 @@ Instead, calling the ConnectionReceived event may be delayed until the first Mes
 </li>
 <li id="section-5.1.1-1.3">Ordered: when this is false, it disables the requirement of in-order-delivery for protocols that support configurable ordering.<a href="#section-5.1.1-1.3" class="pilcrow">¶</a>
 </li>
-<li id="section-5.1.1-1.4">Idempotent: when this is true, it means that the Message can be used by mechanisms that might transfer it multiple times - e.g., as a result of racing multiple transports or as part of TCP Fast Open.<a href="#section-5.1.1-1.4" class="pilcrow">¶</a>
+<li id="section-5.1.1-1.4">Safely Replayable: when this is true, it means that the Message can be used by mechanisms that might transfer it multiple times - e.g., as a result of racing multiple transports or as part of TCP Fast Open.<a href="#section-5.1.1-1.4" class="pilcrow">¶</a>
 </li>
 <li id="section-5.1.1-1.5">Final: when this is true, it means that a transport connection can be closed immediately after its transmission.<a href="#section-5.1.1-1.5" class="pilcrow">¶</a>
 </li>
@@ -1717,9 +1717,9 @@ Instead, calling the ConnectionReceived event may be delayed until the first Mes
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-handling-of-data-for-fast-o" class="section-name selfRef">Handling of data for fast-open protocols</a>
         </h3>
 <p id="section-5.3-1">Several protocols allow sending higher-level protocol or application data within the first packet of their protocol establishment, such as TCP Fast Open <span>[<a href="#RFC7413" class="xref">RFC7413</a>]</span> and TLS 1.3 <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span>. This approach is referred to as sending Zero-RTT (0-RTT) data. This is a desirable property, but poses challenges to an implementation that uses racing during connection establishment.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">If the application has 0-RTT data to send in any protocol handshakes, it needs to provide this data before the handshakes have begun. When racing, this means that the data should be provided before the process of connection establishment has begun. If the application wants to send 0-RTT data, it must indicate this to the implementation by setting the Idempotent send parameter to true when sending the data. In general, 0-RTT data may be replayed (for example, if a TCP SYN contains data, and the SYN is retransmitted, the data will be retransmitted as well), but racing means that different leaf nodes have the opportunity to send the same data independently. If data is truly idempotent, this should be permissible.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">If the application has 0-RTT data to send in any protocol handshakes, it needs to provide this data before the handshakes have begun. When racing, this means that the data should be provided before the process of connection establishment has begun. If the application wants to send 0-RTT data, it must indicate this to the implementation by setting the <code>Safely Replayable</code> send parameter to true when sending the data. In general, 0-RTT data may be replayed (for example, if a TCP SYN contains data, and the SYN is retransmitted, the data will be retransmitted as well), but racing means that different leaf nodes have the opportunity to send the same data independently. If data is truly safely replayable, this should be permissible.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3-3">Once the application has provided its 0-RTT data, an implementation should keep a copy of this data and provide it to each new leaf node that is started and for which a 0-RTT protocol is being used.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
-<p id="section-5.3-4">It is also possible that protocol stacks within a particular leaf node use 0-RTT handshakes without any idempotent application data. For example, TCP Fast Open could use a Client Hello from TLS as its 0-RTT data, shortening the cumulative handshake time.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">It is also possible that protocol stacks within a particular leaf node use 0-RTT handshakes without any safely replayable application data. For example, TCP Fast Open could use a Client Hello from TLS as its 0-RTT data, shortening the cumulative handshake time.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <p id="section-5.3-5">0-RTT handshakes often rely on previous state, such as TCP Fast Open cookies, previously established TLS tickets, or out-of-band distributed pre-shared keys (PSKs). Implementations should be aware of security concerns around using these tokens across multiple addresses or paths when racing. In the case of TLS, any given ticket or PSK should only be used on one leaf node. If implementations have multiple tickets available from a previous connection, each leaf node attempt must use a different ticket. In effect, each leaf node will send the same early application data, yet encoded (encrypted) differently on the wire.<a href="#section-5.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2055,7 +2055,7 @@ API mappings for a protocol apply most to Connections in which the given protoco
 </dd>
 <dt id="section-10.1-4.5">InitiateWithSend:</dt>
 <dd id="section-10.1-4.6">
-  CONNECT.TCP with parameter "user message". Early idempotent data is sent on a TCP Connection in the SYN, as TCP Fast Open data.<a href="#section-10.1-4.6" class="pilcrow">¶</a>
+  CONNECT.TCP with parameter <code>user message</code>. Early safely replayable data is sent on a TCP Connection in the SYN, as TCP Fast Open data.<a href="#section-10.1-4.6" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.1-4.7">Ready:</dt>
 <dd id="section-10.1-4.8">
@@ -2247,7 +2247,7 @@ API mappings for a protocol apply most to Connections in which the given protoco
 </dd>
 <dt id="section-10.4-4.5">InitiateWithSend:</dt>
 <dd id="section-10.4-4.6">
-  Early idempotent data is supported by TLS 1.3, and sends encrypted application data in the first TLS message when performing session resumption. For older versions of TLS, or if a session is not being resumed, the initial data will be delayed until the TLS handshake is complete. TCP Fast Option can also be enabled automatically.<a href="#section-10.4-4.6" class="pilcrow">¶</a>
+  Early safely replayable data is supported by TLS 1.3, and sends encrypted application data in the first TLS message when performing session resumption. For older versions of TLS, or if a session is not being resumed, the initial data will be delayed until the TLS handshake is complete. TCP Fast Open can also be enabled automatically.<a href="#section-10.4-4.6" class="pilcrow">¶</a>
 </dd>
 <dt id="section-10.4-4.7">Ready:</dt>
 <dd id="section-10.4-4.8">

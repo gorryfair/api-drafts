@@ -1027,7 +1027,7 @@ and potential transport protocols to select from.<a href="#section-abstract-1" c
                     <p id="section-toc.1-1.5.2.2.2.4.1" class="keepWithNext"><a href="#section-5.2.4" class="xref">5.2.4</a>.  <a href="#name-preservation-of-data-orderi" class="xref">Preservation of Data Ordering</a><a href="#section-toc.1-1.5.2.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.5.2.2.2.5">
-                    <p id="section-toc.1-1.5.2.2.2.5.1" class="keepWithNext"><a href="#section-5.2.5" class="xref">5.2.5</a>.  <a href="#name-use-0-rtt-session-establish" class="xref">Use 0-RTT Session Establishment with an Idempotent Message</a><a href="#section-toc.1-1.5.2.2.2.5.1" class="pilcrow">¶</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.5.1" class="keepWithNext"><a href="#section-5.2.5" class="xref">5.2.5</a>.  <a href="#name-use-0-rtt-session-establish" class="xref">Use 0-RTT Session Establishment with a Safely Replayable Message</a><a href="#section-toc.1-1.5.2.2.2.5.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.5.2.2.2.6">
                     <p id="section-toc.1-1.5.2.2.2.6.1" class="keepWithNext"><a href="#section-5.2.6" class="xref">5.2.6</a>.  <a href="#name-multistream-connections-in-" class="xref">Multistream Connections in Group</a><a href="#section-toc.1-1.5.2.2.2.6.1" class="pilcrow">¶</a></p>
@@ -1133,7 +1133,7 @@ and potential transport protocols to select from.<a href="#section-abstract-1" c
                     <p id="section-toc.1-1.7.2.5.2.3.1" class="keepWithNext"><a href="#section-7.5.3" class="xref">7.5.3</a>.  <a href="#name-ordered" class="xref">Ordered</a><a href="#section-toc.1-1.7.2.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.7.2.5.2.4">
-                    <p id="section-toc.1-1.7.2.5.2.4.1" class="keepWithNext"><a href="#section-7.5.4" class="xref">7.5.4</a>.  <a href="#name-idempotent" class="xref">Idempotent</a><a href="#section-toc.1-1.7.2.5.2.4.1" class="pilcrow">¶</a></p>
+                    <p id="section-toc.1-1.7.2.5.2.4.1" class="keepWithNext"><a href="#section-7.5.4" class="xref">7.5.4</a>.  <a href="#name-safely-replayable" class="xref">Safely Replayable</a><a href="#section-toc.1-1.7.2.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.7.2.5.2.5">
                     <p id="section-toc.1-1.7.2.5.2.5.1" class="keepWithNext"><a href="#section-7.5.5" class="xref">7.5.5</a>.  <a href="#name-final" class="xref">Final</a><a href="#section-toc.1-1.7.2.5.2.5.1" class="pilcrow">¶</a></p>
@@ -2161,7 +2161,7 @@ end in the same order as it was sent.<a href="#section-5.2.4-2" class="pilcrow">
 <div id="prop-0rtt">
 <section id="section-5.2.5">
           <h4 id="name-use-0-rtt-session-establish">
-<a href="#section-5.2.5" class="section-number selfRef">5.2.5. </a><a href="#name-use-0-rtt-session-establish" class="section-name selfRef">Use 0-RTT Session Establishment with an Idempotent Message</a>
+<a href="#section-5.2.5" class="section-number selfRef">5.2.5. </a><a href="#name-use-0-rtt-session-establish" class="section-name selfRef">Use 0-RTT Session Establishment with a Safely Replayable Message</a>
           </h4>
 <dl class="dlParallel" id="section-5.2.5-1">
             <dt id="section-5.2.5-1.1">Name:</dt>
@@ -2181,7 +2181,7 @@ end in the same order as it was sent.<a href="#section-5.2.4-2" class="pilcrow">
 the transport protocol before Connection establishment, which will then be
 reliably transferred to the other side before or during Connection
 establishment, potentially multiple times (i.e., multiple copies of the message data
-may be passed to the Remote Endpoint). See also <a href="#msg-idempotent" class="xref">Section 7.5.4</a>. Note that
+may be passed to the Remote Endpoint). See also <a href="#msg-safelyreplayable" class="xref">Section 7.5.4</a>. Note that
 disabling this property
 has no effect for protocols that are not connection-oriented and do not protect
 against duplicated messages, e.g., UDP.<a href="#section-5.2.5-2" class="pilcrow">¶</a></p>
@@ -2697,7 +2697,7 @@ another Connection.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <p id="section-6.1-5">Once Initiate is called, the candidate Protocol Stack(s) may cause one or more
 candidate transport-layer connections to be created to the specified remote
 endpoint. The caller may immediately begin sending Messages on the Connection
-(see <a href="#sending" class="xref">Section 7</a>) after calling Initiate(); note that any idempotent data sent
+(see <a href="#sending" class="xref">Section 7</a>) after calling Initiate(); note that any data marked <code>Safely Replayable</code> that is sent
 while the Connection is being established may be sent multiple times or on
 multiple candidates.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 <p id="section-6.1-6">The following Events may be sent by the Connection after Initiate() is called:<a href="#section-6.1-6" class="pilcrow">¶</a></p>
@@ -3224,15 +3224,15 @@ see <a href="#prop-ordering" class="xref">Section 5.2.4</a>, but allow out-of-or
 different streams.<a href="#section-7.5.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="msg-idempotent">
+<div id="msg-safelyreplayable">
 <section id="section-7.5.4">
-          <h4 id="name-idempotent">
-<a href="#section-7.5.4" class="section-number selfRef">7.5.4. </a><a href="#name-idempotent" class="section-name selfRef">Idempotent</a>
+          <h4 id="name-safely-replayable">
+<a href="#section-7.5.4" class="section-number selfRef">7.5.4. </a><a href="#name-safely-replayable" class="section-name selfRef">Safely Replayable</a>
           </h4>
 <dl class="dlParallel" id="section-7.5.4-1">
             <dt id="section-7.5.4-1.1">Name:</dt>
 <dd id="section-7.5.4-1.2">
-  idempotent<a href="#section-7.5.4-1.2" class="pilcrow">¶</a>
+  safelyReplayable<a href="#section-7.5.4-1.2" class="pilcrow">¶</a>
 </dd>
 <dt id="section-7.5.4-1.3">Type:</dt>
 <dd id="section-7.5.4-1.4">
@@ -3248,10 +3248,10 @@ more than once for a single Send Action. It is used to mark data safe for
 certain 0-RTT establishment techniques, where retransmission of the 0-RTT data
 may cause the remote application to receive the Message multiple times.<a href="#section-7.5.4-2" class="pilcrow">¶</a></p>
 <p id="section-7.5.4-3">Note that for protocols that do not protect against duplicated messages,
-e.g., UDP, all messages MUST be marked as Idempotent.
+e.g., UDP, all messages MUST be marked as <code>Safely Replayable</code>.
 In order to enable protocol selection to choose such a protocol,
-Idempotent MUST be added to the TransportProperties passed to the
-Preconnection. If such a protocol was chosen, disabling Idempotent on
+<code>Safely Replayable</code> MUST be added to the TransportProperties passed to the
+Preconnection. If such a protocol was chosen, disabling <code>Safely Replayable</code> on
 individual messages MUST result in a SendError.<a href="#section-7.5.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3458,8 +3458,8 @@ a first Message sent:<a href="#section-7.8-1" class="pilcrow">¶</a></p>
 Connection := Preconnection.InitiateWithSend(messageData, messageContext?, timeout?)
 </pre><a href="#section-7.8-2" class="pilcrow">¶</a>
 </div>
-<p id="section-7.8-3">Whenever possible, a messageContext should be provided to declare the message passed to InitiateWithSend
-as idempotent. This allows the transport system to make use of 0-RTT establishment in case this is supported
+<p id="section-7.8-3">Whenever possible, a messageContext should be provided to declare the Message passed to InitiateWithSend
+as <code>Safely Replayable</code>. This allows the transport system to make use of 0-RTT establishment in case this is supported
 by the available protocol stacks. When the selected stack(s) do not support transmitting data upon connection
 establishment, InitiateWithSend is identical to Initiate() followed by Send().<a href="#section-7.8-3" class="pilcrow">¶</a></p>
 <p id="section-7.8-4">Neither partial sends nor send batching are supported by InitiateWithSend().<a href="#section-7.8-4" class="pilcrow">¶</a></p>
@@ -3640,7 +3640,7 @@ applications need to treat early data separately,
 e.g., if early data has different security properties than data sent after
 connection establishment. In the case of TLS 1.3, client early data can be replayed
 maliciously (see <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span>). Thus, receivers may wish to perform additional
-checks for early data to ensure it is idempotent or not replayed. If TLS 1.3 is available
+checks for early data to ensure it is safely replayable. If TLS 1.3 is available
 and the recipient Message was sent as part of early data, the corresponding metadata carries
 a flag indicating as such. If early data is enabled, applications should check this metadata
 field for Messages received during connection establishment and respond accordingly.<a href="#section-8.3.2-1" class="pilcrow">¶</a></p>
@@ -4071,7 +4071,7 @@ a data transfer useful. It is given in bits per second. The special value <code>
 <a href="#section-10.1.8" class="section-number selfRef">10.1.8. </a><a href="#name-read-only-connection-proper" class="section-name selfRef">Read-only Connection Properties</a>
           </h4>
 <p id="section-10.1.8-1">The following generic Connection Properties are read-only, i.e. they cannot be changed by an application.<a href="#section-10.1.8-1" class="pilcrow">¶</a></p>
-<div id="size-idempotent">
+<div id="size-safelyreplayable">
 <section id="section-10.1.8.1">
             <h5 id="name-maximum-message-size-concur">
 <a href="#section-10.1.8.1" class="section-number selfRef">10.1.8.1. </a><a href="#name-maximum-message-size-concur" class="section-name selfRef">Maximum Message Size Concurrent with Connection Establishment</a>
@@ -4087,7 +4087,7 @@ a data transfer useful. It is given in bits per second. The special value <code>
 </dd>
 </dl>
 <p id="section-10.1.8.1-2">This property represents the maximum Message size that can be sent
-before or during Connection establishment, see also <a href="#msg-idempotent" class="xref">Section 7.5.4</a>.
+before or during Connection establishment, see also <a href="#msg-safelyreplayable" class="xref">Section 7.5.4</a>.
 It is given in Bytes.<a href="#section-10.1.8.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -4714,7 +4714,7 @@ It should consist of the following properties:<a href="#section-a.2.3-1" class="
                 <td class="text-left" rowspan="1" colspan="1">require</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">idempotent</td>
+                <td class="text-left" rowspan="1" colspan="1">safely replayable</td>
                 <td class="text-left" rowspan="1" colspan="1">true</td>
               </tr>
             </tbody>
