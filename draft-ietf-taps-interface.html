@@ -1779,7 +1779,9 @@ entire set of possible values for each property.<a href="#section-4.2.2-2.4" cla
 </li>
 <li id="section-4.2.2-2.5">Preference: can take one of five values (Prohibit, Avoid, Ignore, Prefer,
 Require) for the level of preference of a given property during protocol
-selection; see <a href="#selection-props" class="xref">Section 5.2</a>.<a href="#section-4.2.2-2.5" class="pilcrow">¶</a>
+selection; see <a href="#selection-props" class="xref">Section 5.2</a>. When querying, a Preference is of
+type Boolean, with <code>true</code> indicating that the Selection Property
+has been applied.<a href="#section-4.2.2-2.5" class="pilcrow">¶</a>
 </li>
 </ul>
 <p id="section-4.2.2-3">For types Integer and Numeric, special values can be defined
@@ -2053,10 +2055,16 @@ from an antecedent via cloning; see <a href="#groups" class="xref">Section 6.4</
 <p id="section-5.2-16"><a href="#connection-props" class="xref">Section 10.1</a> provides a list of Connection Properties, while Selection
 Properties are listed in the subsections below. Note that many properties are
 only considered during establishment, and can not be changed after a Connection
-is established; however, they can be queried. Querying a Selection Property
-after establishment yields the value <code>Require</code> for properties of the selected
-protocol and path, Avoid for properties avoided during selection, and Ignore for
-all other properties.<a href="#section-5.2-16" class="pilcrow">¶</a></p>
+is established; however, they can be queried. The return type of a queried
+Selection Property is Boolean, where <code>true</code> means that the Selection Property
+has been applied and <code>false</code> means that the Selection Property has not
+been applied. Note that <code>true</code> does not mean that a request has been honored.
+For example, if <code>Congestion control</code> was
+requested with preference level <code>Prefer</code>, but congestion control could not
+be supported, querying the <code>congestionControl</code> property yields the
+value <code>false</code>. If preference level <code>Avoid</code> was used for <code>Congestion control</code>,
+and, as requested, the Connection is not congestion controlled, querying
+the <code>congestionControl</code> property also yields the value <code>false</code>.<a href="#section-5.2-16" class="pilcrow">¶</a></p>
 <p id="section-5.2-17">An implementation of this interface must provide sensible defaults for Selection
 Properties. The defaults given for each property below represent a
 configuration that can be implemented over TCP. An alternate set of default

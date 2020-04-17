@@ -713,13 +713,13 @@ Internet-Draft               TAPS Interface                   April 2020
 
    *  Preference: can take one of five values (Prohibit, Avoid, Ignore,
       Prefer, Require) for the level of preference of a given property
-      during protocol selection; see Section 5.2.
+      during protocol selection; see Section 5.2.  When querying, a
+      Preference is of type Boolean, with "true" indicating that the
+      Selection Property has been applied.
 
    For types Integer and Numeric, special values can be defined per
    property; it is up to implementations how these special values are
    represented (e.g., by using -1 for an otherwise non-negative value).
-
-
 
 
 
@@ -1044,20 +1044,20 @@ Internet-Draft               TAPS Interface                   April 2020
    Selection Properties are listed in the subsections below.  Note that
    many properties are only considered during establishment, and can not
    be changed after a Connection is established; however, they can be
-   queried.  Querying a Selection Property after establishment yields
-   the value "Require" for properties of the selected protocol and path,
-   Avoid for properties avoided during selection, and Ignore for all
-   other properties.
+   queried.  The return type of a queried Selection Property is Boolean,
+   where "true" means that the Selection Property has been applied and
+   "false" means that the Selection Property has not been applied.  Note
+   that "true" does not mean that a request has been honored.  For
+   example, if "Congestion control" was requested with preference level
+   "Prefer", but congestion control could not be supported, querying the
+   "congestionControl" property yields the value "false".  If preference
+   level "Avoid" was used for "Congestion control", and, as requested,
+   the Connection is not congestion controlled, querying the
+   "congestionControl" property also yields the value "false".
 
    An implementation of this interface must provide sensible defaults
    for Selection Properties.  The defaults given for each property below
    represent a configuration that can be implemented over TCP.  An
-   alternate set of default Protocol Selection Properties would
-   represent a configuration that can be implemented over UDP.
-
-
-
-
 
 
 
@@ -1065,6 +1065,9 @@ Trammell, et al.         Expires 19 October 2020               [Page 19]
 
 Internet-Draft               TAPS Interface                   April 2020
 
+
+   alternate set of default Protocol Selection Properties would
+   represent a configuration that can be implemented over UDP.
 
 5.2.1.  Reliable Data Transfer (Connection)
 
@@ -1111,9 +1114,6 @@ Internet-Draft               TAPS Interface                   April 2020
 
    Default:  Require
 
-   This property specifies whether the application wishes to use a
-   transport protocol that can ensure that data is received by the
-   application on the other end in the same order as it was sent.
 
 
 
@@ -1121,6 +1121,10 @@ Trammell, et al.         Expires 19 October 2020               [Page 20]
 
 Internet-Draft               TAPS Interface                   April 2020
 
+
+   This property specifies whether the application wishes to use a
+   transport protocol that can ensure that data is received by the
+   application on the other end in the same order as it was sent.
 
 5.2.5.  Use 0-RTT Session Establishment with a Safely Replayable Message
 
@@ -1166,10 +1170,6 @@ Internet-Draft               TAPS Interface                   April 2020
 
 5.2.8.  Full Checksum Coverage on Receiving
 
-   Name:  perMsgChecksumLenRecv
-
-   Type:  Preference
-
 
 
 
@@ -1177,6 +1177,10 @@ Trammell, et al.         Expires 19 October 2020               [Page 21]
 
 Internet-Draft               TAPS Interface                   April 2020
 
+
+   Name:  perMsgChecksumLenRecv
+
+   Type:  Preference
 
    Default:  Require
 
@@ -1222,10 +1226,6 @@ Internet-Draft               TAPS Interface                   April 2020
 
    The set of valid interface types is implementation- and system-
    specific.  For example, on a mobile device, there may be "Wi-Fi" and
-   "Cellular" interface types available; whereas on a desktop computer,
-   there may be "Wi-Fi" and "Wired Ethernet" interface types available.
-   An implementation should provide all types that are supported on the
-   local system to all remote systems, to allow applications to be
 
 
 
@@ -1234,6 +1234,10 @@ Trammell, et al.         Expires 19 October 2020               [Page 22]
 Internet-Draft               TAPS Interface                   April 2020
 
 
+   "Cellular" interface types available; whereas on a desktop computer,
+   there may be "Wi-Fi" and "Wired Ethernet" interface types available.
+   An implementation should provide all types that are supported on the
+   local system to all remote systems, to allow applications to be
    written generically.  For example, if a single implementation is used
    on both mobile devices and desktop devices, it should define the
    "Cellular" interface type for both systems, since an application may
@@ -1278,10 +1282,6 @@ Internet-Draft               TAPS Interface                   April 2020
 
    Categories or types of PvDs are also defined to be implementation-
    and system-specific.  These may be useful to identify a service that
-   is provided by a PvD.  For example, if an application wants to use a
-   PvD that provides a Voice-Over-IP service on a Cellular network, it
-   can use the relevant PvD type to require some PvD that provides this
-   service, without needing to look up a particular instance.  While
 
 
 
@@ -1290,6 +1290,10 @@ Trammell, et al.         Expires 19 October 2020               [Page 23]
 Internet-Draft               TAPS Interface                   April 2020
 
 
+   is provided by a PvD.  For example, if an application wants to use a
+   PvD that provides a Voice-Over-IP service on a Cellular network, it
+   can use the relevant PvD type to require some PvD that provides this
+   service, without needing to look up a particular instance.  While
    this does restrict path selection, it is broader than requiring
    specific PvD instances or interface instances, and should be
    preferred over these options.
@@ -1335,16 +1339,15 @@ Internet-Draft               TAPS Interface                   April 2020
    Interactive:  The connection should attempt to use multiple paths in
       response to loss or delay upon individual paths
 
-   Aggregate:  The connection should attempt to use multiple paths in
-      parallel in order to maximize throughput
-
-
 
 
 Trammell, et al.         Expires 19 October 2020               [Page 24]
 
 Internet-Draft               TAPS Interface                   April 2020
 
+
+   Aggregate:  The connection should attempt to use multiple paths in
+      parallel in order to maximize throughput
 
    Enumeration values other than "Disabled" are interpreted as
    preferences.
@@ -1391,9 +1394,6 @@ Internet-Draft               TAPS Interface                   April 2020
 
    Name:  softErrorNotify
 
-   Type:  Preference
-
-   Default:  Ignore
 
 
 
@@ -1401,6 +1401,10 @@ Trammell, et al.         Expires 19 October 2020               [Page 25]
 
 Internet-Draft               TAPS Interface                   April 2020
 
+
+   Type:  Preference
+
+   Default:  Ignore
 
    This property specifies whether an application considers it useful to
    be informed when an ICMP error message arrives that does not force
@@ -1446,10 +1450,6 @@ Internet-Draft               TAPS Interface                   April 2020
    *  Supported algorithms: Used to restrict what parameters are used by
       underlying transport security protocols.  When not specified,
       these algorithms should use known and safe defaults for the
-      system.  Parameters include: ciphersuites, supported groups, and
-      signature algorithms.
-
-
 
 
 
@@ -1457,6 +1457,9 @@ Trammell, et al.         Expires 19 October 2020               [Page 26]
 
 Internet-Draft               TAPS Interface                   April 2020
 
+
+      system.  Parameters include: ciphersuites, supported groups, and
+      signature algorithms.
 
    SecurityParameters.AddSupportedGroup(secp256k1)
    SecurityParameters.AddCiphersuite(TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256)
@@ -1502,9 +1505,6 @@ Internet-Draft               TAPS Interface                   April 2020
      // Handle challenge
    })
    SecurityParameters.SetIdentityChallengeCallback(challengeCallback)
-
-
-
 
 
 
