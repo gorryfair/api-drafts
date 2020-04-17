@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-17T09:28:53.238599+00:00",
+  "timestamp": "2020-04-17T17:32:06.458506+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -14619,11 +14619,12 @@
         "philsbln"
       ],
       "labels": [
-        "API"
+        "API",
+        "ready for text"
       ],
       "body": "For MP use we have the following option: Disable, Handover, Interactive, Aggregate. \r\n\r\nI think the option as not well defined (except Disable). Maybe the following is a bit better:\r\n\r\nHandover: : The connection should attempt to migrate to a new paths when interface availability changes and performance of the currently used path decreased below a certain threshold. This threshold is implementation-specific.\r\n\r\nInteractive: : The connection should attempt to use multiple paths in parallel in order to always select the best path available or at least achieve about the same aggregated bandwidth as provided by the best of the available paths. This can be achieved by using coupled congestion control as proposed in {{?RFC6356}} for MP-TCP.\r\n\r\nAggregate: : The connection should attempt to use multiple paths in parallel in order to maximize bandwidth. That usually means that independent congestion control instances are used on each path.\r\n\r\nI also proposed another option:\r\n\r\nRedundant: : The connection should send the same data on two of the available paths. A message property could be used to indicate which messages should be send redundantly.\r\n\r\nAnd further I think we also need a configuration option to indicate when/if a new subpath should be opened. I think there are four options: \r\n\r\nNever-passive (rely on other ending opening new paths and never send new available IPs),\r\nNever-active (rely on other ending opening new paths but signal send new available IPs), \r\nImmediate (open new path when IP because available locally or provided by other end), \r\nOn-Request (application needs to indicate).\r\n\r\nNote that there is also rfc6897 specifying a rather different interface...\r\n\r\n",
       "createdAt": "2020-01-16T10:07:10Z",
-      "updatedAt": "2020-02-21T17:32:54Z",
+      "updatedAt": "2020-04-17T16:40:46Z",
       "closedAt": null,
       "comments": [
         {
@@ -14785,7 +14786,7 @@
       ],
       "body": "A couple of questions we might want to address regarding Connection Groups.\r\n\r\n1) Can the application query the interface to figure if two connection in a group share the same transport connection but on different streams or not. Is that useful? I thinks we should explicitly say that if a multiplex protocol is used, calling Clone() MUST create a new stream (and not a new connection).\r\n\r\n2) If a new connection is created by a Listener it is automatically part of a group, right? Can I detach that connection from the group? Otherwise how can I change a property only for that connection? Isn't is actually confusing that these connection are grouped?\r\n\r\n2) Should we add a pointer to coupled congestion control (rmcat) in that section?\r\n\r\n",
       "createdAt": "2020-01-16T14:24:16Z",
-      "updatedAt": "2020-04-06T13:31:19Z",
+      "updatedAt": "2020-04-17T15:02:12Z",
       "closedAt": null,
       "comments": [
         {
@@ -14983,6 +14984,13 @@
           "body": "ACK and YES. I had planned to do this today (not happening) or tomorrow (most likely) or the day after tomorrow (sigh, I hope tomorrow will work).",
           "createdAt": "2020-04-06T13:31:19Z",
           "updatedAt": "2020-04-06T13:31:19Z"
+        },
+        {
+          "author": "csperkins",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The \"client opens the connection but server sends first\" model is used in SMTP, right? It's not such an uncommon pattern.",
+          "createdAt": "2020-04-17T15:02:12Z",
+          "updatedAt": "2020-04-17T15:02:12Z"
         }
       ]
     },
@@ -15464,15 +15472,17 @@
       "state": "OPEN",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
+      "assignees": [
+        "tfpauly"
+      ],
       "labels": [
         "API",
         "Implementation",
-        "discuss"
+        "ready for text"
       ],
       "body": "I know we moved some text about framers into the implementation doc but that really doesn't seem right when I look at it now.\r\n\r\nThe section about framers in the implementation doc is the only section that defines an interface which probably is already an indication that just moving this text there was not right. However, also the text in the API doc seems now incomplete. \r\n\r\nI think we should move it back and rather define some real simple examples framers in the implementation document (just a prefixed length field (as many UDP mapping use) or maybe even an example implementation for STARTTLS). Further after moving it back we could figure out if really all parts of the interface are necessary or if there would be a more minimal interface that we could use. E.g. I'm not sure about the FailConnection() call or at least I think this could need more explanation.",
       "createdAt": "2020-01-17T11:44:26Z",
-      "updatedAt": "2020-04-07T13:06:42Z",
+      "updatedAt": "2020-04-17T17:02:09Z",
       "closedAt": null,
       "comments": [
         {
@@ -15509,6 +15519,13 @@
           "body": "In the implementation draft we say:\r\n\"A Message Framer is primarily defined by the set of code that handles events for a framer implementation\"\r\n\r\nMy assumption is that a custom framer implementation could be part of the application logic and therefore we need to define this interface as well.\r\n\r\nHowever looking at the implementation draft I guess I now confused myself about how this actually works. Why is the sending logic asynchronous? Isn't this something that happens iteratively when the application calls send(). How would that actually work? I thought the application could just call Connection.send() and then the connection could call MessageFramer.send() and that would simply return a modified message... can you give an example for sending and receiving based on the interfaces currently defined in the implementation draft?\r\n\r\nAlso please note that while I think the interface definition belongs in API draft, however, there are comments about copying and curser handling which should/could probably say in the implementation draft.",
           "createdAt": "2020-04-07T13:06:42Z",
           "updatedAt": "2020-04-07T13:06:42Z"
+        },
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Interim:\r\n\r\nAdd to -interface:\r\n- Explain that framer(s) is in between the rest of the protocol stack and the application\r\n- Intercepts calls to start/stop and send/receive\r\n\r\nAnd just leave as is, and have another framers document in the future once we get more details.",
+          "createdAt": "2020-04-17T17:00:39Z",
+          "updatedAt": "2020-04-17T17:00:39Z"
         }
       ]
     },
@@ -15613,7 +15630,7 @@
       "id": "MDU6SXNzdWU1NTE0MjA1Mjg=",
       "title": "Add state diagram to section \"Connection State and Ordering of Operations and Events\"",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/466",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -15622,8 +15639,8 @@
       ],
       "body": "Would be nice if someone has time to do some ascii art :-)",
       "createdAt": "2020-01-17T13:38:36Z",
-      "updatedAt": "2020-01-24T17:42:48Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-17T09:29:23Z",
+      "closedAt": "2020-04-17T09:29:23Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -16032,7 +16049,7 @@
       ],
       "body": "In section 7.1 of API it says:\r\n\r\n> Message data is transferred as an array of bytes, and the resulting object contains both the byte array and the length of the array.\r\n`messageData := \"hello\".bytes()\r\n Connection.Send(messageData)`\r\n\r\nFor some languages that are dynamic typed (i.e. python) this limits the usability of the API as it adds an unnecessary extra step to each send.\r\nTo me this seems like it should be an implementation detail and not specified in the API.",
       "createdAt": "2020-01-19T15:10:56Z",
-      "updatedAt": "2020-01-22T20:22:17Z",
+      "updatedAt": "2020-04-17T15:40:28Z",
       "closedAt": null,
       "comments": [
         {
@@ -16055,6 +16072,20 @@
           "body": "We generally consider this a case for framers. However, I think it's reasonable to assume that any of the objects used in a TAPS implementation should provide some way for the app to get at the underlying bytes (and therefore, at least implicitly, the length). I don't read this text as prohibiting the use of some object that is `bytes()`able.",
           "createdAt": "2020-01-22T20:22:17Z",
           "updatedAt": "2020-01-22T20:22:17Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree that this is an implementation detail that's irrelevant to the abstract API. Can we close this issue?",
+          "createdAt": "2020-04-17T11:38:15Z",
+          "updatedAt": "2020-04-17T11:38:15Z"
+        },
+        {
+          "author": "csperkins",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Requiring the data be accessible as a byte array is overly restrictive. Can we just remove \"Message data is transferred as an array of bytes, and the resulting object contains both the byte array and the length of the array.\" and the `messageData := \"hello\".bytes()` call?",
+          "createdAt": "2020-04-17T15:40:28Z",
+          "updatedAt": "2020-04-17T15:40:28Z"
         }
       ]
     },
@@ -16302,7 +16333,7 @@
       "id": "MDU6SXNzdWU1ODg0NjM1MjI=",
       "title": "Architecture NiT: /assumes/",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/518",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gorryfair",
       "authorAssociation": "NONE",
       "assignees": [
@@ -16314,9 +16345,17 @@
       ],
       "body": "I think the word /assumes/ is not a good choice of word in the arch draft.\r\nOLD:\r\nand it assumes an implementation that can use multiple IP addresses,\r\nmultiple protocols, multiple paths, and provide multiple application streams\r\nNEW:\r\nand it can provide benefit when an implementation can use multiple IP\r\naddresses, multiple protocols, multiple paths, and provide multiple\r\napplication streams.",
       "createdAt": "2020-03-26T14:28:15Z",
-      "updatedAt": "2020-04-15T23:00:20Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2020-04-17T16:25:00Z",
+      "closedAt": "2020-04-17T16:25:00Z",
+      "comments": [
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Done",
+          "createdAt": "2020-04-17T16:25:00Z",
+          "updatedAt": "2020-04-17T16:25:00Z"
+        }
+      ]
     },
     {
       "number": 519,
@@ -16476,7 +16515,7 @@
       "id": "MDU6SXNzdWU1OTI2NzI1NzY=",
       "title": "Idempotency vs replay-safe  (from Kyle Rose's review)",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/522",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -16486,8 +16525,8 @@
       ],
       "body": "_From Kyle:_\r\nidempotency != replay-safe. DELETE is idempotent, but not safe for replay because someone might have done a PUT or POST in the meantime.\r\n\r\nWhat I mean is maybe best illustrated by 0RTT in TLS or QUIC. If a user sends a 0RTT DELETE /object, followed by a PUT /object, then within the replay window and without any replay prevention at the application layer, an attacker could replay the 0RTT DELETE /object and cause the object to be deleted again. DELETE is idempotent but it's not safe to replay.",
       "createdAt": "2020-04-02T14:23:23Z",
-      "updatedAt": "2020-04-16T09:01:22Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-17T17:05:15Z",
+      "closedAt": "2020-04-17T17:05:15Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -16564,11 +16603,12 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [
-        "API"
+        "API",
+        "ready for text"
       ],
       "body": "_from Kyle_:\r\n> These type symbols really deserve an actual registry, or at least the start of one. Otherwise, we are likely to end up with a mess.\r\n\r\n**Philipp Tiesel**:\r\n> There is already one, but that one was not useful for our matters. \r\n",
       "createdAt": "2020-04-02T14:31:37Z",
-      "updatedAt": "2020-04-15T14:23:21Z",
+      "updatedAt": "2020-04-17T17:29:48Z",
       "closedAt": null,
       "comments": [
         {
@@ -16577,6 +16617,34 @@
           "body": "I'm not sure what Philipp's response means. Where is this registry, and why was it not useful?",
           "createdAt": "2020-04-15T14:23:20Z",
           "updatedAt": "2020-04-15T14:23:20Z"
+        },
+        {
+          "author": "csperkins",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Kyle Rose's review: https://mailarchive.ietf.org/arch/msg/taps/o1ehdiAwdqAG42xy2Gy5Cb62eYA/ ",
+          "createdAt": "2020-04-17T15:16:14Z",
+          "updatedAt": "2020-04-17T15:16:14Z"
+        },
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This will be system/implementation specific in general, I'd say.",
+          "createdAt": "2020-04-17T17:25:25Z",
+          "updatedAt": "2020-04-17T17:25:25Z"
+        },
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Add a sentence to 5.2.10 to indicate that this is implementation specific",
+          "createdAt": "2020-04-17T17:26:25Z",
+          "updatedAt": "2020-04-17T17:26:25Z"
+        },
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Mention that these should be documented?",
+          "createdAt": "2020-04-17T17:29:48Z",
+          "updatedAt": "2020-04-17T17:29:48Z"
         }
       ]
     },
@@ -16618,7 +16686,7 @@
       "id": "MDU6SXNzdWU1OTI2ODcyOTc=",
       "title": "single messageContext object for both sends and receives",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/525",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -16627,8 +16695,8 @@
       ],
       "body": "from Kyle Rose's review:\r\n\r\n> 7.3.3. SendError\r\n> \r\n> Is there a reason why a single messageContext object is used for both sends and receives? I probably missed the original discussion about this, but I'd like to understand the reasoning.\r\n> \r\n> (Maybe I should have said \"class\" instead of \"object\".) For example, the \"lifetime\" property makes sense as metadata for sends, but is completely irrelevant to the receiver. The same is true of several other message properties. It might make sense for an implementation to use a single type to represent metadata both for sends and receives, but is that also true for an abstract API?\r\n> ",
       "createdAt": "2020-04-02T14:43:26Z",
-      "updatedAt": "2020-04-15T11:28:34Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-17T17:23:14Z",
+      "closedAt": "2020-04-17T17:23:14Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -16684,19 +16752,20 @@
       "id": "MDU6SXNzdWU1OTMyODkzMjM=",
       "title": "Create an enum for querying properties",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/528",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
         "mwelzl"
       ],
       "labels": [
-        "API"
+        "API",
+        "ready for text"
       ],
       "body": "From Kyle Rose:\r\n\r\n> 5.2. Specifying Transport Properties\r\n> \r\n> * Using the same enum (Require(d[sic])/Avoid/Ignore) for the queried output of selected properties seems like a shortcut that will lead to some confusion.\r\n> \r\n> Alternative: an output enum something like { Selected, Avoided, Ignored } independent of the input type. As long as you understand this and are still okay with the interface you've chosen, that is fine by me.\r\n\r\n@mwelzl says: I think this isn't very controversial, I believe we should just do this as he suggested. This issue is just a reminder for myself to do this.",
       "createdAt": "2020-04-03T10:41:32Z",
-      "updatedAt": "2020-04-03T10:41:32Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-17T17:07:57Z",
+      "closedAt": "2020-04-17T17:07:57Z",
       "comments": []
     },
     {
@@ -16804,7 +16873,7 @@
       ],
       "body": "Section 4.2.1  on delayed racing:\r\n\"For example, if the first child represents an IP address with a known route, and the second child represents another IP address, the delay between starting the first and second IP addresses can be based on the expected retransmission cadence for the first child's connection (derived from historical round-trip-time). Alternatively, if the first child represents a branch on a Wi-Fi interface, and the second child represents a branch on an LTE interface, the delay should be based on the expected time in which the branch for the first interface would be able to establish a connection, based on link quality and historical round-trip-time.\"\r\n\r\nWhat the reasoning for these two recommendations? I'm actually not sure what exactly is meant. Is the first case 3xRTT (-> initial RTO) and the second 1xRTT? Why?\r\n\r\nAlso in the next paragraph:\r\n\"Generally, branches between paths and protocols should have longer delays than branches between derived endpoints.\"\r\n\r\nWhat? Why?\r\n\r\nAnd then \r\n\"The maximum delay should be considered with regards to how long a user is expected to wait for the connection to complete.\"\r\n\r\nHow do I know this?\r\n",
       "createdAt": "2020-04-07T09:47:03Z",
-      "updatedAt": "2020-04-15T11:18:44Z",
+      "updatedAt": "2020-04-17T15:35:46Z",
       "closedAt": null,
       "comments": [
         {
@@ -16813,6 +16882,13 @@
           "body": "Also, maybe it's just me, but I can't parse \"retransmission cadence\", and the phrase with \"historical round-trip time\" is 1) confusing (I don't get what it means, but maybe that's due to me misunderstanding \"cadence\"?), and 2) seems to be missing an article.",
           "createdAt": "2020-04-15T11:18:44Z",
           "updatedAt": "2020-04-15T11:18:44Z"
+        },
+        {
+          "author": "csperkins",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I read this as examples of things to consider when implementing a happy-eyeballs style algorithm, rather than explicit recommendations. Maybe this fix is to make this more vague, rather than more explicit?",
+          "createdAt": "2020-04-17T15:35:46Z",
+          "updatedAt": "2020-04-17T15:35:46Z"
         }
       ]
     },
@@ -16909,11 +16985,12 @@
       ],
       "labels": [
         "API",
-        "Implementation"
+        "Implementation",
+        "ready for text"
       ],
       "body": "It might be worth to better align the sections on Message Properties in the API and Implementation draft. Note that e.g. \"Final\" has more implementation details in the API draft than in the implementation draft.",
       "createdAt": "2020-04-07T10:24:37Z",
-      "updatedAt": "2020-04-15T11:14:11Z",
+      "updatedAt": "2020-04-17T17:05:25Z",
       "closedAt": null,
       "comments": []
     },
@@ -17147,6 +17224,66 @@
           "updatedAt": "2020-04-16T17:26:50Z"
         }
       ]
+    },
+    {
+      "number": 567,
+      "id": "MDU6SXNzdWU2MDIxMDk5NTU=",
+      "title": "Three oddities in the abstract?",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/567",
+      "state": "OPEN",
+      "author": "gorryfair",
+      "authorAssociation": "NONE",
+      "assignees": [
+        "gorryfair"
+      ],
+      "labels": [
+        "API",
+        "editorial"
+      ],
+      "body": "Odd English:\r\n/where endpoints have multiple interfaces and potential transport protocols to select from/where endpoints could select from multiple interfaces and potential transport protocols./\r\n\r\nWe use the words /abstract programming interface/ and the acronym /API/ but never tie these two together.\r\n\r\nI am not huge fan of: /lowest common denominator interface/ ... as an engineer, this sounds like a good thing, although /lowest/ isn't that clear, so I wonder if we can find a better term?",
+      "createdAt": "2020-04-17T16:56:08Z",
+      "updatedAt": "2020-04-17T17:04:04Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 568,
+      "id": "MDU6SXNzdWU2MDIxMjM1MDI=",
+      "title": "Namespaces based on IANA protocol numbers registry",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/568",
+      "state": "OPEN",
+      "author": "gorryfair",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "API",
+        "discuss",
+        "help wanted"
+      ],
+      "body": "Just a minute, how can this be a MUST not colide when the registry is still open?:\r\n\r\nNamespaces for the keywords provided in the IANA protocol numbers registry (see https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml) are reserved for Protocol Specific Properties an d MUST not be used for vendor or implementation specific properties.\r\n\r\nThe keyword in this registry is text that has no reserved format, except this registry appears to use upper case. New entries *could* be added to this registry in future, how can the vendor names be orthogonal. I can only see this if we the key - defined as a number 1-255; and vendor numb ears > 255. Or we declare lower case as significant, or some tag?\r\n\r\n",
+      "createdAt": "2020-04-17T17:22:25Z",
+      "updatedAt": "2020-04-17T17:22:25Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 569,
+      "id": "MDU6SXNzdWU2MDIxMjY0MzM=",
+      "title": "NiTs in section 1",
+      "url": "https://github.com/ietf-tapswg/api-drafts/issues/569",
+      "state": "OPEN",
+      "author": "gorryfair",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "API",
+        "editorial"
+      ],
+      "body": "Section 1:\r\nThis section contains a RFC2119 keyword that precedes the definition!\r\n\r\nWe use the words /abstract programming interface/ and the acronym /API/ but never tie these together.\r\n\r\nNiTs:\r\n/provide applications a way to/provide a way for applications to/\r\n/as it comes at the cost of reduced portability/because it can reduce the portability./\r\n/How these abstract concepts/The way these abstract concepts/\r\n/is largely dependent on/mostly depends on/\r\n",
+      "createdAt": "2020-04-17T17:28:08Z",
+      "updatedAt": "2020-04-17T17:28:08Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -43557,9 +43694,9 @@
       "labels": [
         "Implementation"
       ],
-      "body": "",
+      "body": "Closes #367.",
       "createdAt": "2020-01-24T16:29:08Z",
-      "updatedAt": "2020-04-16T09:11:57Z",
+      "updatedAt": "2020-04-17T11:14:27Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45305,9 +45442,9 @@
       "labels": [
         "API"
       ],
-      "body": "* allow to control active/passive opertaion\r\n* clairify functionality\r\n* allow to control exposure of alternative addresses",
+      "body": "Closes #437.\r\n* allow to control active/passive opertaion\r\n* clairify functionality\r\n* allow to control exposure of alternative addresses",
       "createdAt": "2020-03-03T14:06:37Z",
-      "updatedAt": "2020-04-16T12:51:31Z",
+      "updatedAt": "2020-04-17T16:38:48Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -45346,6 +45483,13 @@
           "body": "@abrunstrom I clarified the relationship between the two multi-path properties. Please review whether this works for you now, as I don't think merging them would make things clearer.\r\n\r\nWith regards to the per-interface choice, I would prefer to use ```Interface Instance``` or ```Interface Type``` Properties and add a few notes how these effect multi-path in a separate PR",
           "createdAt": "2020-04-15T14:33:48Z",
           "updatedAt": "2020-04-16T12:49:35Z"
+        },
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Interim discussion:\r\n\r\nPossible knobs:\r\n- Who opens the paths? (active/passive/disabled)\r\n- Should we announce our other IP addresses? (allowed or not)\r\n- How are packets scheduled on the subpaths? (handover, interactive, aggregate)\r\n\r\n",
+          "createdAt": "2020-04-17T16:38:47Z",
+          "updatedAt": "2020-04-17T16:38:47Z"
         }
       ],
       "reviews": [
@@ -46088,11 +46232,19 @@
       ],
       "body": ".. that gets in the way of using streams when cloning.\r\nCloses #441.",
       "createdAt": "2020-04-07T10:25:31Z",
-      "updatedAt": "2020-04-16T12:27:47Z",
+      "updatedAt": "2020-04-17T17:13:28Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "csperkins",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "How does this interact with `Rendezvous()`?",
+          "createdAt": "2020-04-17T14:29:41Z",
+          "updatedAt": "2020-04-17T14:29:41Z"
+        }
+      ],
       "reviews": [
         {
           "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0NTY4NzU3",
@@ -46110,7 +46262,7 @@
               "originalPosition": 28,
               "body": "I get the problem for read-after-active-open, but what is the problem with passive open and immediately writing \u2013 this is fairly common in TCP based protocols and you can easily put the write in the connection ready. ",
               "createdAt": "2020-04-16T12:10:56Z",
-              "updatedAt": "2020-04-16T12:10:56Z"
+              "updatedAt": "2020-04-17T12:01:52Z"
             }
           ]
         },
@@ -46130,9 +46282,62 @@
               "originalPosition": 28,
               "body": "It's the same thing with multi-streaming: a stream only comes into being when the first message is sent on it. So, \"passive open and immediately writing\" doesn't map onto anything with streams - there is no such thing as a stream becoming available without data arriving on it.",
               "createdAt": "2020-04-16T12:27:47Z",
-              "updatedAt": "2020-04-16T12:27:47Z"
+              "updatedAt": "2020-04-17T12:01:52Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1MzgwNDA2",
+          "commit": {
+            "abbreviatedOid": "77c3066"
+          },
+          "author": "philsbln",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Works for me, but changing the name might help to get the pattern clearer",
+          "createdAt": "2020-04-17T11:38:30Z",
+          "updatedAt": "2020-04-17T11:40:22Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\n### Initiating side is not the first to write {#active-read-before-send}\r\n```",
+              "createdAt": "2020-04-17T11:38:30Z",
+              "updatedAt": "2020-04-17T12:01:52Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1NTA2MDEz",
+          "commit": {
+            "abbreviatedOid": "7d3d6db"
+          },
+          "author": "csperkins",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T14:30:59Z",
+          "updatedAt": "2020-04-17T14:30:59Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "I wonder if this should be `Type: Enumeration`, with values `InitiatorSendsFirst` (the default) and `ListenerSendsFirst`?",
+              "createdAt": "2020-04-17T14:30:59Z",
+              "updatedAt": "2020-04-17T14:30:59Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1NjMxMzc0",
+          "commit": {
+            "abbreviatedOid": "7d3d6db"
+          },
+          "author": "britram",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "lgtm",
+          "createdAt": "2020-04-17T17:13:28Z",
+          "updatedAt": "2020-04-17T17:13:28Z",
+          "comments": []
         }
       ]
     },
@@ -46458,7 +46663,7 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDAzMTQ3MDU5",
       "title": "Define a new type to use when selection properties are queried",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/557",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -46467,12 +46672,39 @@
       ],
       "body": "Closes #528.\r\nI chose boolean, because, when querying, it only matters whether a Selection Property was chosen or not (I believe).",
       "createdAt": "2020-04-14T12:13:11Z",
-      "updatedAt": "2020-04-16T10:44:44Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-17T17:07:57Z",
+      "closedAt": "2020-04-17T17:07:57Z",
+      "mergedAt": "2020-04-17T17:07:57Z",
+      "mergedBy": "britram",
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1Mzc3Njc0",
+          "commit": {
+            "abbreviatedOid": "bb9ee01"
+          },
+          "author": "philsbln",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I really like this change (I remember writing similar text earlier that got removed during edits).\r\n\r\nPlease also add a hint about this \"type mutation\" around line 532.",
+          "createdAt": "2020-04-17T11:33:22Z",
+          "updatedAt": "2020-04-17T11:33:22Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1MzkxMzAy",
+          "commit": {
+            "abbreviatedOid": "553a725"
+          },
+          "author": "philsbln",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks",
+          "createdAt": "2020-04-17T11:58:19Z",
+          "updatedAt": "2020-04-17T11:58:19Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 558,
@@ -46686,7 +46918,7 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDA0MDMwMTU3",
       "title": "Architecture NiT: /assumes/",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/560",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tfpauly",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -46695,10 +46927,10 @@
       ],
       "body": "Address #518",
       "createdAt": "2020-04-15T23:00:14Z",
-      "updatedAt": "2020-04-16T11:24:17Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-17T15:52:03Z",
+      "closedAt": "2020-04-17T15:52:03Z",
+      "mergedAt": "2020-04-17T15:52:03Z",
+      "mergedBy": "tfpauly",
       "comments": [],
       "reviews": [
         {
@@ -46734,7 +46966,7 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDA0MjEyOTQ5",
       "title": "Replace \"idempotent\" with \"safely replayable\" everywhere",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/561",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -46744,10 +46976,10 @@
       ],
       "body": "Closes #522.\r\nThis replaces a previous PR for the same issue, which I deleted: in this PR, I just added the definition of idempotency from RFC 7231, but this isn't good enough. We can't guarantee that these Messages would only *consecutively* arrive as duplicates, so these should be called \"safely replayable\" instead. See the discussion in #522.",
       "createdAt": "2020-04-16T08:55:15Z",
-      "updatedAt": "2020-04-16T17:36:03Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-17T17:05:15Z",
+      "closedAt": "2020-04-17T17:05:15Z",
+      "mergedAt": "2020-04-17T17:05:15Z",
+      "mergedBy": "britram",
       "comments": [
         {
           "author": "mirjak",
@@ -46825,7 +47057,7 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDA0MjcwNzkw",
       "title": "Connection state diagram",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/562",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -46834,10 +47066,10 @@
       ],
       "body": "Closes #466",
       "createdAt": "2020-04-16T10:39:24Z",
-      "updatedAt": "2020-04-16T13:19:02Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-17T09:29:32Z",
+      "closedAt": "2020-04-17T09:29:23Z",
+      "mergedAt": "2020-04-17T09:29:23Z",
+      "mergedBy": "mwelzl",
       "comments": [],
       "reviews": [
         {
@@ -46877,10 +47109,12 @@
       "author": "tfpauly",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "Architecture"
+      ],
       "body": "This proposal consolidates normative language into the section on design principles (now requirements), using the suggestions in #519.",
       "createdAt": "2020-04-16T18:22:12Z",
-      "updatedAt": "2020-04-17T08:59:58Z",
+      "updatedAt": "2020-04-17T16:32:32Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -47009,8 +47243,171 @@
               "updatedAt": "2020-04-17T08:59:58Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1NTQ4MDIy",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "theri",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T15:21:01Z",
+          "updatedAt": "2020-04-17T15:42:49Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Agree with @mwelzl that there's a contradiction here.\r\nIn previous text (now to be deleted), we start out by saying that the Transpor Services system MUST offer security features as requested by the application. Maybe we want to say this here, too, and then continue with SHOULD be identical and MUST NOT race or automatically fall back?",
+              "createdAt": "2020-04-17T15:21:01Z",
+              "updatedAt": "2020-04-17T15:42:49Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "I don't really understand the second part.\r\nThey are REQUIRED to be robust, given [that the have or are being given] the ability?\r\nOr they are REQUIRED to be given the ability?\r\n\r\nI feel like there may be a verb missing here.",
+              "createdAt": "2020-04-17T15:24:30Z",
+              "updatedAt": "2020-04-17T15:42:49Z"
+            },
+            {
+              "originalPosition": 34,
+              "body": "I'm wondering why the path selection (or \"selection of network interfaces\") sentence starts with \"In contrast\" - where's the contrast? Aren't both examples about having the default settings be as broad as possible?",
+              "createdAt": "2020-04-17T15:27:21Z",
+              "updatedAt": "2020-04-17T15:42:49Z"
+            },
+            {
+              "originalPosition": 40,
+              "body": "I don't quite understand this yet:\r\nWhat does \"exposed differently\" mean here? Is this about us not standardizing specific protocol selection and/or other specific features? Basically \"make this harder to use so it doesn't become default and, thus, unnecessarily constrains selection\"?\r\n\r\nHowever: Couldn't one argue that some of the Selection Properties we have in the API draft are pretty specialized, too?\r\nE.g., the User Timeout Option, which we give as an example below, is a Selection Property just like the others.",
+              "createdAt": "2020-04-17T15:36:46Z",
+              "updatedAt": "2020-04-17T15:42:49Z"
+            },
+            {
+              "originalPosition": 58,
+              "body": "nit: Isn't this \"The following example shows equivalent Protocol Stacks:\"?\r\nAfter all, it's two stacks that could be regarded equivalent.",
+              "createdAt": "2020-04-17T15:39:08Z",
+              "updatedAt": "2020-04-17T15:42:49Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1NTc2NzIy",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T15:56:26Z",
+          "updatedAt": "2020-04-17T15:56:26Z",
+          "comments": [
+            {
+              "originalPosition": 70,
+              "body": "I like Gorry's second sentence as well but I am confused in relation to issue #516 . Isn't the problem there rather that an application that relies on a protocol specific property can not use a TAPS system that does not expose this property? This is different from what is used by the TAPS system when setting up a connection.",
+              "createdAt": "2020-04-17T15:56:26Z",
+              "updatedAt": "2020-04-17T15:56:26Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1NTg2NzI5",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T16:09:13Z",
+          "updatedAt": "2020-04-17T16:09:14Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "Interim: Add a comment that this is the only normative section of the document",
+              "createdAt": "2020-04-17T16:09:13Z",
+              "updatedAt": "2020-04-17T16:09:14Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1NjAzNTU1",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T16:32:32Z",
+          "updatedAt": "2020-04-17T16:32:32Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "The subsection with requirements could also be called out in the overview as one sentence in 1.2? ",
+              "createdAt": "2020-04-17T16:32:32Z",
+              "updatedAt": "2020-04-17T16:32:32Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 565,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA1MDM0MzM0",
+      "title": "Sentence about minIncompleteLength when rcv. on streams",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/565",
+      "state": "OPEN",
+      "author": "mwelzl",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "Implementation"
+      ],
+      "body": "As described in #543, I removed the condition that requires the application to specify the length upon receiving from this example.\r\nCloses #543.",
+      "createdAt": "2020-04-17T09:50:28Z",
+      "updatedAt": "2020-04-17T09:50:29Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 566,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA1MjM3ODI0",
+      "title": "clarify framers in preconnection, fix #427",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/566",
+      "state": "OPEN",
+      "author": "britram",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-04-17T16:49:01Z",
+      "updatedAt": "2020-04-17T16:49:10Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 570,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA1MjU0OTgw",
+      "title": "clarify that taps interface types are implementation specific, fix #523",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/570",
+      "state": "OPEN",
+      "author": "britram",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-04-17T17:30:23Z",
+      "updatedAt": "2020-04-17T17:30:23Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
