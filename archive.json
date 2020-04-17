@@ -1,6 +1,6 @@
 {
   "magic": "B8n2c@e8kvfx",
-  "timestamp": "2020-04-16T17:35:40.161281+00:00",
+  "timestamp": "2020-04-17T09:28:53.238599+00:00",
   "repo": "ietf-tapswg/api-drafts",
   "labels": [
     {
@@ -16352,7 +16352,7 @@
       "id": "MDU6SXNzdWU1OTI1OTU0ODc=",
       "title": "Reliable Data Transfer (Message) default - from Kyle Rose's review",
       "url": "https://github.com/ietf-tapswg/api-drafts/issues/520",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -16362,8 +16362,8 @@
       ],
       "body": "List discussion:\r\n\r\n**Kyle:**\r\n> 7.4.7. Reliable Data Transfer (Message)\r\n> \r\n> * The default isn't \"true\", it's whatever the underlying connection had, right?\r\n> \r\n\r\n**@philsbln**:\r\n>  Ack\r\n\r\n**@mwelzl**:\r\n\r\n> I agree too, but doesn\u2019t this warrant some more discussion?\r\n> I think our defaults all translate into things that can work in some way when TCP is used - with \u201cReliable Data Transfer\u201d being an exception, as it just can\u2019t work in a UDP-only system. Are there others?  I think I\u2019ll open an issue for this one.\r\n> \r\n\r\n**@gorryfair**:\r\n\r\n> I don't agree at all - To me this was just the default behaviour of the API.\r\n> \r\n> I think the default needs to be \"reliable\" and an app will have to over-ride that to get datagram/unreliable operation. That doesn't mean if you have only UDP (for instance) that you can't offer TAPS, to me it simply means you always need to say that the app wants this service.",
       "createdAt": "2020-04-02T12:32:22Z",
-      "updatedAt": "2020-04-03T10:16:38Z",
-      "closedAt": null,
+      "updatedAt": "2020-04-17T09:27:24Z",
+      "closedAt": "2020-04-17T09:27:24Z",
       "comments": [
         {
           "author": "mwelzl",
@@ -16410,7 +16410,7 @@
       ],
       "body": "List discussion:\r\n\r\n**Kyle**:\r\n>  If we're not currently asking IANA to create a registry of property names or namespaces, should we provide a recommendation that such symbols not listed explcitly in this document be prefixed with some experimental identifier?\r\n\r\n**@philsbn**:\r\n> The IANA registry question was explicitly postponed, be maybe we should re-iterate it now.\r\n> The idea of having an \u201ex\u201c namespace was rejected in fear we end up with quasi-standard properties that have an x prefix then. \r\n> \r\n\r\n**Kyle**:\r\n> Which is worse? A complete free-for-all, or a recommendation to have the free-for-all confined to an X- namespace? Do properties starting with X- just offend engineering sensibilities?\r\n> \r\n> One \"right\" alternative is a documentation-required registry, but does that raise the bar too high? How about a TAPS wiki as a compromise? The important outcome is that properties be well-defined and not conflict with each other. Since these properties have entirely local effects (e.g., they don't get encoded as options and transmitted to the peer), we probably don't need the level of precision motivating option registries, for instance. Is there precedent at the IETF for a registry mechanism less formal that what IANA provides?\r\n> ",
       "createdAt": "2020-04-02T14:07:31Z",
-      "updatedAt": "2020-04-16T14:08:53Z",
+      "updatedAt": "2020-04-16T17:48:45Z",
       "closedAt": null,
       "comments": [
         {
@@ -16454,6 +16454,20 @@
           "body": "... If we choose no registry - then we deny the possible possible outcome of a vision of some common set of params allowing apps to be common between systems.\r\n ... If we have a registry of names, the world can still diverge because nobody uses the registry and people use their existing naming scheme, or people fill the registry with flavours.\r\nOne choice forces a result one way, the other permits both ways. If I think of the choice this way, I like possibility of common names. Although that sounds like an architectural dream at this moment, I'd argue it to be the right thing to do.",
           "createdAt": "2020-04-16T14:08:52Z",
           "updatedAt": "2020-04-16T14:08:52Z"
+        },
+        {
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I give a +1 to @gorryfair's first proposal too - I can't see how defining a namespace can be seen as negative, as people can always decide to ignore it if they really must, as Gorry says - what's the disadvantage with that?  So ... a +1 from me to @philsbn for starting a PR on this (but perhaps\u00a0post-interim, just in case we get a chance to discuss this)",
+          "createdAt": "2020-04-16T17:41:00Z",
+          "updatedAt": "2020-04-16T17:41:00Z"
+        },
+        {
+          "author": "squarooticus",
+          "authorAssociation": "NONE",
+          "body": "I'll give a more specific example of an anti-pattern resulting from an absence of a path to standardization: the mess the sockets API has with respect to differing sockopts and ioctls across different implementations. A free-for-all will reduce the portability of code, make useful documentation harder to write, and result in errors that are repeated over and over again in multiple code bases. If TAPS is to be useful, these problems should be avoided to the degree possible.",
+          "createdAt": "2020-04-16T17:48:45Z",
+          "updatedAt": "2020-04-16T17:48:45Z"
         }
       ]
     },
@@ -46465,7 +46479,7 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NDAzMzMzNDIz",
       "title": "Clarifications about per-connection vs per-message defaults",
       "url": "https://github.com/ietf-tapswg/api-drafts/pull/558",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwelzl",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -46474,10 +46488,10 @@
       ],
       "body": "Closes #520. I inserted the text that I quoted in this issue, with a minor tweak.",
       "createdAt": "2020-04-14T18:02:22Z",
-      "updatedAt": "2020-04-16T15:50:52Z",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
+      "updatedAt": "2020-04-17T09:27:29Z",
+      "closedAt": "2020-04-17T09:27:24Z",
+      "mergedAt": "2020-04-17T09:27:23Z",
+      "mergedBy": "mwelzl",
       "comments": [],
       "reviews": [
         {
@@ -46632,6 +46646,19 @@
               "updatedAt": "2020-04-16T15:50:52Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0ODc3MDk5",
+          "commit": {
+            "abbreviatedOid": "c2f5064"
+          },
+          "author": "abrunstrom",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks! No more comments now :)",
+          "createdAt": "2020-04-16T18:04:41Z",
+          "updatedAt": "2020-04-16T18:04:41Z",
+          "comments": []
         }
       ]
     },
@@ -46717,7 +46744,7 @@
       ],
       "body": "Closes #522.\r\nThis replaces a previous PR for the same issue, which I deleted: in this PR, I just added the definition of idempotency from RFC 7231, but this isn't good enough. We can't guarantee that these Messages would only *consecutively* arrive as duplicates, so these should be called \"safely replayable\" instead. See the discussion in #522.",
       "createdAt": "2020-04-16T08:55:15Z",
-      "updatedAt": "2020-04-16T17:34:51Z",
+      "updatedAt": "2020-04-16T17:36:03Z",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -46770,6 +46797,26 @@
               "updatedAt": "2020-04-16T17:34:51Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk0ODU1NTA0",
+          "commit": {
+            "abbreviatedOid": "f151b98"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-16T17:36:03Z",
+          "updatedAt": "2020-04-16T17:36:03Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Fixed; I almost hesitated to fix it, we could have left it in there as an Easter Egg of some kind. An April 1 (2021) RFC could then have followed up and fully spec'ed the TCP Fast Option...",
+              "createdAt": "2020-04-16T17:36:03Z",
+              "updatedAt": "2020-04-16T17:36:03Z"
+            }
+          ]
         }
       ]
     },
@@ -46818,6 +46865,150 @@
           "createdAt": "2020-04-16T13:19:02Z",
           "updatedAt": "2020-04-16T13:19:02Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 564,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA0NTg3Njk5",
+      "title": "Consolidate normative language in architecture",
+      "url": "https://github.com/ietf-tapswg/api-drafts/pull/564",
+      "state": "OPEN",
+      "author": "tfpauly",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This proposal consolidates normative language into the section on design principles (now requirements), using the suggestions in #519.",
+      "createdAt": "2020-04-16T18:22:12Z",
+      "updatedAt": "2020-04-17T08:59:58Z",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1MjM0Njg2",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Thanks I checked each of these requirements. I think all are covered, and the list is very similar to the one in #519.  The reworked racing text is solid and correct. The security requirements are correct and unchanged.\r\nCan I check with people: I see you didn't use 'REQUIRED' in place of 'MUST' and 'RECOMMENDED' in place of 'SHOULD', which is what I would have done for architectural requirements rather than protocol interactions, but if that is what is preferred, I am content.\r\nI see you did use 'in order to' rather than 'so that' - which I'd have personally favoured (favored).",
+          "createdAt": "2020-04-17T07:50:17Z",
+          "updatedAt": "2020-04-17T08:20:07Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "/too many/ can be read several ways. I think we could say /minimal/ or there could be something better still?",
+              "createdAt": "2020-04-17T07:50:18Z",
+              "updatedAt": "2020-04-17T08:20:07Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "/should/ or simply say \"follow\" to avoid saying that word?",
+              "createdAt": "2020-04-17T07:52:33Z",
+              "updatedAt": "2020-04-17T08:20:07Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1MjM0NjUy",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Mostly nits, only one slightly more hairy issue",
+          "createdAt": "2020-04-17T07:50:13Z",
+          "updatedAt": "2020-04-17T08:33:17Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "a nit: \"...to a variety _of_ network layer ...\"",
+              "createdAt": "2020-04-17T07:50:13Z",
+              "updatedAt": "2020-04-17T08:33:17Z"
+            },
+            {
+              "originalPosition": 34,
+              "body": "A few things here, all minor though:\r\n1) maybe this is just my limited English, but is \"Properties defaults\" ok?  I would have thought that this should be \"Property defaults\" or \"Default values of properties\".\r\n2) to me, saying \"data reliability\" just makes this harder to read - I would replace this with \"reliability\", the sentence is long enough already anyway.\r\n3) I stumble over the word \"required\" in \"...reliability ought to be required by default.\" Perhaps you were thinking of the Selection Property Preference level - but these are not defined in this document AFAIK. Second, just reading this, would make me wonder: \"required... from whom?\" - the application? or the transport system?  So, I believe that \"enabled\" would be a better word here.",
+              "createdAt": "2020-04-17T07:59:20Z",
+              "updatedAt": "2020-04-17T08:33:17Z"
+            },
+            {
+              "originalPosition": 64,
+              "body": "The first sentence lays out a very strict requirement.\r\nThe second is in line with the first, but it describes something broader nevertheless - i.e., it makes me think: \"if you say that they must be *identical*, why tell me that falling back to a weaker version is disallowed?\r\nThe third sentence, then, is an outright contradiction to the first.\r\n\r\nI'm not sure how to best solve this... maybe precede the third sentence with \"As an exception, ...\", and swap order: move the second sentence to the end.",
+              "createdAt": "2020-04-17T08:11:45Z",
+              "updatedAt": "2020-04-17T08:33:17Z"
+            },
+            {
+              "originalPosition": 70,
+              "body": "Regarding the ability to communicate with \"any existing system that implements the transport protocol(s) selected by the transport system\" (or have been selected by the peer, in the passive case): this is sadly not the case, see issue #516.\r\n\r\nWe could say \"With the exception of cases where applications make protocol-specific assumptions, ...\"   ... but that sounds clumsy, and it also loses a benefit that we have: I think the statement IS correct for TCP. Perhaps for UDP too? Beyond that... harder. I'm not sure how to best phrase this then, sorry :(",
+              "createdAt": "2020-04-17T08:21:42Z",
+              "updatedAt": "2020-04-17T08:33:17Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1MjY5MjEx",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T08:42:10Z",
+          "updatedAt": "2020-04-17T08:42:10Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "I'd suggest: \"The default for Properties\". \r\nI'd suggest: \"The default for this property is to require reliability\". \r\n.... because we need to be careful in how we use the word 'require' in TAPS ",
+              "createdAt": "2020-04-17T08:42:10Z",
+              "updatedAt": "2020-04-17T08:42:10Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1Mjc1NzY0",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T08:51:38Z",
+          "updatedAt": "2020-04-17T08:51:38Z",
+          "comments": [
+            {
+              "originalPosition": 70,
+              "body": "Or...\r\nI think my thought was more along the lines of:\r\n\"A Transport Services system acting as a connection initiator is able to communicate with any existing system that implements the transport protocol(s) selected by the Transport Services system.\" \r\nDo I understand your comment as additionally thinking also when an endpoint asks for additional property X then if that's not supported we still don't then have a connection? \r\nIf so... then \"A Transport Services system acting as a connection initiator is able to communicate with any existing system that implements the transport protocol(s) and all the required properties selected by the Transport Services system.\" ",
+              "createdAt": "2020-04-17T08:51:38Z",
+              "updatedAt": "2020-04-17T08:52:17Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mzk1MjgxNTk5",
+          "commit": {
+            "abbreviatedOid": "ec5df09"
+          },
+          "author": "mwelzl",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-04-17T08:59:58Z",
+          "updatedAt": "2020-04-17T08:59:58Z",
+          "comments": [
+            {
+              "originalPosition": 70,
+              "body": "Yes - as you say, \"when an endpoint asks for additional property X then if that's not supported we still don't then have a connection\". The concrete problem on my mind is stream numbers: if we don't expose them (and I believe we don't), a TAPS Transport System cannot talk to an SCTP or QUIC peer where the application makes assumptions about stream numbers.\r\n\r\nStream numbers specifically should probably be included as a protocol-specific property, to avoid disappointing people implementing QUIC, which is why I filed issue #516.\r\n\r\nYour proposed sentence at the end here, with \"...and all the required properties selected by the Transport Services system\"  sounds like a good way out to me!",
+              "createdAt": "2020-04-17T08:59:58Z",
+              "updatedAt": "2020-04-17T08:59:58Z"
+            }
+          ]
         }
       ]
     }
