@@ -192,16 +192,16 @@ Internet-Draft               TAPS Interface                   April 2020
    15. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  59
    16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  60
      16.1.  Normative References . . . . . . . . . . . . . . . . . .  60
-     16.2.  Informative References . . . . . . . . . . . . . . . . .  60
+     16.2.  Informative References . . . . . . . . . . . . . . . . .  61
    Appendix A.  Convenience Functions  . . . . . . . . . . . . . . .  63
      A.1.  Adding Preference Properties  . . . . . . . . . . . . . .  63
-     A.2.  Transport Property Profiles . . . . . . . . . . . . . . .  63
+     A.2.  Transport Property Profiles . . . . . . . . . . . . . . .  64
        A.2.1.  reliable-inorder-stream . . . . . . . . . . . . . . .  64
        A.2.2.  reliable-message  . . . . . . . . . . . . . . . . . .  64
-       A.2.3.  unreliable-datagram . . . . . . . . . . . . . . . . .  64
+       A.2.3.  unreliable-datagram . . . . . . . . . . . . . . . . .  65
    Appendix B.  Relationship to the Minimal Set of Transport Services
-           for End Systems . . . . . . . . . . . . . . . . . . . . .  65
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  68
+           for End Systems . . . . . . . . . . . . . . . . . . . . .  66
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  69
 
 1.  Introduction
 
@@ -3167,8 +3167,32 @@ Internet-Draft               TAPS Interface                   April 2020
    *  ConnectionError<> occurs when a Connection transitions to Closed
       state due to an error in all other circumstances.
 
+   The following diagram shows the possible states of a Connection and
+   the events that occur upon a transition from one state to another.
+
+                 (*)                (**)
+   Establishing -----> Established -----> Closed
+        |                                   ^
+        |                                   |
+        +-----------------------------------+
+                     InitiateError<>
+
+   (*) Ready<>, ConnectionReceived<>, RendezvousDone<>
+   (**) Closed<>, ConnectionError<>
+
+                     Figure 1: Connection State Diagram
+
    The interface provides the following guarantees about the ordering of
    operations:
+
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 57]
+
+Internet-Draft               TAPS Interface                   April 2020
+
 
    *  Sent<> events will occur on a Connection in the order in which the
       Messages were sent (i.e., delivered to the kernel or to the
@@ -3185,15 +3209,6 @@ Internet-Draft               TAPS Interface                   April 2020
       on a Connection while other events on the Connection are still
       locally outstanding (i.e., known to the interface and waiting to
       be dealt with by the application).  ConnectionError<> may occur
-
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 57]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
       after Closed<>, but the interface must gracefully handle all cases
       where application ignores these errors.
 
@@ -3227,6 +3242,14 @@ Internet-Draft               TAPS Interface                   April 2020
    change information locally between two systems.  However, as the
    transport system is responsible for network communication, it is in
    the position to potentially share any information provided by the
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 58]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
    application with the network or another communication peer.  Most of
    the information provided over the TAPS API are useful to configure
    and select protocols and paths and are not necessarily privacy
@@ -3242,14 +3265,6 @@ Internet-Draft               TAPS Interface                   April 2020
    enties can access it.  In most cases information that is provided for
    protocol and path selection should not directly translate to
    information that is can be observed by network devices on the path.
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 58]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
    But there might be specific configuration information that are
    intended for path exposure, such as e.g. a DiffServ codepoint
    setting, that is either povided directly by the application or
@@ -3283,6 +3298,14 @@ Internet-Draft               TAPS Interface                   April 2020
    research and innovation programme under grant agreements No. 644334
    (NEAT) and No. 688421 (MAMI).
 
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 59]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
    This work has been supported by Leibniz Prize project funds of DFG -
    German Research Foundation: Gottfried Wilhelm Leibniz-Preis 2011 (FKZ
    FE 570/4-1).
@@ -3298,14 +3321,6 @@ Internet-Draft               TAPS Interface                   April 2020
    Eyeballs, that heavily influenced this work.  Thanks to Laurent Chuat
    and Jason Lee for initial work on the Post Sockets interface, from
    which this work has evolved.  Thanks to Maximilian Franke for asking
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 59]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
    good questions based on implementation experience and for
    contributing text, e.g., on multicast.
 
@@ -3340,6 +3355,13 @@ Internet-Draft               TAPS Interface                   April 2020
               RFC 8303, DOI 10.17487/RFC8303, February 2018,
               <https://www.rfc-editor.org/info/rfc8303>.
 
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 60]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
@@ -3353,14 +3375,6 @@ Internet-Draft               TAPS Interface                   April 2020
               Progress, Internet-Draft, draft-ietf-taps-impl-06, 9 March
               2020, <http://www.ietf.org/internet-drafts/draft-ietf-
               taps-impl-06.txt>.
-
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 60]
-
-Internet-Draft               TAPS Interface                   April 2020
-
 
    [I-D.ietf-taps-minset]
               Welzl, M. and S. Gjessing, "A Minimal Set of Transport
@@ -3396,6 +3410,14 @@ Internet-Draft               TAPS Interface                   April 2020
               DOI 10.17487/RFC2597, June 1999,
               <https://www.rfc-editor.org/info/rfc2597>.
 
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 61]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
    [RFC2914]  Floyd, S., "Congestion Control Principles", BCP 41,
               RFC 2914, DOI 10.17487/RFC2914, September 2000,
               <https://www.rfc-editor.org/info/rfc2914>.
@@ -3409,15 +3431,6 @@ Internet-Draft               TAPS Interface                   April 2020
    [RFC3261]  Rosenberg, J., Schulzrinne, H., Camarillo, G., Johnston,
               A., Peterson, J., Sparks, R., Handley, M., and E.
               Schooler, "SIP: Session Initiation Protocol", RFC 3261,
-
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 61]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
               DOI 10.17487/RFC3261, June 2002,
               <https://www.rfc-editor.org/info/rfc3261>.
 
@@ -3452,6 +3465,15 @@ Internet-Draft               TAPS Interface                   April 2020
 
    [RFC7657]  Black, D., Ed. and P. Jones, "Differentiated Services
               (Diffserv) and Real-Time Communication", RFC 7657,
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 62]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
               DOI 10.17487/RFC7657, November 2015,
               <https://www.rfc-editor.org/info/rfc7657>.
 
@@ -3464,15 +3486,6 @@ Internet-Draft               TAPS Interface                   April 2020
               Congestion Control Mechanisms", RFC 8095,
               DOI 10.17487/RFC8095, March 2017,
               <https://www.rfc-editor.org/info/rfc8095>.
-
-
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 62]
-
-Internet-Draft               TAPS Interface                   April 2020
-
 
    [RFC8260]  Stewart, R., Tuexen, M., Loreto, S., and R. Seggelmann,
               "Stream Schedulers and User Message Interleaving for the
@@ -3508,6 +3521,15 @@ A.1.  Adding Preference Properties
    "TransportProperties.Add(some_property, avoid)" is equivalent to
    "TransportProperties.Avoid(some_property)":
 
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 63]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
    TransportProperties.Require(property)
    TransportProperties.Prefer(property)
    TransportProperties.Ignore(property)
@@ -3522,13 +3544,6 @@ A.2.  Transport Property Profiles
    Property objects (see Section 5.2) that are pre-configured with
    frequently used sets of properties.  Implementations should at least
    offer short-hands to specify the following property profiles:
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 63]
-
-Internet-Draft               TAPS Interface                   April 2020
-
 
 A.2.1.  reliable-inorder-stream
 
@@ -3557,6 +3572,20 @@ A.2.2.  reliable-message
    that provides this service is SCTP.  It should consist of the
    following properties:
 
+
+
+
+
+
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 64]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
                     +-----------------------+---------+
                     | Property              | Value   |
                     +=======================+=========+
@@ -3576,15 +3605,6 @@ A.2.3.  unreliable-datagram
    This profile provides unreliable datagram transport service.  An
    example of a protocol that provides this service is UDP.  It should
    consist of the following properties:
-
-
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 64]
-
-Internet-Draft               TAPS Interface                   April 2020
-
 
                     +-----------------------+---------+
                     | Property              | Value   |
@@ -3606,6 +3626,21 @@ Internet-Draft               TAPS Interface                   April 2020
    reasons should also consider setting the Capacity Profile Property,
    see Section 10.1.6 accordingly and my benefit from controlling
    checksum coverage, see Section 5.2.7 and Section 5.2.8.
+
+
+
+
+
+
+
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 65]
+
+Internet-Draft               TAPS Interface                   April 2020
+
 
 Appendix B.  Relationship to the Minimal Set of Transport Services for
              End Systems
@@ -3635,13 +3670,6 @@ Appendix B.  Relationship to the Minimal Set of Transport Services for
    *  Disable MPTCP: "Parallel Use of Multiple Paths" Property
       (Section 5.2.13).
 
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 65]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
    *  Hand over a message to reliably transfer (possibly multiple times)
       before connection establishment: "InitiateWithSend" Action
       (Section 7.8).
@@ -3662,6 +3690,13 @@ Internet-Draft               TAPS Interface                   April 2020
 
    *  Notification of ICMP error message arrival: "Notification of ICMP
       soft error message arrival" property (Section 5.2.16).
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 66]
+
+Internet-Draft               TAPS Interface                   April 2020
+
 
    *  Choose a scheduler to operate between streams of an association:
       "Connection Group Transmission Scheduler" property
@@ -3690,14 +3725,6 @@ Internet-Draft               TAPS Interface                   April 2020
 
    *  Get max. transport-message size that may be sent using a non-
       fragmented IP packet from the configured interface: "Maximum
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 66]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
       Message Size Before Fragmentation or Segmentation" property
       (Section 10.1.8.2).
 
@@ -3718,6 +3745,15 @@ Internet-Draft               TAPS Interface                   April 2020
    *  Close after reliably delivering all remaining data, causing an
       event informing the application on the other side: this is offered
       by the "Close" Action with slightly changed semantics in line with
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 67]
+
+Internet-Draft               TAPS Interface                   April 2020
+
+
       the discussion in Section 5.2 of [I-D.ietf-taps-minset]
       (Section 11).
 
@@ -3745,15 +3781,6 @@ Internet-Draft               TAPS Interface                   April 2020
 
    *  "Ordered message delivery (potentially slower than unordered)" and
       "Unordered message delivery (potentially faster than ordered)":
-
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 67]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
       these two transport features are controlled via the Message
       Property "Ordered" (Section 7.5.3).
 
@@ -3774,6 +3801,14 @@ Internet-Draft               TAPS Interface                   April 2020
 
    *  Information about partial message arrival: "ReceivedPartial" Event
       (Section 8.2.2).
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 68]
+
+Internet-Draft               TAPS Interface                   April 2020
+
 
    *  Notification of send failures: "Expired" Event (Section 7.3.2) and
       "SendError" Event (Section 7.3.3).
@@ -3802,14 +3837,6 @@ Authors' Addresses
    0316  Oslo
    Norway
 
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 68]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
    Email: michawe@ifi.uio.no
 
 
@@ -3829,6 +3856,14 @@ Internet-Draft               TAPS Interface                   April 2020
 
    Email: gorry@erg.abdn.ac.uk
    URI:   http://www.erg.abdn.ac.uk/
+
+
+
+
+
+Trammell, et al.         Expires 19 October 2020               [Page 69]
+
+Internet-Draft               TAPS Interface                   April 2020
 
 
    Mirja Kuehlewind
@@ -3858,14 +3893,6 @@ Internet-Draft               TAPS Interface                   April 2020
    Email: philipp@tiesel.net
 
 
-
-
-
-Trammell, et al.         Expires 19 October 2020               [Page 69]
-
-Internet-Draft               TAPS Interface                   April 2020
-
-
    Chris Wood
    Apple Inc.
    One Apple Park Way
@@ -3882,33 +3909,6 @@ Internet-Draft               TAPS Interface                   April 2020
    United States of America
 
    Email: tpauly@apple.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

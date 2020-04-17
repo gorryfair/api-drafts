@@ -4349,24 +4349,46 @@ from Establishing state to Closed state due to an error.<a href="#section-12-3.5
 an error in all other circumstances.<a href="#section-12-3.6" class="pilcrow">¶</a>
 </li>
 </ul>
-<p id="section-12-4">The interface provides the following guarantees about the ordering of
- operations:<a href="#section-12-4" class="pilcrow">¶</a></p>
+<p id="section-12-4">The following diagram shows the possible states of a Connection and the
+events that occur upon a transition from one state to another.<a href="#section-12-4" class="pilcrow">¶</a></p>
+<span id="name-connection-state-diagram"></span><div id="fig-connstates">
+<figure id="figure-1">
+        <div class="artwork art-text alignLeft" id="section-12-5.1">
+<pre>
+              (*)                (**)
+Establishing -----&gt; Established -----&gt; Closed
+     |                                   ^
+     |                                   |
+     +-----------------------------------+
+                  InitiateError&lt;&gt;
+
+(*) Ready&lt;&gt;, ConnectionReceived&lt;&gt;, RendezvousDone&lt;&gt;
+(**) Closed&lt;&gt;, ConnectionError&lt;&gt;
+
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-connection-state-diagram" class="selfRef">Connection State Diagram</a>
+        </figcaption></figure>
+</div>
+<p id="section-12-6">The interface provides the following guarantees about the ordering of
+ operations:<a href="#section-12-6" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-12-5.1">Sent&lt;&gt; events will occur on a Connection in the order in which the Messages
+<li id="section-12-7.1">Sent&lt;&gt; events will occur on a Connection in the order in which the Messages
 were sent (i.e., delivered to the kernel or to the network interface,
-depending on implementation).<a href="#section-12-5.1" class="pilcrow">¶</a>
+depending on implementation).<a href="#section-12-7.1" class="pilcrow">¶</a>
 </li>
-<li id="section-12-5.2">Received&lt;&gt; will never occur on a Connection before it is Established; i.e.
+<li id="section-12-7.2">Received&lt;&gt; will never occur on a Connection before it is Established; i.e.
 before a Ready&lt;&gt; event on that Connection, or a ConnectionReceived&lt;&gt; or
-RendezvousDone&lt;&gt; containing that Connection.<a href="#section-12-5.2" class="pilcrow">¶</a>
+RendezvousDone&lt;&gt; containing that Connection.<a href="#section-12-7.2" class="pilcrow">¶</a>
 </li>
-<li id="section-12-5.3">No events will occur on a Connection after it is Closed; i.e., after a
+<li id="section-12-7.3">No events will occur on a Connection after it is Closed; i.e., after a
 Closed&lt;&gt; event, an InitiateError&lt;&gt; or ConnectionError&lt;&gt; on that connection. To
 ensure this ordering, Closed&lt;&gt; will not occur on a Connection while other
 events on the Connection are still locally outstanding (i.e., known to the
 interface and waiting to be dealt with by the application). ConnectionError&lt;&gt;
 may occur after Closed&lt;&gt;, but the interface must gracefully handle all cases
-where application ignores these errors.<a href="#section-12-5.3" class="pilcrow">¶</a>
+where application ignores these errors.<a href="#section-12-7.3" class="pilcrow">¶</a>
 </li>
 </ul>
 </section>
